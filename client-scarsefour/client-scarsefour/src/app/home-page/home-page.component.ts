@@ -24,4 +24,7 @@ export class HomePageComponent implements OnInit {
   anagraficaCassa(){
     this.router.navigateByUrl('/app-anagrafica-casse');
   }
+  anagraficaSconto(){
+    this.router.navigateByUrl('/app-anagrafica-sconto');
+  }
 }
