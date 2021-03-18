@@ -1,0 +1,83 @@
+import { of } from "rxjs";
+import { Automabile } from "./automabile";
+import { AddEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from "./eventi";
+import { State } from "./stati";
+
+export class Automa implements State {
+
+    constructor(ui: Automabile) {
+        this.ui = ui;
+        this.stato = new Ricerca();
+        console.log("Siamo nello stato: ", this.stato);
+        ui.entraStatoRicerca();
+    }
+
+    stato: State;
+    ui: Automabile;
+
+    next(e: Event, a?: Automa) {
+        console.log("Siamo nello stato: ", this.stato);
+        console.log("Ricevuto evento: ", e);
+        this.stato.next(e, a);
+        console.log("Siamo arrivati nello stato: ", this.stato);
+    }
+}
+
+export class Ricerca implements State {
+    next(e: Event, a?: Automa) {
+        if (e instanceof AddEvent) {
+            a.stato = new Aggiungi(a);
+        }
+        else if (e instanceof RicercaEvent) { }
+        else if (e instanceof SelezionaEvent) {
+            a.stato = new Visualizza();
+            a.ui.entraStatoVisualizza();
+        }
+        else { console.log("Errore ricevuto evento ", e, "inatteso"); }
+    }
+}
+
+export class Aggiungi implements State {
+
+    constructor(a: Automa) {
+        a.ui.entraStatoAggiungi();
+    }
+
+    next(e: Event, a?: Automa) {
+        if (e instanceof ConfermaEvent) {
+            a.stato = new Visualizza();
+            a.ui.entraStatoVisualizza();
+        }
+        else if (e instanceof Event) {
+            a.stato = new Ricerca();
+            a.ui.entraStatoRicerca();
+        }
+        else {
+            console.log("Errore ricevuto evento ", e, "inatteso");
+        }
+    }
+}
+
+export class Visualizza implements State {
+    next(e: Event, a?: Automa) {
+        if (e instanceof AddEvent) {
+            a.stato = new Aggiungi(a);
+            a.ui.entraStatoAggiungi();
+        }
+        else if (e instanceof SelezionaEvent) { }
+        else if (e instanceof ModificaEvent) {
+            a.stato = new Modifica();
+            a.ui.entraStatoModifica();
+        }
+        else if (e instanceof RimuoviEvent) {
+            a.stato = new Rimuovi();
+            a.ui.entraStatoRimuovi();
+        }
+        else if (e instanceof RicercaEvent) {
+            a.stato = new Ricerca();
+        }
+        else {
+            console.log("Errore ricevuto evento ", e, "inatteso");
+        }
+    }
+}
