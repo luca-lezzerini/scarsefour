@@ -17,4 +17,6 @@ public interface AnagraficaProdottiService {
     ListaProdottiDto confermaProdotto(Prodotto p);
 
     ListaProdottiDto aggiornaProdotti();
+    
+  
 }

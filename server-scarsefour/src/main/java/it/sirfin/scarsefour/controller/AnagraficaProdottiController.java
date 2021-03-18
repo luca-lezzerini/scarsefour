@@ -45,16 +45,17 @@ public class AnagraficaProdottiController {
         return anagraficaProdottiService.ricercaProdotto(dto.getRicercaPerCodice());
     }
 
-    @RequestMapping("/modifica-prodotto")
-    @ResponseBody
-    public void modificaProdotto() {
-
-    }
 
     @RequestMapping("/conferma-mod-prodotto")
     @ResponseBody
     public void confermaModificaProdotto() {
 
+    }
+    
+    @RequestMapping("/modifica-prodotto")
+    @ResponseBody
+    public ProdottoDto modificaProdotto(@RequestBody ProdottoDto dto) {
+        return anagraficaProdottiService.modificaProdotto(dto.getProdotto());
     }
 
 }

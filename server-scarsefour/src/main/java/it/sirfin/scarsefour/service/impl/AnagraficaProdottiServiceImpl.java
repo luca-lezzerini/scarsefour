@@ -1,6 +1,5 @@
 package it.sirfin.scarsefour.service.impl;
 
-import it.sirfin.scarsefour.dto.ListaCassieriDto;
 import it.sirfin.scarsefour.dto.ListaProdottiDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.model.Cassiera;
@@ -38,13 +37,12 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
 
     @Override
     public ListaProdottiDto ricercaProdotto(String p) {
-        return new ListaProdottiDto((Set<Prodotto>) 
-                anagraficaProdottiRepository.trovaProdottoPerCodice(p));
+        return new ListaProdottiDto((Set<Prodotto>) anagraficaProdottiRepository.trovaProdottoPerCodice(p));
     }
 
     @Override
     public ProdottoDto modificaProdotto(Prodotto p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ProdottoDto(p);
     }
 
     @Override

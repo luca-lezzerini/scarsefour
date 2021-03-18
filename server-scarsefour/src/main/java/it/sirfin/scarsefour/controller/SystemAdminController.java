@@ -7,7 +7,6 @@
 package it.sirfin.scarsefour.controller;
 
 import it.sirfin.scarsefour.dto.CassieraDto;
-import it.sirfin.scarsefour.dto.ListaCassieriDto;
 import it.sirfin.scarsefour.dto.RicercaCassieraDto;
 import it.sirfin.scarsefour.service.AnagraficaCassiereService;
 import org.springframework.beans.factory.annotation.Autowired;
