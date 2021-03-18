@@ -1,0 +1,41 @@
+<div *ngIf="form">
+
+    <input type="text" placeholder="Descrizione" [(ngModel)]="input1" [disabled]="descrizione">
+    <input type="text" placeholder="Codice" [(ngModel)]="input2" [disabled]="codice">
+    
+    <button (click)="modifica()" *ngIf="edit">Modifica</button>
+    <button (click)="annulla()" *ngIf="annull">Annulla</button>
+    <button (click)="conferma()" *ngIf="conf">Conferma</button>
+    <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button>
+    
+    </div>
+    
+    <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
+    <br>
+    <br>
+    
+    
+    <div *ngIf="search">
+    <input type="text" [(ngModel)]="inputRicerca" placeholder="Cerca per codice">
+    <button (click)="cerca()">Cerca</button>
+    </div>
+    
+    <br>
+    <br>
+    <table *ngIf="tabella">
+        <tr>
+            <th>Codice</th>
+            <th>Descrizione</th>
+            <th>Seleziona</th>
+        </tr>
+        <tr>
+            <td>XXXXXXXXXXX</td>
+            <td>XXXXXXXXXXX</td>
+            <td><button (click)="seleziona()">Seleziona</button></td>
+        </tr>
+        <tr>
+            <td>YYYYYYYYY</td>
+            <td>YYYYYYYY</td>
+            <td><button (click)="seleziona()">Seleziona</button></td>
+        </tr>
+    </table>

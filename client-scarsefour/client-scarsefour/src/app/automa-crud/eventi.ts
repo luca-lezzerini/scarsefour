@@ -1,9 +1,9 @@
 export interface Event{}
   
-export class AddEvent{}
-export class AnnullaEvent{}
-export class ConfermaEvent{}
-export class ModificaEvent{}
-export class RimuoviEvent{}
-export class SelezionaEvent{}
-export class RicercaEvent{}
+export class AddEvent implements Event{}
+export class AnnullaEvent implements Event{}
+export class ConfermaEvent implements Event{}
+export class ModificaEvent implements Event{}
+export class RimuoviEvent implements Event{}
+export class SelezionaEvent implements Event{}
+export class RicercaEvent implements Event{}

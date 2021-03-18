@@ -7,12 +7,14 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-prodotti.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AnagraficaCasseComponent } from './anagrafica-casse/anagrafica-casse.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    AnagraficaProdottiComponent
+    AnagraficaProdottiComponent,
+    AnagraficaCasseComponent
   ],
   imports: [
     BrowserModule,
