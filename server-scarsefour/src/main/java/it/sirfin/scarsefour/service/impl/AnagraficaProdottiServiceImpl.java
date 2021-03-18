@@ -26,6 +26,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
 
     /**
      * Il metodo rimuove un prodotto da DB
+     *
      * @param p è un parametro di tipo Prodotto
      * @return lista aggiornata del db
      */
@@ -36,8 +37,9 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
     }
 
     @Override
-    public ListaProdottiDto ricercaProdotto(Prodotto p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ListaProdottiDto ricercaProdotto(String p) {
+        return new ListaProdottiDto((Set<Prodotto>) 
+                anagraficaProdottiRepository.trovaProdottoPerCodice(p));
     }
 
     @Override

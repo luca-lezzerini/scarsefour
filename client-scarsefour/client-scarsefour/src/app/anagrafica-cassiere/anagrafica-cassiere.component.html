@@ -1,1 +1,24 @@
-<p>anagrafica-cassiere works!</p>
+<div *ngIf="form">
+    <input type="text" placeholder="Nome" [(ngModel)]="cassiera.nome">
+    <input type="text" placeholder="Cognome" [(ngModel)]="cassiera.cognome">
+    <input type="text" placeholder="Codice Fiscale" [(ngModel)]="cassiera.codiceFiscale">
+    <br>
+    <button (click)="modifica()" *ngIf="edit">Modifica</button>
+    <button (click)="annulla()" *ngIf="annull">Annulla</button>
+    <button (click)="conferma()" *ngIf="conf">Conferma</button>
+    <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button>
+</div>
+<button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
+<br>
+<br>
+<div *ngIf="search">
+    <input type="text" placeholder="Criterio Ricerca" [(ngModel)]="criterioRicerca">
+    <button (click)="cerca()">Cerca</button>
+</div>
+<table *ngIf="tabella">
+    <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Codice Fiscale</th>
+    </tr>
+</table>
