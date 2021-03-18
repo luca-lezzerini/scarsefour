@@ -29,8 +29,12 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
 
     @Override
     public ListaCassiereDto ricercaCassiera(String c) {
+        if (c.isBlank()) {
+            return aggiornaCassieri();
+        }
         List<Cassiera> lista = anagraficaCassiereRepository.trovaCassieraPerCognome(c);
         return new ListaCassiereDto(lista);
+
     }
 
     @Override

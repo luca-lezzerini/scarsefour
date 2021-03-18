@@ -35,6 +35,8 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   cognomeC: boolean;
   codiceC: boolean;
 
+  errore = "";
+
 
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
@@ -46,8 +48,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   nuova() {
     this.automa.next(new AddEvent, this.automa);
   }
-  rimuovi(c: Cassiera) {
-    this.cassiera = c;
+  rimuovi() {
     this.automa.next(new RimuoviEvent, this.automa);
   }
   modifica() {
@@ -110,9 +111,14 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   cerca() {
     let dto = new RicercaCassiereDto();
     dto.criterioRicerca = this.inputRicerca;
-    this.http.post<ListaCassiereDto>("http://localhost:8080/ric-cassiera", dto)
-      .subscribe(r => this.cassiere = r.listaCassiere)
-    this.automa.next(new RicercaEvent, this.automa);
+    if (this.inputRicerca == null) {
+      this.errore = "Inserisci il criterio di ricerca";
+    } else {
+      this.errore = "";
+      this.http.post<ListaCassiereDto>("http://localhost:8080/ric-cassiera", dto)
+        .subscribe(r => this.cassiere = r.listaCassiere)
+      this.automa.next(new RicercaEvent, this.automa);
+    }
   }
 
   aggiorna() {

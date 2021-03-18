@@ -3,11 +3,13 @@
     <input type="text" placeholder="Nome" [(ngModel)]="cassiera.nome" [disabled]="nomeC">
     <input type="text" placeholder="Cognome" [(ngModel)]="cassiera.cognome" [disabled]="cognomeC">
     <input type="text" placeholder="Codice Fiscale" [(ngModel)]="cassiera.codiceFiscale" [disabled]="codiceC">
+
     <br>
     <button (click)="modifica()" *ngIf="edit">Modifica</button>
     <button (click)="annulla()" *ngIf="annull">Annulla</button>
     <button (click)="conferma()" *ngIf="conf">Conferma</button>
     <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button>
+
 
 </div>
 <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
@@ -16,6 +18,7 @@
 <div *ngIf="search">
     <input type="text" [(ngModel)]="inputRicerca" placeholder="Criterio Ricerca">
     <button (click)="cerca()">Cerca</button>
+    {{errore}}
 </div>
 <br>
 <br>
