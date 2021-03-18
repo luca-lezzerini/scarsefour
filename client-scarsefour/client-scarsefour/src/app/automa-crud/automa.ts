@@ -1,6 +1,6 @@
 import { of } from "rxjs";
 import { Automabile } from "./automabile";
-import { AddEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from "./eventi";
+import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from "./eventi";
 import { State } from "./stati";
 
 export class Automa implements State {
@@ -75,9 +75,40 @@ export class Visualizza implements State {
         }
         else if (e instanceof RicercaEvent) {
             a.stato = new Ricerca();
+            a.ui.entraStatoRicerca();
+
         }
         else {
             console.log("Errore ricevuto evento ", e, "inatteso");
         }
     }
+}
+export class Rimuovi implements State {
+    next(e: Event, a?: Automa) {
+        if (e instanceof ConfermaEvent) {
+            a.stato = new Ricerca();
+            a.ui.entraStatoRicerca();
+        } else if (e instanceof AnnullaEvent) {
+            a.stato = new Visualizza();
+            a.ui.entraStatoVisualizza();
+        } else {
+            console.log("Errore ricevuto evento ", e, "inatteso");
+        }
+    }
+
+}
+
+export class Modifica implements State {
+    next(e: Event, a?: Automa) {
+        if (e instanceof ConfermaEvent) {
+            a.stato = new Visualizza();
+            a.ui.entraStatoVisualizza();
+        } else if (e instanceof AnnullaEvent) {
+            a.stato = new Visualizza();
+            a.ui.entraStatoVisualizza();
+        } else {
+            console.log("Errore ricevuto evento ", e, "inatteso");
+        }
+    }
+
 }
