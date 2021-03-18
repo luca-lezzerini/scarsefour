@@ -24,9 +24,15 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
         return aggiornaProdotti();
     }
 
+    /**
+     * Il metodo rimuove un prodotto da DB
+     * @param p è un parametro di tipo Prodotto
+     * @return lista aggiornata del db
+     */
     @Override
     public ListaProdottiDto rimuoviProdotto(Prodotto p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        anagraficaProdottiRepository.delete(p);
+        return aggiornaProdotti();
     }
 
     @Override
@@ -43,12 +49,11 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
     public ListaProdottiDto confermaProdotto(Prodotto p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public ListaProdottiDto aggiornaProdotti() {
         List<Prodotto> lista = anagraficaProdottiRepository.findAll();
         return new ListaProdottiDto((Set<Prodotto>) lista);
     }
 
-   
 }
