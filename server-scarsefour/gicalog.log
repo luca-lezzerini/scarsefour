@@ -1,0 +1,6 @@
+2021-03-18 15:55:51.550 DEBUG 10056 --- [main] org.hibernate.SQL                        : create table cassiera (id bigint not null, codice_fiscale varchar(255), cognome varchar(255), nome varchar(255), primary key (id)) engine=InnoDB
+2021-03-18 15:55:51.854 DEBUG 10056 --- [main] org.hibernate.SQL                        : create table hibernate_sequence (next_val bigint) engine=InnoDB
+2021-03-18 15:55:52.167 DEBUG 10056 --- [main] org.hibernate.SQL                        : insert into hibernate_sequence values ( 1 )
+2021-03-18 15:55:52.227 DEBUG 10056 --- [main] org.hibernate.SQL                        : create table scontrino (id bigint not null, numero integer, timestamp datetime, totale double precision, cassiera_id bigint, primary key (id)) engine=InnoDB
+2021-03-18 15:55:53.135 DEBUG 10056 --- [main] org.hibernate.SQL                        : alter table scontrino add constraint FK99lta84lh5hb7wud13jw4fh3f foreign key (cassiera_id) references cassiera (id)
+2021-03-18 15:55:54.299  WARN 10056 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
