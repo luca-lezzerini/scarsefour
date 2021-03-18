@@ -1,1 +1,36 @@
 <p>anagrafica-prodotti works!</p>
+<div>
+    <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice">&nbsp;
+    <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione">&nbsp;
+    <button (click)="nuova()">Nuova</button>
+    <br><br>
+    <button (click)="modifica()">Modifica</button> &nbsp;
+    <button (click)="conferma()">Conferma</button>&nbsp;
+    <button (click)="annulla()">Annulla</button>&nbsp;
+    <button (click)="rimuovi()">Rimuovi</button>&nbsp;
+
+</div>
+<br><br>
+<input type="text" placeholder="Cerca per codice" [(ngModel)]="prodotto.codice">&nbsp;
+<button (click)="cerca()">Cerca</button>
+<br><br>
+<table>
+    <tr>
+        <th>EAN</th>
+        <th>Codice</th>
+        <th>Descrizione</th>
+        <th>Prezzo</th>
+        <th>Scorta minima scaffale</th>
+        <th>Scorta minima magazzino</th>
+        <th>Lotto riordino</th>
+    </tr>
+    <tr *ngFor="let p of prodotti">
+        <td>{{p.ean}}</td>
+        <td>{{p.codice}}</td>
+        <td>{{p.descrizione}}</td>
+        <td>{{p.prezzo}}</td>
+        <td>{{p.scortaMinimaScaf}}</td>
+        <td>{{p.scortaMinimaMag}}</td>
+        <td>{{p.lottoRiordino}}</td>
+    </tr>
+</table>

@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Prodotto } from '../prodotto';
 
 @Component({
   selector: 'app-anagrafica-prodotti',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnagraficaProdottiComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
+
+  prodotto = new Prodotto();
+  prodotti: Prodotto[] = [];
+
+  modifica() { }
+  conferma() { }
+  annulla() { }
+  rimuovi() { }
+  cerca() { }
+  nuova() { }
 
 }

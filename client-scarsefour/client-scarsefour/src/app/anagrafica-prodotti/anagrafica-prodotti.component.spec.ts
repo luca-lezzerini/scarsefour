@@ -8,9 +8,9 @@ describe('AnagraficaProdottiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AnagraficaProdottiComponent ]
+      declarations: [AnagraficaProdottiComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
