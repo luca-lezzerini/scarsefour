@@ -14,12 +14,14 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  anagraficaProdotti(){
+  anagraficaProdotti() {
     this.router.navigateByUrl('/app-anagrafica-prodotti');
-  }
+  }  
 
+  anagraficaCassiere() {
+    this.router.navigateByUrl('/app-anagrafica-cassiere');
+  }
   anagraficaCassa(){
     this.router.navigateByUrl('/app-anagrafica-casse');
   }
-
 }
