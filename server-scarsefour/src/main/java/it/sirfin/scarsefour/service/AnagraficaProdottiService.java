@@ -10,11 +10,11 @@ public interface AnagraficaProdottiService {
 
     ListaProdottiDto rimuoviProdotto(Prodotto p);
 
-    ListaProdottiDto ricercaProdotto(Prodotto p);
+    ListaProdottiDto ricercaProdotto(String p);
 
     ProdottoDto modificaProdotto(Prodotto p);
 
     ListaProdottiDto confermaProdotto(Prodotto p);
-    
+
     ListaProdottiDto aggiornaProdotti();
 }
