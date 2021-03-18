@@ -57,10 +57,11 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
       .subscribe(r => {
         this.casse = r.listaCasse;
+        this.cassa = new Cassa();
       });
     this.automa.next(new ConfermaEvent, this.automa);
-
   }
+
   annulla() {
     this.automa.next(new AnnullaEvent, this.automa);
 

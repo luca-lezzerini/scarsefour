@@ -48,7 +48,10 @@ export class Aggiungi implements State {
             a.stato = new Visualizza();
             a.ui.entraStatoVisualizza();
         }
-        else if (e instanceof Event) {
+        else if (e instanceof RicercaEvent) {
+            a.stato = new Ricerca();
+            a.ui.entraStatoRicerca();
+        } else if (e instanceof AnnullaEvent) {
             a.stato = new Ricerca();
             a.ui.entraStatoRicerca();
         }

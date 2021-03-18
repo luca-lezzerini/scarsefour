@@ -1,0 +1,25 @@
+package it.sirfin.scarsefour.controller;
+
+import it.sirfin.scarsefour.dto.CassaDto;
+import it.sirfin.scarsefour.dto.ListaCasseDto;
+import it.sirfin.scarsefour.service.AnagraficaCasseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@CrossOrigin("*")
+public class AnagraficaCasseController {
+    
+    @Autowired
+    AnagraficaCasseService anagraficaCasseService;
+    
+    @RequestMapping("/aggiungi-cassa")
+    @ResponseBody
+    public ListaCasseDto aggiungiCassa(@RequestBody CassaDto dto){
+        return anagraficaCasseService.aggiungiCassa(dto.getCassa());
+    }
+}
