@@ -1,8 +1,8 @@
 <h2>Anagrafica Cassiere</h2>
 <div *ngIf="form">
-    <input type="text" placeholder="Nome" [(ngModel)]="cassiere.nome" [disabled]="nomeC">
-    <input type="text" placeholder="Cognome" [(ngModel)]="cassiere.cognome" [disabled]="cognomeC">
-    <input type="text" placeholder="Codice Fiscale" [(ngModel)]="cassiere.codiceFiscale" [disabled]="codiceC">
+    <input type="text" placeholder="Nome" [(ngModel)]="cassiera.nome" [disabled]="nomeC">
+    <input type="text" placeholder="Cognome" [(ngModel)]="cassiera.cognome" [disabled]="cognomeC">
+    <input type="text" placeholder="Codice Fiscale" [(ngModel)]="cassiera.codiceFiscale" [disabled]="codiceC">
     <br>
     <button (click)="modifica()" *ngIf="edit">Modifica</button>
     <button (click)="annulla()" *ngIf="annull">Annulla</button>
@@ -25,7 +25,7 @@
         <th>Cognome</th>
         <th>Codice Fiscale</th>
     </tr>
-    <tr *ngFor="let c of listaCassiere">
+    <tr *ngFor="let c of cassiere">
         <td>{{c.nome}}</td>
         <td>{{c.cognome}}</td>
         <td>{{c.codiceFiscale}}</td>

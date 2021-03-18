@@ -10,21 +10,21 @@ public class ListaCassiereDto {
     public ListaCassiereDto() {
     }
 
-    public List<Cassiera> getListaCassieri() {
+    public ListaCassiereDto(List<Cassiera> listaCassiere) {
+        this.listaCassiere = listaCassiere;
+    }
+
+    public List<Cassiera> getListaCassiere() {
         return listaCassiere;
     }
 
-    public void setListaCassieri(List<Cassiera> listaCassieri) {
-        this.listaCassiere = listaCassieri;
-    }
-
-    public ListaCassiereDto(List<Cassiera> listaCassieri) {
-        this.listaCassiere = listaCassieri;
+    public void setListaCassiere(List<Cassiera> listaCassiere) {
+        this.listaCassiere = listaCassiere;
     }
 
     @Override
     public String toString() {
-        return "ListaCassieriDto{" + "listaCassieri=" + listaCassiere + '}';
+        return "ListaCassiereDto{" + "listaCassiere=" + listaCassiere + '}';
     }
 
 }

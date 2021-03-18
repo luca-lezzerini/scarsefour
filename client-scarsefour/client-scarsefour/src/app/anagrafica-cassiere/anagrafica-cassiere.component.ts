@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Aggiungi, Automa, Rimuovi } from '../automa-crud/automa';
+import { Aggiungi, Automa, Modifica, Rimuovi } from '../automa-crud/automa';
 import { Automabile } from '../automa-crud/automabile';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
 import { CassieraDto } from '../dto/cassiera-dto';
@@ -18,7 +18,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   automa: Automa;
 
   cassiera = new Cassiera();
-  listaCassiere: Cassiera[] = [];
+  cassiere: Cassiera[] = [];
 
   inputRicerca: string;
 
@@ -27,8 +27,8 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   aggiungi: boolean;
   remove: boolean;
   edit: boolean;
-  conf: boolean;
-  annull: boolean;
+  conf: boolean = true;
+  annull: boolean = true;
   search: boolean;
   tabella: boolean;
   nomeC: boolean;
@@ -38,6 +38,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
 
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
+    this.aggiorna();
   }
   ngOnInit(): void {
   }
@@ -64,7 +65,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
         dto.cassiera = this.cassiera;
         this.http.post<ListaCassiereDto>("http://localhost:8080/add-cassiera", dto)
           .subscribe(r => {
-            this.listaCassiere = r.listaCassiere;
+            this.cassiere = r.listaCassiere;
             this.cassiera = new Cassiera();
           });
         break;
@@ -73,10 +74,18 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
         dtox.cassiera = this.cassiera;
         this.http.post<ListaCassiereDto>("http://localhost:8080/rim-cassiera", dtox)
           .subscribe(r => {
-            this.listaCassiere = r.listaCassiere;
+            this.cassiere = r.listaCassiere;
             this.cassiera = new Cassiera();
           });
         break;
+      case this.automa.stato instanceof Modifica:
+        let dtox2 = new CassieraDto();
+        dtox2.cassiera = this.cassiera;
+        this.http.post<ListaCassiereDto>("http://localhost:8080/conf-cassiera", dtox2)
+          .subscribe(r => {
+            this.cassiere = r.listaCassiere;
+            this.cassiera = new Cassiera();
+          });
       default:
         console.log("errore")
         break;
@@ -91,7 +100,10 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   }
 
   seleziona(c: Cassiera) {
-    this.cassiera = c;
+    let dto = new CassieraDto();
+    dto.cassiera = c;
+    this.http.post<CassieraDto>("http://localhost:8080/mod-cassiera", dto)
+      .subscribe(r => this.cassiera = r.cassiera)
     this.automa.next(new SelezionaEvent, this.automa);
   }
 
@@ -99,13 +111,13 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
     let dto = new RicercaCassiereDto();
     dto.criterioRicerca = this.inputRicerca;
     this.http.post<ListaCassiereDto>("http://localhost:8080/ric-cassiera", dto)
-      .subscribe(r => this.listaCassiere = r.listaCassiere)
+      .subscribe(r => this.cassiere = r.listaCassiere)
     this.automa.next(new RicercaEvent, this.automa);
   }
 
   aggiorna() {
     this.http.get<ListaCassiereDto>("http://localhost:8080/aggiorna-cassieri")
-      .subscribe(r => this.listaCassiere = r.listaCassiere);
+      .subscribe(r => this.cassiere = r.listaCassiere);
   }
 
   entraStatoRicerca() {
@@ -133,6 +145,8 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
     this.tabella = false;
     this.nomeC = false;
     this.codiceC = false;
+    this.cognomeC = false;
+
   }
   entraStatoVisualizza() {
     this.form = true;
