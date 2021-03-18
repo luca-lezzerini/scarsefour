@@ -1,6 +1,6 @@
 import { Automa } from "./automa";
-import { Event1 } from "./eventi";
+import { Event } from "./eventi";
 
 export interface State {
-    next(e: Event1, a?: Automa);
+    next(e: Event, a?: Automa);
 }

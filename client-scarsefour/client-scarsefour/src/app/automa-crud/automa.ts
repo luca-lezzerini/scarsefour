@@ -1,6 +1,6 @@
 import { of } from "rxjs";
 import { Automabile } from "./automabile";
-import { AddEvent, AnnullaEvent, ConfermaEvent, Event1, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from "./eventi";
+import { AddEvent, AnnullaEvent, ConfermaEvent, Event, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from "./eventi";
 import { State } from "./stati";
 
 export class Automa implements State {
@@ -15,7 +15,7 @@ export class Automa implements State {
     stato: State;
     ui: Automabile;
 
-    next(e: Event1, a?: Automa) {
+    next(e: Event, a?: Automa) {
         console.log("Siamo nello stato: ", this.stato);
         console.log("Ricevuto evento: ", e);
         this.stato.next(e, a);
@@ -24,7 +24,7 @@ export class Automa implements State {
 }
 
 export class Ricerca implements State {
-    next(e: Event1, a?: Automa) {
+    next(e: Event, a?: Automa) {
         if (e instanceof AddEvent) {
             a.stato = new Aggiungi(a);
         }
@@ -43,7 +43,7 @@ export class Aggiungi implements State {
         a.ui.entraStatoAggiungi();
     }
 
-    next(e: Event1, a?: Automa) {
+    next(e: Event, a?: Automa) {
         if (e instanceof ConfermaEvent) {
             a.stato = new Visualizza();
             a.ui.entraStatoVisualizza();
@@ -59,7 +59,7 @@ export class Aggiungi implements State {
 }
 
 export class Visualizza implements State {
-    next(e: Event1, a?: Automa) {
+    next(e: Event, a?: Automa) {
         if (e instanceof AddEvent) {
             a.stato = new Aggiungi(a);
             a.ui.entraStatoAggiungi();
@@ -84,7 +84,7 @@ export class Visualizza implements State {
     }
 }
 export class Rimuovi implements State {
-    next(e: Event1, a?: Automa) {
+    next(e: Event, a?: Automa) {
         if (e instanceof ConfermaEvent) {
             a.stato = new Ricerca();
             a.ui.entraStatoRicerca();
@@ -99,7 +99,7 @@ export class Rimuovi implements State {
 }
 
 export class Modifica implements State {
-    next(e: Event1, a?: Automa) {
+    next(e: Event, a?: Automa) {
         if (e instanceof ConfermaEvent) {
             a.stato = new Visualizza();
             a.ui.entraStatoVisualizza();
