@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AnagraficaCasseComponent } from './anagrafica-casse/anagrafica-casse.component';
 import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-cassiere.component';
+import { AnagraficaScontoComponent } from './anagrafica-sconto/anagrafica-sconto.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-ca
     HomePageComponent,
     AnagraficaProdottiComponent,
     AnagraficaCasseComponent,
-    AnagraficaCassiereComponent
+    AnagraficaCassiereComponent,
+    AnagraficaScontoComponent
   ],
   imports: [
     BrowserModule,
