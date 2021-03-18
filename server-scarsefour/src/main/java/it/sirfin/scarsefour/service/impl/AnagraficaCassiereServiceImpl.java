@@ -1,7 +1,7 @@
 package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.CassieraDto;
-import it.sirfin.scarsefour.dto.ListaCassieriDto;
+import it.sirfin.scarsefour.dto.ListaCassiereDto;
 import it.sirfin.scarsefour.model.Cassiera;
 import it.sirfin.scarsefour.repository.AnagraficaCassiereRepository;
 import it.sirfin.scarsefour.service.AnagraficaCassiereService;
@@ -16,21 +16,21 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
     AnagraficaCassiereRepository anagraficaCassiereRepository;
 
     @Override
-    public ListaCassieriDto aggiungiCassiera(Cassiera cas) {
+    public ListaCassiereDto aggiungiCassiera(Cassiera cas) {
         anagraficaCassiereRepository.save(cas);
         return aggiornaCassieri();
     }
 
     @Override
-    public ListaCassieriDto rimuoviCassiera(Cassiera cas) {
+    public ListaCassiereDto rimuoviCassiera(Cassiera cas) {
         anagraficaCassiereRepository.delete(cas);
         return aggiornaCassieri();
     }
 
     @Override
-    public ListaCassieriDto ricercaCassiera(String c) {
+    public ListaCassiereDto ricercaCassiera(String c) {
         List<Cassiera> lista = anagraficaCassiereRepository.trovaCassieraPerCognome(c);
-        return new ListaCassieriDto(lista);
+        return new ListaCassiereDto(lista);
     }
 
     @Override
@@ -39,15 +39,15 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
     }
 
     @Override
-    public ListaCassieriDto confermaModifica(Cassiera cas) {
+    public ListaCassiereDto confermaModifica(Cassiera cas) {
         anagraficaCassiereRepository.save(cas);
         return aggiornaCassieri();
     }
 
     @Override
-    public ListaCassieriDto aggiornaCassieri() {
+    public ListaCassiereDto aggiornaCassieri() {
         List<Cassiera> lista = anagraficaCassiereRepository.findAll();
-        return new ListaCassieriDto(lista);
+        return new ListaCassiereDto(lista);
     }
 
 }
