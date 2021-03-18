@@ -47,7 +47,8 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
 
     @Override
     public ListaProdottiDto confermaProdotto(Prodotto p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        anagraficaProdottiRepository.save(p);
+        return aggiornaProdotti();
     }
 
     @Override

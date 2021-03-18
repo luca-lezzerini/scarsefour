@@ -46,16 +46,17 @@ public class AnagraficaProdottiController {
     }
 
 
-    @RequestMapping("/conferma-mod-prodotto")
-    @ResponseBody
-    public void confermaModificaProdotto() {
-
-    }
-    
     @RequestMapping("/modifica-prodotto")
     @ResponseBody
     public ProdottoDto modificaProdotto(@RequestBody ProdottoDto dto) {
         return anagraficaProdottiService.modificaProdotto(dto.getProdotto());
     }
-
+    
+    
+    @RequestMapping("/conferma-mod-prodotto")
+    @ResponseBody
+    public ListaProdottiDto confermaModificaProdotto(@RequestBody ProdottoDto dto) {
+        return anagraficaProdottiService.confermaProdotto(dto.getProdotto());
+    }
+    
 }
