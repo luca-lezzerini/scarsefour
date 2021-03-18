@@ -6,6 +6,7 @@ import { Automabile } from '../automa-crud/automabile';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
 import { CassaDto } from '../dto/cassa-dto';
 import { ListaCasseDto } from '../dto/lista-casse-dto';
+import { RicercaPreCriterioDto } from '../dto/ricerca-per-criterio-ricerca-dto';
 import { Cassa } from '../entità/cassa';
 
 @Component({
@@ -99,6 +100,12 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.automa.next(new SelezionaEvent, this.automa);
   }
   cerca() {
+    let dto = new RicercaPreCriterioDto();
+    dto.criterioRicerca = this.inputRicerca;
+    this.http.post<ListaCasseDto>("http://localhost:8080/cerca-cassa-codice-like", dto)
+    .subscribe(l => {
+      this.casse = l.listaCasse;
+    });
     this.automa.next(new RicercaEvent, this.automa);
   }
 

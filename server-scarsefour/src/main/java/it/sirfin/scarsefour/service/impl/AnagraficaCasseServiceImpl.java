@@ -37,6 +37,11 @@ public class AnagraficaCasseServiceImpl implements AnagraficaCasseService {
         cassaRepository.modificaCassa(cassa.getCodice(),cassa.getId());
         return aggiornaCassa();
     }
+
+    @Override
+    public ListaCasseDto cercaCassaLike(String codice) {
+        return new ListaCasseDto(cassaRepository.findByCodiceContains(codice));
+    }
     
     
 
