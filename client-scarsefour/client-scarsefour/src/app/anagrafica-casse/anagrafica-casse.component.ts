@@ -4,6 +4,7 @@ import { Automa } from '../automa-crud/automa';
 import { Automabile } from '../automa-crud/automabile';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
 import { CassaDto } from '../dto/cassa-dto';
+import { ListaCasseDto } from '../dto/lista-casse-dto';
 import { Cassa } from '../entità/cassa';
 
 @Component({
@@ -37,7 +38,6 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.automa = new Automa(this);
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   nuova() {
@@ -51,11 +51,12 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
 
   }
   conferma() {
+    //conferma da che stato???
     let dto = new CassaDto();
     dto.cassa = this.cassa;
-    this.http.post<Cassa[]>("http://localhost:8080/aggiungi-cassa", dto)
+    this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
       .subscribe(r => {
-        this.casse = r;
+        this.casse = r.listaCasse;
       });
     this.automa.next(new ConfermaEvent, this.automa);
 
