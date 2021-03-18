@@ -1,7 +1,7 @@
 package it.sirfin.scarsefour.controller;
 
 import it.sirfin.scarsefour.dto.CassieraDto;
-import it.sirfin.scarsefour.dto.ListaCassieriDto;
+import it.sirfin.scarsefour.dto.ListaCassiereDto;
 import it.sirfin.scarsefour.dto.RicercaCassieraDto;
 import it.sirfin.scarsefour.service.AnagraficaCassiereService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +20,19 @@ public class AnagraficaCassiereController {
 
     @RequestMapping("/add-cassiera")
     @ResponseBody
-    public ListaCassieriDto aggiungiCassiera(@RequestBody CassieraDto dto) {
+    public ListaCassiereDto aggiungiCassiera(@RequestBody CassieraDto dto) {
         return anagraficaCassiereService.aggiungiCassiera(dto.getCassiera());
     }
 
     @RequestMapping("/rim-cassiera")
     @ResponseBody
-    public ListaCassieriDto rimuoviCassiera(@RequestBody CassieraDto dto) {
+    public ListaCassiereDto rimuoviCassiera(@RequestBody CassieraDto dto) {
         return anagraficaCassiereService.rimuoviCassiera(dto.getCassiera());
     }
 
     @RequestMapping("/ric-cassiera")
     @ResponseBody
-    public ListaCassieriDto ricercaCassiera(@RequestBody RicercaCassieraDto dto) {
+    public ListaCassiereDto ricercaCassiera(@RequestBody RicercaCassieraDto dto) {
         return anagraficaCassiereService.ricercaCassiera(dto.getCriterioRicerca());
     }
 
@@ -44,7 +44,7 @@ public class AnagraficaCassiereController {
 
     @RequestMapping("/conf-cassiera")
     @ResponseBody
-    public ListaCassieriDto confermaModificaCassiera(@RequestBody CassieraDto dto) {
+    public ListaCassiereDto confermaModificaCassiera(@RequestBody CassieraDto dto) {
         return anagraficaCassiereService.confermaModifica(dto.getCassiera());
     }
 
