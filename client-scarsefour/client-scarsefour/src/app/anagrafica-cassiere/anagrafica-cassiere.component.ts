@@ -52,10 +52,6 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
     this.automa.next(new RimuoviEvent, this.automa);
   }
   modifica() {
-    let dto = new CassieraDto();
-    dto.cassiera = this.cassiera;
-    this.http.post<CassieraDto>("http://localhost:8080/mod-cassiera", dto)
-      .subscribe(r => this.cassiera = r.cassiera)
     this.automa.next(new ModificaEvent, this.automa);
   }
 
@@ -95,9 +91,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   }
 
   annulla() {
-    this.cassiera = new Cassiera();
     this.automa.next(new AnnullaEvent, this.automa);
-
   }
 
   seleziona(c: Cassiera) {
