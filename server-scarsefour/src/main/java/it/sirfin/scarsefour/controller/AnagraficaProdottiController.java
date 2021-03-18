@@ -1,8 +1,12 @@
 package it.sirfin.scarsefour.controller;
 
+import it.sirfin.scarsefour.dto.ListaProdottiDto;
+import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.service.AnagraficaProdottiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +20,9 @@ public class AnagraficaProdottiController {
 
     @RequestMapping("/aggiungi-prodotto")
     @ResponseBody
-    public void aggiungiProdotto() {
-
+    public ListaProdottiDto aggiungiProdotto(@RequestBody ProdottoDto dto) {
+        return anagraficaProdottiService.aggiungiProdotto(dto.getProdotto());
+     
     }
 
     @RequestMapping("/rimuovi-prodotto")
