@@ -33,6 +33,10 @@ public class Scontrino implements Serializable {
     @JoinColumn(referencedColumnName = "id")
     private Cassiera cassiera;
 
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Cassa cassa;
+
     public Scontrino() {
     }
 
@@ -84,7 +88,7 @@ public class Scontrino implements Serializable {
 
     @Override
     public String toString() {
-        return "Scontrino{" + "id=" + id + ", timestamp=" + timestamp + ", numero=" + numero + ", totale=" + totale + ", cassiera=" + cassiera + '}';
+        return "Scontrino{" + "id=" + id + ", timestamp=" + timestamp + ", numero=" + numero + ", totale=" + totale + ", cassiera=" + cassiera.getId() + ", cassa=" + cassa.getId() + '}';
     }
 
 }
