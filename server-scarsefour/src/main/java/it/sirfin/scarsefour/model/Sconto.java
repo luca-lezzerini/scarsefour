@@ -5,12 +5,17 @@
  */
 package it.sirfin.scarsefour.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -33,6 +38,10 @@ public class Sconto implements Serializable {
     @Column
     private String codice;
 
+    @JsonIgnoreProperties(value = "sconto", allowSetters = true)
+    @ManyToMany(mappedBy = "sconti")
+    private List<Prodotto> prodotti;
+
     public Sconto() {
     }
 
@@ -43,7 +52,69 @@ public class Sconto implements Serializable {
         this.descrizione = descrizione;
         this.codice = codice;
     }
-    
-    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDallaData() {
+        return dallaData;
+    }
+
+    public void setDallaData(LocalDate dallaData) {
+        this.dallaData = dallaData;
+    }
+
+    public LocalDate getAllaData() {
+        return allaData;
+    }
+
+    public void setAllaData(LocalDate allaData) {
+        this.allaData = allaData;
+    }
+
+    public double getSconto() {
+        return sconto;
+    }
+
+    public void setSconto(double sconto) {
+        this.sconto = sconto;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public String getCodice() {
+        return codice;
+    }
+
+    public void setCodice(String codice) {
+        this.codice = codice;
+    }
+
+    public List<Prodotto> getProdotti() {
+        if (prodotti == null) {
+            new ArrayList<>();
+        }
+        return prodotti;
+    }
+
+    public void setProdotti(List<Prodotto> prodotti) {
+        this.prodotti = prodotti;
+    }
+
+    @Override
+    public String toString() {
+        return "Sconto{" + "id=" + id + ", dallaData=" + dallaData + ", allaData=" + allaData + ", sconto=" + sconto + ", descrizione=" + descrizione + ", codice=" + codice + ", prodotti=" + prodotti + '}';
+    }
 
 }

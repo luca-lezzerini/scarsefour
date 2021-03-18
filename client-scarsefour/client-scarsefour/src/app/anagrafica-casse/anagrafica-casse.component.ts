@@ -1,21 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Automa } from '../automa-crud/automa';
 import { Automabile } from '../automa-crud/automabile';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
+import { CassaDto } from '../dto/cassa-dto';
+import { Cassa } from '../entità/cassa';
 
 @Component({
   selector: 'app-anagrafica-casse',
   templateUrl: './anagrafica-casse.component.html',
   styleUrls: ['./anagrafica-casse.component.css']
 })
-export class AnagraficaCasseComponent implements OnInit,Automabile {
+export class AnagraficaCasseComponent implements OnInit, Automabile {
 
   automa: Automa;
 
-  input1: string;
-  input2: string;
+  cassa = new Cassa();
+  casse: Cassa[] = [];
+
   inputRicerca: string;
 
+  //Variabili di visualizzazione
   form: boolean;
   aggiungi: boolean;
   remove: boolean;
@@ -24,13 +29,13 @@ export class AnagraficaCasseComponent implements OnInit,Automabile {
   annull: boolean;
   search: boolean;
   tabella: boolean;
-  codice: boolean;
+  codiceInput: boolean;
   descrizione: boolean;
 
 
-  constructor() { 
+  constructor(private http: HttpClient) {
     this.automa = new Automa(this);
-   }
+  }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
@@ -46,6 +51,12 @@ export class AnagraficaCasseComponent implements OnInit,Automabile {
 
   }
   conferma() {
+    let dto = new CassaDto();
+    dto.cassa = this.cassa;
+    this.http.post<Cassa[]>("http://localhost:8080/aggiungi-cassa", dto)
+      .subscribe(r => {
+        this.casse = r;
+      });
     this.automa.next(new ConfermaEvent, this.automa);
 
   }
@@ -67,9 +78,9 @@ export class AnagraficaCasseComponent implements OnInit,Automabile {
     this.aggiungi = true;
     this.search = true;
     this.tabella = true;
-    this.codice = false;
+    this.codiceInput = false;
     this.descrizione = false;
-    this.codice = false;
+
     this.descrizione = false;
   }
   entraStatoAggiungi() {
@@ -81,7 +92,7 @@ export class AnagraficaCasseComponent implements OnInit,Automabile {
     this.annull = true;
     this.search = false;
     this.tabella = false;
-    this.codice = false;
+    this.codiceInput = false;
     this.descrizione = false;
   }
   entraStatoVisualizza() {
@@ -93,7 +104,7 @@ export class AnagraficaCasseComponent implements OnInit,Automabile {
     this.annull = false;
     this.search = true;
     this.tabella = true;
-    this.codice = true;
+    this.codiceInput = true;
     this.descrizione = true;
 
   }
@@ -106,7 +117,7 @@ export class AnagraficaCasseComponent implements OnInit,Automabile {
     this.annull = true;
     this.search = false;
     this.tabella = false;
-    this.codice = false;
+    this.codiceInput = false;
     this.descrizione = false;
   }
   entraStatoRimuovi() {
@@ -118,7 +129,7 @@ export class AnagraficaCasseComponent implements OnInit,Automabile {
     this.annull = true;
     this.search = false;
     this.tabella = false;
-    this.codice = true;
+    this.codiceInput = true;
     this.descrizione = true;
   }
 
