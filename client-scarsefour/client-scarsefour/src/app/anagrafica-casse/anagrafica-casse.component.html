@@ -1,5 +1,5 @@
+<h2>Anagrafica Cassa</h2>
 <div *ngIf="form">
-    <h2>Anagrafica Cassa</h2>
     <input type="text" placeholder="Codice" [(ngModel)]="cassa.codice" [disabled]="codice">
 
     <button (click)="modifica()" *ngIf="edit">Modifica</button>
