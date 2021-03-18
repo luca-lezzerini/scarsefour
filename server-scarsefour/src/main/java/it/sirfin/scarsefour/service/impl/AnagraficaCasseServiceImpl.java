@@ -4,9 +4,11 @@ import it.sirfin.scarsefour.dto.ListaCasseDto;
 import it.sirfin.scarsefour.model.Cassa;
 import it.sirfin.scarsefour.repository.CassaRepository;
 import it.sirfin.scarsefour.service.AnagraficaCasseService;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Transactional
 @Service
 public class AnagraficaCasseServiceImpl implements AnagraficaCasseService {
 
@@ -32,7 +34,7 @@ public class AnagraficaCasseServiceImpl implements AnagraficaCasseService {
 
     @Override
     public ListaCasseDto modificaCassa(Cassa cassa) {
-        cassaRepository.modificaCassa();
+        cassaRepository.modificaCassa(cassa.getCodice(),cassa.getId());
         return aggiornaCassa();
     }
     
