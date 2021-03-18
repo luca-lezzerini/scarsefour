@@ -1,6 +1,5 @@
-import { Cassiera } from "../entità/cassiera";
 import { Prodotto } from "../prodotto";
 
-export class ListaCassiereDto {
+export class ListaProdottiDto {
     listaProdotti: Prodotto[] = [];
 }

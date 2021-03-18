@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Automa } from '../automa-crud/automa';
 import { Automabile } from '../automa-crud/automabile';
+import { ProdottoDto } from '../dto/prodotto-dto';
+import { Aggiungi, Automa, Modifica, Rimuovi } from '../automa-crud/automa';
+import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
+import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
 import { Prodotto } from '../prodotto';
+import { RicercaPreCriterioDto } from '../dto/ricerca-per-criterio-ricerca-dto';
 
 @Component({
   selector: 'app-anagrafica-prodotti',
@@ -38,79 +42,78 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
   }
 
   nuova() {
-   // this.automa.next(new AddEvent, this.automa);
+    this.automa.next(new AddEvent, this.automa);
   }
   rimuovi() {
-   // this.automa.next(new RimuoviEvent, this.automa);
+    this.automa.next(new RimuoviEvent, this.automa);
   }
   modifica() {
-   // this.automa.next(new ModificaEvent, this.automa);
+    this.automa.next(new ModificaEvent, this.automa);
 
   }
   conferma() {
-    // switch (true) {
-    //   case this.automa.stato instanceof Aggiungi:
-    //     let dto = new CassaDto();
-    //     dto.cassa = this.cassa;
-    //     this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
-    //       .subscribe(r => {
-    //         this.casse = r.listaCasse;
-    //         this.cassa = new Cassa();
-    //       });
-    //     break;
-    //   case this.automa.stato instanceof Rimuovi:
-    //     let dto1 = new CassaDto();
-    //     dto1.cassa = this.cassa;
-    //     this.http.post<ListaCasseDto>("http://localhost:8080/rimuovi-cassa", dto1)
-    //       .subscribe(r => {
-    //         this.casse = r.listaCasse;
-    //         this.cassa = new Cassa();
-    //         console.log("Complimenti, hai eliminato una cassa di banane!")
-    //       });
-    //     break;
-    //   case this.automa.stato instanceof Modifica:
-    //     let dto2 = new CassaDto();
-    //     dto2.cassa = this.cassa;
-    //     this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto2)
-    //       .subscribe(r => {
-    //         this.casse = r.listaCasse;
-    //         this.cassa = new Cassa();
-    //         console.log("Complimenti, hai modificato una cassa di banane!")
-    //       });
-    //     break;
-    //   default:
-    //     console.log("errore critico")
-    //     break;
-    // }
-    // this.automa.next(new ConfermaEvent, this.automa);
+     switch (true) {
+       case this.automa.stato instanceof Aggiungi:
+         let dto = new ProdottoDto();
+         dto.prodotto = this.prodotto;
+         this.http.post<ListaProdottiDto>("http://localhost:8080/aggiungi-prodotto", dto)
+          .subscribe(r => {
+             this.prodotti = r.listaProdotti;
+             this.prodotto = new Prodotto();
+             console.log("Aggiunto prodotto!")
+           });
+         break;
+       case this.automa.stato instanceof Rimuovi:
+         let dto1 = new ProdottoDto();
+         dto1.prodotto = this.prodotto;
+         this.http.post<ListaProdottiDto>("http://localhost:8080/rimuovi-prodotto", dto1)
+           .subscribe(r => {
+             this.prodotti = r.listaProdotti;
+             this.prodotto = new Prodotto();
+             console.log("Rimosso prodotto!")
+           });
+         break;
+       case this.automa.stato instanceof Modifica:
+         let dto2 = new ProdottoDto();
+         dto2.prodotto = this.prodotto;
+         this.http.post<ListaProdottiDto>("http://localhost:8080/modifica-prodotto", dto2)
+           .subscribe(r => {
+             this.prodotti = r.listaProdotti;
+             this.prodotto = new Prodotto();
+             console.log("modificato prodotto")
+           });
+         break;
+       default:
+         console.log("errore critico")
+         break;
+     }
+     this.automa.next(new ConfermaEvent, this.automa);
   }
 
   annulla() {
-    //this.automa.next(new AnnullaEvent, this.automa);
+this.automa.next(new AnnullaEvent, this.automa);
 
   }
   seleziona(p:Prodotto) {
-   //this.cassa = c;
-   // this.automa.next(new SelezionaEvent, this.automa);
+    this.prodotto = new Prodotto();
+    this.automa.next(new SelezionaEvent, this.automa);
   }
   cerca() {
-  //   let dto = new RicercaPreCriterioDto();
-  //   dto.criterioRicerca = this.inputRicerca;
-  //   this.http.post<ListaCasseDto>("http://localhost:8080/cerca-cassa-codice-like", dto)
-  //   .subscribe(l => {
-  //     this.casse = l.listaCasse;
-  //   });
-  //   this.automa.next(new RicercaEvent, this.automa);
+     let dto = new RicercaPreCriterioDto();
+     dto.criterioRicerca = this.inputRicerca;
+     this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
+     .subscribe(k => {
+       this.prodotti = k.listaProdotti;
+     });
+   this.automa.next(new RicercaEvent, this.automa);
   }
 
   aggiorna() {
-    // this.http.get<ListaCasseDto>("http://localhost:8080/aggiorna-cassa")
-    //   .subscribe(l => {
-    //     this.casse = l.listaCasse;
-    //   });
+     this.http.get<ListaProdottiDto>("http://localhost:8080/aggiorna-prodotto")
+       .subscribe(p => {
+         this.prodotti = p.listaProdotti;
+       });
   }
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////
 
   entraStatoRicerca() {
     this.form = false;

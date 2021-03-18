@@ -59,4 +59,10 @@ public class AnagraficaProdottiController {
         return anagraficaProdottiService.confermaProdotto(dto.getProdotto());
     }
     
+    @RequestMapping("/aggiorna-prodotto")
+    @ResponseBody
+     public ListaProdottiDto aggiornaProdotti(){
+        return anagraficaProdottiService.aggiornaProdotti();
+    }
+    
 }
