@@ -1,24 +1,24 @@
 package it.sirfin.scarsefour.dto;
 
 import it.sirfin.scarsefour.model.Cassiera;
-import java.util.Set;
+import java.util.List;
 
 public class ListaCassieriDto {
 
-    private Set<Cassiera> listaCassieri;
+    private List<Cassiera> listaCassieri;
 
     public ListaCassieriDto() {
     }
 
-    public ListaCassieriDto(Set<Cassiera> listaCassieri) {
-        this.listaCassieri = listaCassieri;
-    }
-
-    public Set<Cassiera> getListaCassieri() {
+    public List<Cassiera> getListaCassieri() {
         return listaCassieri;
     }
 
-    public void setListaCassieri(Set<Cassiera> listaCassieri) {
+    public void setListaCassieri(List<Cassiera> listaCassieri) {
+        this.listaCassieri = listaCassieri;
+    }
+
+    public ListaCassieriDto(List<Cassiera> listaCassieri) {
         this.listaCassieri = listaCassieri;
     }
 

@@ -1,8 +1,12 @@
 package it.sirfin.scarsefour.controller;
 
+import it.sirfin.scarsefour.dto.CassieraDto;
+import it.sirfin.scarsefour.dto.ListaCassieriDto;
+import it.sirfin.scarsefour.dto.RicercaCassieraDto;
 import it.sirfin.scarsefour.service.AnagraficaCassiereService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,32 +20,32 @@ public class AnagraficaCassiereController {
 
     @RequestMapping("/add-cassiera")
     @ResponseBody
-    public void aggiungiCassiera() {
-
+    public ListaCassieriDto aggiungiCassiera(@RequestBody CassieraDto dto) {
+        return anagraficaCassiereService.aggiungiCassiera(dto.getCassiera());
     }
 
     @RequestMapping("/rim-cassiera")
     @ResponseBody
-    public void rimuoviCassiera() {
-
+    public ListaCassieriDto rimuoviCassiera(@RequestBody CassieraDto dto) {
+        return anagraficaCassiereService.rimuoviCassiera(dto.getCassiera());
     }
 
     @RequestMapping("/ric-cassiera")
     @ResponseBody
-    public void ricercaCassiera() {
-
+    public ListaCassieriDto ricercaCassiera(@RequestBody RicercaCassieraDto dto) {
+        return anagraficaCassiereService.ricercaCassiera(dto.getCriterioRicerca());
     }
 
     @RequestMapping("/mod-cassiera")
     @ResponseBody
-    public void modificaCassiera() {
-
+    public CassieraDto modificaCassiera(@RequestBody CassieraDto dto) {
+        return anagraficaCassiereService.modificaCassiera(dto.getCassiera());
     }
 
     @RequestMapping("/conf-cassiera")
     @ResponseBody
-    public void confermaModificaCassiera() {
-
+    public ListaCassieriDto confermaModificaCassiera(@RequestBody CassieraDto dto) {
+        return anagraficaCassiereService.confermaModifica(dto.getCassiera());
     }
 
 }

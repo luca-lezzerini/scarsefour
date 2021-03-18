@@ -5,6 +5,7 @@ import it.sirfin.scarsefour.dto.ListaCassieriDto;
 import it.sirfin.scarsefour.model.Cassiera;
 import it.sirfin.scarsefour.repository.AnagraficaCassiereRepository;
 import it.sirfin.scarsefour.service.AnagraficaCassiereService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,27 +17,37 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
 
     @Override
     public ListaCassieriDto aggiungiCassiera(Cassiera cas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        anagraficaCassiereRepository.save(cas);
+        return aggiornaCassieri();
     }
 
     @Override
     public ListaCassieriDto rimuoviCassiera(Cassiera cas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        anagraficaCassiereRepository.delete(cas);
+        return aggiornaCassieri();
     }
 
     @Override
     public ListaCassieriDto ricercaCassiera(String c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cassiera> lista = anagraficaCassiereRepository.trovaCassieraPerCognome(c);
+        return new ListaCassieriDto(lista);
     }
 
     @Override
     public CassieraDto modificaCassiera(Cassiera cas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new CassieraDto(cas);
     }
 
     @Override
     public ListaCassieriDto confermaModifica(Cassiera cas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        anagraficaCassiereRepository.save(cas);
+        return aggiornaCassieri();
+    }
+
+    @Override
+    public ListaCassieriDto aggiornaCassieri() {
+        List<Cassiera> lista = anagraficaCassiereRepository.findAll();
+        return new ListaCassieriDto(lista);
     }
 
 }
