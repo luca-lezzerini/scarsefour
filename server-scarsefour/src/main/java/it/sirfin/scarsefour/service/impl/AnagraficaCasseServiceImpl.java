@@ -30,4 +30,12 @@ public class AnagraficaCasseServiceImpl implements AnagraficaCasseService {
         return aggiornaCassa();
     }
 
+    @Override
+    public ListaCasseDto modificaCassa(Cassa cassa) {
+        cassaRepository.modificaCassa();
+        return aggiornaCassa();
+    }
+    
+    
+
 }

@@ -34,4 +34,11 @@ public class AnagraficaCasseController {
     public ListaCasseDto rimuoviCassa(@RequestBody CassaDto dto) {
         return anagraficaCasseService.rimuoviCassa(dto.getCassa());
     }
+    
+    @RequestMapping("/modifica-cassa")
+    @ResponseBody
+    public ListaCasseDto modificaCassa(@RequestBody CassaDto dto) {
+        return anagraficaCasseService.modificaCassa(dto.getCassa());
+    }
+    
 }

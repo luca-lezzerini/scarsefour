@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BrowserStack } from 'protractor/built/driverProviders';
-import { Aggiungi, Automa, Rimuovi } from '../automa-crud/automa';
+import { Aggiungi, Automa, Modifica, Rimuovi } from '../automa-crud/automa';
 import { Automabile } from '../automa-crud/automabile';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
 import { CassaDto } from '../dto/cassa-dto';
@@ -71,6 +71,16 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
             this.casse = r.listaCasse;
             this.cassa = new Cassa();
             console.log("Complimenti, hai eliminato una cassa di banane!")
+          });
+        break;
+      case this.automa.stato instanceof Modifica:
+        let dto2 = new CassaDto();
+        dto2.cassa = this.cassa;
+        this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto2)
+          .subscribe(r => {
+            this.casse = r.listaCasse;
+            this.cassa = new Cassa();
+            console.log("Complimenti, hai modificato una cassa di banane!")
           });
         break;
       default:
