@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface CassaRepository extends JpaRepository<Cassa, Long> {
 
     @Modifying
-//    @Query("update Cassa c set c.codice = :codice where c.id = :id")
-    @Query(value = "update Cassa c set c.codice= ? where c.id = ?",
-            nativeQuery = true)
-    void modificaCassa(String codice, Long id);
+    @Query("update Cassa c set c.codice = :codice where c.id = :id")
+//    @Query(value = "update Cassa c set c.codice= ? where c.id = ?",
+//            nativeQuery = true)
+    void modificaCassa(@Param("codice")String codice,@Param("id")Long id);
 }
