@@ -1,14 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.sirfin.scarsefour.service;
 
-/**
- *
- * @author Hp
- */
+import it.sirfin.scarsefour.dto.CassieraDto;
+import it.sirfin.scarsefour.dto.ListaCassieriDto;
+import it.sirfin.scarsefour.model.Cassiera;
+
 public interface AnagraficaCassiereService {
-    
+
+    ListaCassieriDto aggiungiCassiera(Cassiera cas);
+
+    ListaCassieriDto rimuoviCassiera(Cassiera cas);
+
+    ListaCassieriDto ricercaCassiera(String c);
+
+    CassieraDto modificaCassiera(Cassiera cas);
+
+    ListaCassieriDto confermaModifica(Cassiera cas);
 }
