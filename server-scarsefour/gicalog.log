@@ -44,3 +44,44 @@
 2021-03-18 17:49:01.312 TRACE 20680 --- [http-nio-8080-exec-4] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [cassa02]
 2021-03-18 17:49:01.312 TRACE 20680 --- [http-nio-8080-exec-4] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [2]
 2021-03-18 17:49:01.315 DEBUG 20680 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 17:55:36.773 DEBUG 20680 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select next_val as id_val from hibernate_sequence for update
+2021-03-18 17:55:36.774 DEBUG 20680 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : update hibernate_sequence set next_val= ? where next_val=?
+2021-03-18 17:55:36.779 DEBUG 20680 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : insert into cassa (codice, id) values (?, ?)
+2021-03-18 17:55:36.779 TRACE 20680 --- [http-nio-8080-exec-6] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [cassa03]
+2021-03-18 17:55:36.779 TRACE 20680 --- [http-nio-8080-exec-6] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [3]
+2021-03-18 17:55:36.782 DEBUG 20680 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 17:56:02.629 DEBUG 20680 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select next_val as id_val from hibernate_sequence for update
+2021-03-18 17:56:02.630 DEBUG 20680 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : update hibernate_sequence set next_val= ? where next_val=?
+2021-03-18 17:56:02.635 DEBUG 20680 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : insert into cassa (codice, id) values (?, ?)
+2021-03-18 17:56:02.635 TRACE 20680 --- [http-nio-8080-exec-7] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [cassa04]
+2021-03-18 17:56:02.635 TRACE 20680 --- [http-nio-8080-exec-7] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [4]
+2021-03-18 17:56:02.639 DEBUG 20680 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:02:47.502  WARN 5340 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-18 18:02:54.036 DEBUG 5340 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:03:17.712 DEBUG 5340 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cassa0_.id as id1_0_0_, cassa0_.codice as codice2_0_0_ from cassa cassa0_ where cassa0_.id=?
+2021-03-18 18:03:17.714 TRACE 5340 --- [http-nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [4]
+2021-03-18 18:03:17.724 DEBUG 5340 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : update cassa set codice=? where id=?
+2021-03-18 18:03:17.725 TRACE 5340 --- [http-nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [cassa05]
+2021-03-18 18:03:17.725 TRACE 5340 --- [http-nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [4]
+2021-03-18 18:03:17.731 DEBUG 5340 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:04:29.709 DEBUG 5340 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cassa0_.id as id1_0_0_, cassa0_.codice as codice2_0_0_ from cassa cassa0_ where cassa0_.id=?
+2021-03-18 18:04:29.709 TRACE 5340 --- [http-nio-8080-exec-4] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [4]
+2021-03-18 18:04:29.712 DEBUG 5340 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:05:04.525 DEBUG 5340 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : select cassa0_.id as id1_0_0_, cassa0_.codice as codice2_0_0_ from cassa cassa0_ where cassa0_.id=?
+2021-03-18 18:05:04.526 TRACE 5340 --- [http-nio-8080-exec-5] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [4]
+2021-03-18 18:05:04.528 DEBUG 5340 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : update cassa set codice=? where id=?
+2021-03-18 18:05:04.529 TRACE 5340 --- [http-nio-8080-exec-5] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [cassa06546523]
+2021-03-18 18:05:04.529 TRACE 5340 --- [http-nio-8080-exec-5] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [4]
+2021-03-18 18:05:04.535 DEBUG 5340 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:13:02.792 DEBUG 5340 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:13:32.231 DEBUG 5340 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:13:44.141 DEBUG 5340 --- [http-nio-8080-exec-9] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:14:04.567 DEBUG 5340 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:14:12.836 DEBUG 5340 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:14:25.126 DEBUG 5340 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select next_val as id_val from hibernate_sequence for update
+2021-03-18 18:14:25.127 DEBUG 5340 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : update hibernate_sequence set next_val= ? where next_val=?
+2021-03-18 18:14:25.131 DEBUG 5340 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : insert into cassa (codice, id) values (?, ?)
+2021-03-18 18:14:25.132 TRACE 5340 --- [http-nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [cassa07]
+2021-03-18 18:14:25.132 TRACE 5340 --- [http-nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [5]
+2021-03-18 18:14:25.136 DEBUG 5340 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:15:20.562 DEBUG 5340 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_

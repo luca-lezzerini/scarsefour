@@ -24,17 +24,10 @@
 <table *ngIf="tabella">
     <tr>
         <th>Codice</th>
-        <th>Descrizione</th>
         <th>Seleziona</th>
     </tr>
-    <tr>
-        <td>XXXXXXXXXXX</td>
-        <td>XXXXXXXXXXX</td>
-        <td><button (click)="seleziona()">Seleziona</button></td>
-    </tr>
-    <tr>
-        <td>YYYYYYYYY</td>
-        <td>YYYYYYYY</td>
-        <td><button (click)="seleziona()">Seleziona</button></td>
+    <tr *ngFor = "let c of casse">
+        <td>{{c.codice}}</td>
+        <td><button (click)="seleziona(c)">Seleziona</button></td>
     </tr>
 </table>

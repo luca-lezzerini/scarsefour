@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Automa } from '../automa-crud/automa';
+import { Aggiungi, Automa } from '../automa-crud/automa';
 import { Automabile } from '../automa-crud/automabile';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
 import { CassaDto } from '../dto/cassa-dto';
@@ -36,6 +36,7 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
 
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
+    this.aggiorna();
   }
   ngOnInit(): void {
   }
@@ -51,14 +52,20 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
 
   }
   conferma() {
-    //conferma da che stato???
-    let dto = new CassaDto();
-    dto.cassa = this.cassa;
-    this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
-      .subscribe(r => {
-        this.casse = r.listaCasse;
-        this.cassa = new Cassa();
-      });
+    switch (true) {
+      case this.automa.stato instanceof Aggiungi:
+        let dto = new CassaDto();
+        dto.cassa = this.cassa;
+        this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
+          .subscribe(r => {
+            this.casse = r.listaCasse;
+            this.cassa = new Cassa();
+          });
+        break;
+      default:
+        console.log("errore critico")
+        break;
+    }
     this.automa.next(new ConfermaEvent, this.automa);
   }
 
@@ -66,11 +73,19 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.automa.next(new AnnullaEvent, this.automa);
 
   }
-  seleziona() {
+  seleziona(c: Cassa) {
+    this.cassa = c;
     this.automa.next(new SelezionaEvent, this.automa);
   }
   cerca() {
     this.automa.next(new RicercaEvent, this.automa);
+  }
+
+  aggiorna() {
+    this.http.get<ListaCasseDto>("http://localhost:8080/aggiorna-cassa")
+      .subscribe(l => {
+        this.casse = l.listaCasse;
+      });
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
