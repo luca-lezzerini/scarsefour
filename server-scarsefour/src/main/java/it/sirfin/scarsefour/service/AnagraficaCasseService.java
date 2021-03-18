@@ -7,4 +7,6 @@ import it.sirfin.scarsefour.model.Cassa;
 public interface AnagraficaCasseService {
     
     ListaCasseDto aggiungiCassa(Cassa cassa);
+    
+    ListaCasseDto aggiornaCassa();
 }

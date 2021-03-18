@@ -13,13 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("*")
 public class AnagraficaCasseController {
-    
+
     @Autowired
     AnagraficaCasseService anagraficaCasseService;
-    
+
     @RequestMapping("/aggiungi-cassa")
     @ResponseBody
-    public ListaCasseDto aggiungiCassa(@RequestBody CassaDto dto){
+    public ListaCasseDto aggiungiCassa(@RequestBody CassaDto dto) {
         return anagraficaCasseService.aggiungiCassa(dto.getCassa());
+    }
+
+    @RequestMapping("/aggiorna-cassa")
+    @ResponseBody
+    public ListaCasseDto aggiornaCassa() {
+    return anagraficaCasseService.aggiornaCassa();
     }
 }
