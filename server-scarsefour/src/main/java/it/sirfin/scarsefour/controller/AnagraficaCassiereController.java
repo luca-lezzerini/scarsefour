@@ -47,5 +47,11 @@ public class AnagraficaCassiereController {
     public ListaCassiereDto confermaModificaCassiera(@RequestBody CassieraDto dto) {
         return anagraficaCassiereService.confermaModifica(dto.getCassiera());
     }
+    
+    @RequestMapping("/aggiorna-cassieri")
+    @ResponseBody
+    public ListaCassiereDto aggiornaCassieri() {
+        return anagraficaCassiereService.aggiornaCassieri();
+    }
 
 }
