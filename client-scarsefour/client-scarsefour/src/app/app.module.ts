@@ -8,13 +8,15 @@ import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-pr
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AnagraficaCasseComponent } from './anagrafica-casse/anagrafica-casse.component';
+import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-cassiere.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     AnagraficaProdottiComponent,
-    AnagraficaCasseComponent
+    AnagraficaCasseComponent,
+    AnagraficaCassiereComponent
   ],
   imports: [
     BrowserModule,
