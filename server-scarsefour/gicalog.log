@@ -135,3 +135,36 @@ it.sirfin.scarsefour.controller.AnagraficaProdottiController#modificaProdotto() 
 	... 17 common frames omitted
 
 2021-03-18 18:25:49.013  WARN 6772 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-18 18:30:52.616 DEBUG 2216 --- [main] org.hibernate.SQL                        : create table cassa (id bigint not null, codice varchar(255), primary key (id)) engine=InnoDB
+2021-03-18 18:30:52.671 DEBUG 2216 --- [main] org.hibernate.SQL                        : create table cassiera (id bigint not null, codice_fiscale varchar(255), cognome varchar(255), nome varchar(255), primary key (id)) engine=InnoDB
+2021-03-18 18:30:52.704 DEBUG 2216 --- [main] org.hibernate.SQL                        : create table hibernate_sequence (next_val bigint) engine=InnoDB
+2021-03-18 18:30:52.734 DEBUG 2216 --- [main] org.hibernate.SQL                        : insert into hibernate_sequence values ( 1 )
+2021-03-18 18:30:52.792 DEBUG 2216 --- [main] org.hibernate.SQL                        : create table prodotto (id bigint not null, codice varchar(255), descrizione varchar(255), ean varchar(255), lotto_riordino integer, prezzo double precision, scorta_minima_mag integer, scorta_minima_scaf integer, primary key (id)) engine=InnoDB
+2021-03-18 18:30:52.854 DEBUG 2216 --- [main] org.hibernate.SQL                        : create table prodotto_sconti (prodotti_id bigint not null, sconti_id bigint not null, primary key (prodotti_id, sconti_id)) engine=InnoDB
+2021-03-18 18:30:52.887 DEBUG 2216 --- [main] org.hibernate.SQL                        : create table sconto (id bigint not null, alla_data date, codice varchar(255), dalla_data date, descrizione varchar(255), sconto double precision, primary key (id)) engine=InnoDB
+2021-03-18 18:30:52.931 DEBUG 2216 --- [main] org.hibernate.SQL                        : create table scontrino (id bigint not null, numero integer, timestamp datetime, totale double precision, cassa_id bigint, cassiera_id bigint, primary key (id)) engine=InnoDB
+2021-03-18 18:30:52.976 DEBUG 2216 --- [main] org.hibernate.SQL                        : alter table prodotto_sconti add constraint FKa0n3bkhbn1naend4s93nqpwq5 foreign key (sconti_id) references sconto (id)
+2021-03-18 18:30:53.072 DEBUG 2216 --- [main] org.hibernate.SQL                        : alter table prodotto_sconti add constraint FK8k5k41nhdbpnlhpb2y4s7du5t foreign key (prodotti_id) references prodotto (id)
+2021-03-18 18:30:53.167 DEBUG 2216 --- [main] org.hibernate.SQL                        : alter table scontrino add constraint FKepc48lunr8h0jysseixkl22x0 foreign key (cassa_id) references cassa (id)
+2021-03-18 18:30:53.301 DEBUG 2216 --- [main] org.hibernate.SQL                        : alter table scontrino add constraint FK99lta84lh5hb7wud13jw4fh3f foreign key (cassiera_id) references cassiera (id)
+2021-03-18 18:30:54.064  WARN 2216 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-18 18:32:21.272 DEBUG 2216 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:32:29.131 DEBUG 2216 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select next_val as id_val from hibernate_sequence for update
+2021-03-18 18:32:29.133 DEBUG 2216 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : update hibernate_sequence set next_val= ? where next_val=?
+2021-03-18 18:32:29.161 DEBUG 2216 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : insert into cassa (codice, id) values (?, ?)
+2021-03-18 18:32:29.163 TRACE 2216 --- [http-nio-8080-exec-3] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [ciaociao]
+2021-03-18 18:32:29.164 TRACE 2216 --- [http-nio-8080-exec-3] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [1]
+2021-03-18 18:32:29.170 DEBUG 2216 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:32:46.857 DEBUG 2216 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:34:08.758  WARN 10168 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-18 18:34:58.234 DEBUG 10168 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:35:47.662 DEBUG 10168 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:35:58.950 DEBUG 10168 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:37:58.720  WARN 11504 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-18 18:38:26.906 DEBUG 11504 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:38:31.808 DEBUG 11504 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cassa0_.id as id1_0_0_, cassa0_.codice as codice2_0_0_ from cassa cassa0_ where cassa0_.id=?
+2021-03-18 18:38:31.810 TRACE 11504 --- [http-nio-8080-exec-4] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
+2021-03-18 18:38:31.850 DEBUG 11504 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : delete from cassa where id=?
+2021-03-18 18:38:31.851 TRACE 11504 --- [http-nio-8080-exec-4] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
+2021-03-18 18:38:31.868 DEBUG 11504 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-18 18:40:04.422 DEBUG 11504 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_

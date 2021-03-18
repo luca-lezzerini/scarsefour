@@ -9,4 +9,6 @@ public interface AnagraficaCasseService {
     ListaCasseDto aggiungiCassa(Cassa cassa);
     
     ListaCasseDto aggiornaCassa();
+    
+    ListaCasseDto rimuoviCassa(Cassa cassa);
 }

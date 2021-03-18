@@ -24,4 +24,10 @@ public class AnagraficaCasseServiceImpl implements AnagraficaCasseService {
         return new ListaCasseDto(cassaRepository.findAll());
     }
 
+    @Override
+    public ListaCasseDto rimuoviCassa(Cassa cassa) {
+        cassaRepository.delete(cassa);
+        return aggiornaCassa();
+    }
+
 }
