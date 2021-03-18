@@ -2,6 +2,7 @@ package it.sirfin.scarsefour.controller;
 
 import it.sirfin.scarsefour.dto.CassaDto;
 import it.sirfin.scarsefour.dto.ListaCasseDto;
+import it.sirfin.scarsefour.dto.RicercaPreCriterioDto;
 import it.sirfin.scarsefour.service.AnagraficaCasseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,6 +40,12 @@ public class AnagraficaCasseController {
     @ResponseBody
     public ListaCasseDto modificaCassa(@RequestBody CassaDto dto) {
         return anagraficaCasseService.modificaCassa(dto.getCassa());
+    }
+    
+    @RequestMapping("/cerca-cassa-codice-like")
+    @ResponseBody
+    public ListaCasseDto cercaCassaLike(@RequestBody RicercaPreCriterioDto dto) {
+        return anagraficaCasseService.cercaCassaLike(dto.getCriterioRicerca());
     }
     
 }

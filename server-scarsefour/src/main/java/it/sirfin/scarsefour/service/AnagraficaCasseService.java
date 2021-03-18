@@ -13,4 +13,6 @@ public interface AnagraficaCasseService {
     ListaCasseDto rimuoviCassa(Cassa cassa);
     
     ListaCasseDto modificaCassa(Cassa cassa);
+    
+    ListaCasseDto cercaCassaLike(String codice);
 }
