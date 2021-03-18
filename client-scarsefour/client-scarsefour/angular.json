@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "client-scarsefour"
+    }
+  },
+  "defaultProject": "client-scarsefour",
+  "cli": {
+    "analytics": false
+  }
 }
