@@ -175,6 +175,10 @@ this.automa.next(new AnnullaEvent, this.automa);
     this.descrizione = true;
   }
 
+  salvaDati(){
+    
+  }
+
 }
 
 

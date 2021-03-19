@@ -42,70 +42,33 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   ngOnInit(): void {
   }
 
+
+  /////////////////// Pulsanti dell'interfaccia utente ///////////////////
   nuova() {
-    this.automa.next(new AddEvent, this.automa);
+    this.automa.next(new AddEvent(), this.automa);
   }
   rimuovi() {
-    this.automa.next(new RimuoviEvent, this.automa);
+    this.automa.next(new RimuoviEvent(), this.automa);
   }
   modifica() {
-    this.automa.next(new ModificaEvent, this.automa);
+    this.automa.next(new ModificaEvent(), this.automa);
 
   }
+
   conferma() {
-    switch (true) {
-      case this.automa.stato instanceof Aggiungi:
-        let dto = new CassaDto();
-        dto.cassa = this.cassa;
-        this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
-          .subscribe(r => {
-            this.casse = r.listaCasse;
-            this.cassa = new Cassa();
-          });
-        break;
-      case this.automa.stato instanceof Rimuovi:
-        let dto1 = new CassaDto();
-        dto1.cassa = this.cassa;
-        this.http.post<ListaCasseDto>("http://localhost:8080/rimuovi-cassa", dto1)
-          .subscribe(r => {
-            this.casse = r.listaCasse;
-            this.cassa = new Cassa();
-            console.log("Complimenti, hai eliminato una cassa di banane!")
-          });
-        break;
-      case this.automa.stato instanceof Modifica:
-        let dto2 = new CassaDto();
-        dto2.cassa = this.cassa;
-        this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto2)
-          .subscribe(r => {
-            this.casse = r.listaCasse;
-            this.cassa = new Cassa();
-            console.log("Complimenti, hai modificato una cassa di banane!")
-          });
-        break;
-      default:
-        console.log("errore critico")
-        break;
-    }
-    this.automa.next(new ConfermaEvent, this.automa);
+    this.automa.next(new ConfermaEvent(), this.automa);
   }
 
   annulla() {
-    this.automa.next(new AnnullaEvent, this.automa);
+    this.automa.next(new AnnullaEvent(), this.automa);
 
   }
   seleziona(c: Cassa) {
     this.cassa = c;
-    this.automa.next(new SelezionaEvent, this.automa);
+    this.automa.next(new SelezionaEvent(), this.automa);
   }
   cerca() {
-    let dto = new RicercaPreCriterioDto();
-    dto.criterioRicerca = this.inputRicerca;
-    this.http.post<ListaCasseDto>("http://localhost:8080/cerca-cassa-codice-like", dto)
-    .subscribe(l => {
-      this.casse = l.listaCasse;
-    });
-    this.automa.next(new RicercaEvent, this.automa);
+    this.automa.next(new RicercaEvent(), this.automa);
   }
 
   aggiorna() {
@@ -115,7 +78,7 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
       });
   }
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////// METODI AUTOMABILE ////////////////////////////////////////////////////////////////
 
   entraStatoRicerca() {
     this.form = false;
@@ -150,7 +113,6 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.tabella = true;
     this.codiceInput = true;
     this.descrizione = true;
-
   }
   entraStatoModifica() {
     this.form = true;
@@ -176,6 +138,26 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.codiceInput = true;
     this.descrizione = true;
   }
+
+  salvaDati() {
+    let dto = new CassaDto();
+    dto.cassa = this.cassa;
+    this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
+      .subscribe(r => {
+        this.casse = r.listaCasse;
+        this.cassa = new Cassa();
+      });
+  }
+
+  aggiornaRisultatiRicerca() {
+    let dto = new RicercaPreCriterioDto();
+    dto.criterioRicerca = this.inputRicerca;
+    this.http.post<ListaCasseDto>("http://localhost:8080/cerca-cassa-codice-like", dto)
+      .subscribe(l => {
+        this.casse = l.listaCasse;
+      });
+  }
+
 
 }
 

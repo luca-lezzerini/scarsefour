@@ -45,6 +45,7 @@ export class Aggiungi implements State {
 
     next(e: Event, a?: Automa) {
         if (e instanceof ConfermaEvent) {
+            a.ui.salvaDati();
             a.stato = new Visualizza();
             a.ui.entraStatoVisualizza();
         }
@@ -104,6 +105,7 @@ export class Rimuovi implements State {
 export class Modifica implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof ConfermaEvent) {
+            a.ui.salvaDati();
             a.stato = new Visualizza();
             a.ui.entraStatoVisualizza();
         } else if (e instanceof AnnullaEvent) {

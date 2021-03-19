@@ -5,4 +5,8 @@ export interface Automabile{
     entraStatoVisualizza();
     entraStatoModifica();
     entraStatoRimuovi();
+    salvaDati();
+    modificaDati();
+    eliminaDati();
+    aggiornaRisultatiRicerca();
 }
