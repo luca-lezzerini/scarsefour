@@ -62,14 +62,7 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
         console.log("Rimosso prodotto!")
       });
 
-    let dto2 = new ProdottoDto();
-    dto2.prodotto = this.prodotto;
-    this.http.post<ListaProdottiDto>("http://localhost:8080/modifica-prodotto", dto2)
-      .subscribe(r => {
-        this.prodotti = r.listaProdotti;
-        this.prodotto = new Prodotto();
-        console.log("modificato prodotto")
-      });
+    
 
 
     this.automa.next(new ConfermaEvent, this.automa);
@@ -171,7 +164,16 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
       });
   }
 
-  modificaDati() { }
+  modificaDati() {
+    let dto2 = new ProdottoDto();
+    dto2.prodotto = this.prodotto;
+    this.http.post<ListaProdottiDto>("http://localhost:8080/modifica-prodotto", dto2)
+      .subscribe(r => {
+        this.prodotti = r.listaProdotti;
+        this.prodotto = new Prodotto();
+        console.log("modificato prodotto")
+      });
+   }
   eliminaDati() { }
   aggiornaRisultatiRicerca() { }
 
