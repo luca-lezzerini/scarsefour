@@ -5,10 +5,61 @@
  */
 package it.sirfin.scarsefour.service.impl;
 
-/**
- *
- * @author Userù
- */
-public class AnagraficaScontiServiceImpl {
+import it.sirfin.scarsefour.dto.ListaScontiDto;
+import it.sirfin.scarsefour.dto.ScontiDto;
+import it.sirfin.scarsefour.model.Sconto;
+import it.sirfin.scarsefour.repository.AnagraficaScontiRepository;
+import it.sirfin.scarsefour.service.AnagraficaScontiService;
+import java.util.List;
+import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service 
+public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
+    
+    @Autowired
+    AnagraficaScontiRepository anagraficaScontiRepository;
+
+    @Override
+    public ListaScontiDto aggiungiProdottoScontato(Sconto s) {
+        anagraficaScontiRepository.save(s);
+        return aggiornaProdottiScontati();
+    }
+
+    /**
+     * Il metodo rimuove un prodotto da DB
+     *
+     * @param s è un parametro di tipo Sconto
+     * @return lista degli sconti aggiornata dal db
+     */
+    @Override
+    public ListaScontiDto rimuoviProdottoScontato(Sconto s) {
+        anagraficaScontiRepository.delete(s);
+        return aggiornaProdottiScontati();
+    }
+
+    @Override
+    public ListaScontiDto ricercaProdottoScontato(String s) {
+    
+    return new ListaScontiDto (anagraficaScontiRepository.findByCodice(s));
+    }
+
+    @Override
+    public ScontiDto modificaProdottoScontato(Sconto s) {
+        return new ScontiDto(s);
+    }
+
+    @Override
+    public ListaScontiDto confermaProdottoScontato(Sconto s) {
+        anagraficaScontiRepository.save(s);
+        return aggiornaProdottiScontati();
+    }
+
+    @Override
+    public ListaScontiDto aggiornaProdottiScontati() {
+        List<Sconto> lista = anagraficaScontiRepository.findAll();
+        return new ListaScontiDto((Set<Sconto>) anagraficaScontiRepository.findAll());
+    }
     
 }

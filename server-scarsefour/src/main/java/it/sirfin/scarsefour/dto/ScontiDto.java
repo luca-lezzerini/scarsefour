@@ -5,10 +5,35 @@
  */
 package it.sirfin.scarsefour.dto;
 
+import it.sirfin.scarsefour.model.Sconto;
+
 /**
  *
  * @author Userù
  */
 public class ScontiDto {
+    
+    private Sconto sconto;
+
+    public ScontiDto() {
+    }
+
+    public ScontiDto(Sconto sconto) {
+        this.sconto = sconto;
+    }
+
+    public Sconto getSconto() {
+        return sconto;
+    }
+
+    public void setSconto(Sconto sconto) {
+        this.sconto = sconto;
+    }
+
+    @Override
+    public String toString() {
+        return "ScontiDto{" + "sconto=" + sconto + '}';
+    }
+    
     
 }
