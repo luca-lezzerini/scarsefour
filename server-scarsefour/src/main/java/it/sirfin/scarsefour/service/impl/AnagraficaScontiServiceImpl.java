@@ -10,6 +10,7 @@ import it.sirfin.scarsefour.dto.ScontiDto;
 import it.sirfin.scarsefour.model.Sconto;
 import it.sirfin.scarsefour.repository.AnagraficaScontiRepository;
 import it.sirfin.scarsefour.service.AnagraficaScontiService;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.transaction.Transactional;
@@ -44,7 +45,7 @@ public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
     @Override
     public ListaScontiDto ricercaProdottoScontato(String s) {
     
-    return new ListaScontiDto (anagraficaScontiRepository.findByCodice(s));
+    return new ListaScontiDto (anagraficaScontiRepository.findByCodiceContains(s));
     }
 
     @Override
@@ -61,7 +62,7 @@ public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
     @Override
     public ListaScontiDto aggiornaProdottiScontati() {
         List<Sconto> lista = anagraficaScontiRepository.findAll();
-        return new ListaScontiDto((Set<Sconto>) anagraficaScontiRepository.findAll());
+        return new ListaScontiDto (new HashSet<Sconto>(anagraficaScontiRepository.findAll()));
     }
     
 }

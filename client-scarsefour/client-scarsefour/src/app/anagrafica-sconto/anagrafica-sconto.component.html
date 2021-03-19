@@ -10,7 +10,7 @@
     <input type="text" placeholder="codice" [(ngModel)]="sconto.codice" [disabled]="codiceInput">&nbsp;
     <input type="text" placeholder="descrizione" [(ngModel)]="sconto.descrizione" [disabled]="codiceInput">&nbsp;
     <input type="text" placeholder="dalla data" [(ngModel)]="sconto.dallaData" [disabled]="codiceInput">&nbsp;
-    <input type="text" placeholder="alla data" [(ngModel)]="sconto.allaData" [disabled]="codiceInput">&nbsp;
+    <input type="text" placeholder="alla data" [(ngModel)]="sconto.allaData" [disabled]="codiceInput" >&nbsp;
     <input type="text" placeholder="sconto" [(ngModel)]="sconto.prezzoScontato" [disabled]="codiceInput">&nbsp;
     <br><br>
     <button (click)="modifica()" *ngIf="edit">Modifica</button>
@@ -32,6 +32,7 @@
         <th>Sconto</th>
         <th>Dalla Data</th>
         <th>Alla Data</th>
+        <th>Azioni</th>
     </tr>
     <tr *ngFor="let s of sconti">
         <td>{{s.codice}}</td>
@@ -39,6 +40,7 @@
         <td>{{s.prezzoScontato}}</td>
         <td>{{s.dallaData}}</td>
         <td>{{s.allaData}}</td>
+        <td><button (click)="seleziona(s)" >Seleziona</button></td>
     </tr>
 </table>
 </body>

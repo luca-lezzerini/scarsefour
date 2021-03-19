@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface AnagraficaScontiRepository extends JpaRepository<Sconto, Long> {
     
     
-    Set<Sconto> findByCodice(String s);
+    Set<Sconto> findByCodiceContains(String s);
     
 }

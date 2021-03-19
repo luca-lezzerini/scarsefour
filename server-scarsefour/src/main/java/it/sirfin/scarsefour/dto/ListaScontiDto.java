@@ -35,6 +35,7 @@ public class ListaScontiDto {
     public String toString() {
         return "ListaScontiDto{" + "listaSconti=" + listaSconti + '}';
     }
-    
+
+  
     
 }

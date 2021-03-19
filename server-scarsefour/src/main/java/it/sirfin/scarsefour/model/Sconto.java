@@ -52,14 +52,36 @@ public class Sconto implements Serializable {
         this.prodotti = prodotti;
     }
 
-   
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCodice() {
+        return codice;
+    }
+
+    public void setCodice(String codice) {
+        this.codice = codice;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public double getPrezzoScontato() {
+        return prezzoScontato;
+    }
+
+    public void setPrezzoScontato(double prezzoScontato) {
+        this.prezzoScontato = prezzoScontato;
     }
 
     public LocalDate getDallaData() {
@@ -78,30 +100,6 @@ public class Sconto implements Serializable {
         this.allaData = allaData;
     }
 
-    public double getSconto() {
-        return prezzoScontato;
-    }
-
-    public void setSconto(double sconto) {
-        this.prezzoScontato = sconto;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public String getCodice() {
-        return codice;
-    }
-
-    public void setCodice(String codice) {
-        this.codice = codice;
-    }
-
     public List<Prodotto> getProdotti() {
         if (prodotti == null) {
             new ArrayList<>();
@@ -115,7 +113,9 @@ public class Sconto implements Serializable {
 
     @Override
     public String toString() {
-        return "Sconto{" + "id=" + id + ", dallaData=" + dallaData + ", allaData=" + allaData + ", sconto=" + prezzoScontato + ", descrizione=" + descrizione + ", codice=" + codice + ", prodotti=" + prodotti + '}';
+        return "Sconto{" + "id=" + id + ", codice=" + codice + ", descrizione=" + descrizione + ", prezzoScontato=" + prezzoScontato + ", dallaData=" + dallaData + ", allaData=" + allaData + ", prodotti=" + prodotti + '}';
     }
+
+    
 
 }

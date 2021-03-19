@@ -20,6 +20,8 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
   sconto = new Sconto();
   sconti: Sconto[] = [];
   criterioRicerca = "";
+
+
   //Variabili di visualizzazione
   form: boolean;
   aggiungi: boolean;
@@ -31,50 +33,16 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
   tabella: boolean;
   codiceInput: boolean;
   descrizione: boolean;
+
+
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
+    this.aggiorna();
   }
 
   ngOnInit(): void {
   }
 
-
-
-
-
-  /*
-   nuova() { }
- 
-   modifica() { }
- 
-   conferma() {
-     let dto = new ScontiDto();
-     dto.sconto = this.sconto;
-     this.http.post<ListaScontiDto>("http://localhost:8080/aggiungi-prodotto-scontato", dto)
-       .subscribe(r => {
-         this.sconti = r.listaSconti;
-         this.sconto = new Sconto();
-       });
-   }
- 
-   annulla() {
-     this.sconto = new Sconto();
-     this.automa.next(new AnnullaEvent, this.automa);
-   }
- 
-   rimuovi() {
-     let dtox = new ScontiDto();
-     dtox.sconto = this.sconto;
-     this.http.post<ListaScontiDto>("http://localhost:8080/rimuovi-prodotto-scontato", dtox)
-       .subscribe(r => {
-         this.sconti = r.listaSconti;
-         this.sconto = new Sconto();
-       });
-   }
- 
-   cerca() { }
- 
-  */
 
   nuova() {
     this.automa.next(new AddEvent(), this.automa);
@@ -107,7 +75,7 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
   }
 
   aggiorna() {
-    this.http.get<ListaScontiDto>("http://localhost:8080/aggiorna-cassa")
+    this.http.get<ListaScontiDto>("http://localhost:8080/aggiorna-prodotto-scontato")
       .subscribe(l => {
         this.sconti = l.listaSconti;
       });
@@ -122,11 +90,9 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
     this.tabella = true;
     this.codiceInput = false;
     this.descrizione = false;
-
     this.descrizione = false;
   }
   entraStatoAggiungi() {
-    //this.nuova = true;
     this.form = true;
     this.aggiungi = false;
     this.remove = false;

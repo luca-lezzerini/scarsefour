@@ -58,10 +58,10 @@ public class AnagraficaScontiController {
     }
     
     
-    @RequestMapping("/conferma-mod-prodotto-scontato")
+    @RequestMapping("/aggiorna-prodotto-scontato")
     @ResponseBody
-    public ListaScontiDto confermaModificaProdottoScontato(@RequestBody ScontiDto dto) {
-        return anagraficaScontiService.confermaProdottoScontato(dto.getSconto());
+    public ListaScontiDto aggiornaProdottoScontato() {
+    return anagraficaScontiService.aggiornaProdottiScontati();
     }
     
     
