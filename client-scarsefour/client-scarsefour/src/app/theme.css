@@ -69,8 +69,21 @@
     width: 275px; 
     padding-left:10px; 
     padding-right:10px; 
-  } 
+    }
 
+    .tabella{
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: auto;
+    border: 3px;
+    }
       
+    th, td {
+    padding: 15px;
+    text-align: left;
+    }
       
-      
+    th {
+    background-color: #333;
+    color: white;
+    }
