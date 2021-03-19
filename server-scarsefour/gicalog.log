@@ -4650,3 +4650,6 @@ java.lang.ClassCastException: class java.util.ArrayList cannot be cast to class 
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.43.jar:9.0.43]
 	at java.base/java.lang.Thread.run(Thread.java:832) ~[na:na]
 
+2021-03-19 11:22:32.456 DEBUG 14168 --- [main] org.hibernate.SQL                        : alter table sconto add column prezzo_scontato double precision
+2021-03-19 11:22:35.154  WARN 14168 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-19 12:11:46.638  WARN 11456 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
