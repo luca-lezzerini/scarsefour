@@ -185,6 +185,14 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
       });
   }
   modificaDati() {
+    let dto1 = new ScontiDto();
+    dto1.sconto = this.sconto;
+    this.http.post<ListaScontiDto>("http://localhost:8080/modifica-prodotto-scontato", dto1)
+      .subscribe(a => {
+        this.sconti = a.listaSconti;
+        this.sconto = new Sconto();
+        console.log("modificato sconto")
+      });
   }
   eliminaDati() {
     let dto = new ScontiDto();
@@ -196,6 +204,10 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
       });
   }
   aggiornaRisultatiRicerca() {
+    let dto2 = new ScontiDto();
+    dto2.sconto = this.sconto;
+    this.http.post<ListaScontiDto>("http://localhost:8080/ricerca-prodotto-scontato", dto2)
+      .subscribe(r => this.sconti = r.listaSconti);
   }
 
 }
