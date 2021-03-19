@@ -9,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,18 +40,17 @@ public class Sconto implements Serializable {
 
     @JsonIgnoreProperties(value = "sconto", allowSetters = true)
     @ManyToMany(mappedBy = "sconti")
-    private List<Prodotto> prodotti;
+    private Set<Prodotto> prodotti;
 
     public Sconto() {
     }
 
-    public Sconto(String codice, String descrizione, double prezzoScontato, LocalDate dallaData, LocalDate allaData, List<Prodotto> prodotti) {
+    public Sconto(String codice, String descrizione, double prezzoScontato, LocalDate dallaData, LocalDate allaData) {
         this.codice = codice;
         this.descrizione = descrizione;
         this.prezzoScontato = prezzoScontato;
         this.dallaData = dallaData;
         this.allaData = allaData;
-        this.prodotti = prodotti;
     }
 
    
@@ -102,14 +103,17 @@ public class Sconto implements Serializable {
         this.codice = codice;
     }
 
-    public List<Prodotto> getProdotti() {
+    public Set<Prodotto> getProdotti() {
         if (prodotti == null) {
-            new ArrayList<>();
+            prodotti = new HashSet<>();
         }
         return prodotti;
     }
 
-    public void setProdotti(List<Prodotto> prodotti) {
+    public void setProdotti(Set<Prodotto> prodotti) {
+        if (prodotti == null) {
+            prodotti = new HashSet<>();
+        }
         this.prodotti = prodotti;
     }
 

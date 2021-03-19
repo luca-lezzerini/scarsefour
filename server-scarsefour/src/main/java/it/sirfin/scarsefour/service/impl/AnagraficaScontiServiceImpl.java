@@ -44,7 +44,8 @@ public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
     @Override
     public ListaScontiDto ricercaProdottoScontato(String s) {
     
-    return new ListaScontiDto (anagraficaScontiRepository.findByCodice(s));
+    List<Sconto> lista = anagraficaScontiRepository.findByCodice(s);
+    return new ListaScontiDto(lista);
     }
 
     @Override
@@ -61,7 +62,7 @@ public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
     @Override
     public ListaScontiDto aggiornaProdottiScontati() {
         List<Sconto> lista = anagraficaScontiRepository.findAll();
-        return new ListaScontiDto((Set<Sconto>) anagraficaScontiRepository.findAll());
+        return new ListaScontiDto(lista);
     }
     
 }

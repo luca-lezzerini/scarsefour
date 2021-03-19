@@ -6,6 +6,7 @@
 package it.sirfin.scarsefour.dto;
 
 import it.sirfin.scarsefour.model.Sconto;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,20 +15,20 @@ import java.util.Set;
  */
 public class ListaScontiDto {
     
-    Set<Sconto> listaSconti;
+    List<Sconto> listaSconti;
 
     public ListaScontiDto() {
     }
 
-    public ListaScontiDto(Set<Sconto> listaSconti) {
+    public ListaScontiDto(List<Sconto> listaSconti) {
         this.listaSconti = listaSconti;
     }
 
-    public Set<Sconto> getListaSconti() {
+    public List<Sconto> getListaSconti() {
         return listaSconti;
     }
 
-    public void setListaSconti(Set<Sconto> listaSconti) {
+    public void setListaSconti(List<Sconto> listaSconti) {
         this.listaSconti = listaSconti;
     }
 
