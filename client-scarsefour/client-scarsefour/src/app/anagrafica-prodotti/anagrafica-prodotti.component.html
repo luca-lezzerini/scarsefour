@@ -1,12 +1,12 @@
 <h2>Anagrafica Prodotti</h2>
 <div *ngIf='form'>
-    <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="codice">&nbsp;
+    <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="codice"> &nbsp;
     <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione" [disabled]="descrizione">&nbsp;
     <br><br>
-    <button (click)="modifica()">Modifica</button> &nbsp;
-    <button (click)="conferma()">Conferma</button>&nbsp;
-    <button (click)="annulla()">Annulla</button>&nbsp;
-    <button (click)="rimuovi()">Rimuovi</button>&nbsp;
+    <button (click)="modifica()" *ngIf="edit">Modifica</button> &nbsp;
+    <button (click)="conferma()" *ngIf="conf">Conferma</button> &nbsp;
+    <button (click)="annulla()" *ngIf="annull">Annulla</button> &nbsp;
+    <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button> &nbsp;
 </div>
 
 <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
@@ -14,6 +14,8 @@
 <div *ngIf="search">
     <input type="text" placeholder="Cerca per codice" [(ngModel)]="inputRicerca">&nbsp;
     <button (click)="cerca()">Cerca</button>
+    <br>
+    <h4>{{errore}}</h4>
 </div>
 <br><br>
 

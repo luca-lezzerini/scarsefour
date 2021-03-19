@@ -18,7 +18,7 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
 
   prodotto = new Prodotto();
   prodotti: Prodotto[] = [];
-
+  errore = "";
   inputRicerca: string;
 
   //Variabili di visualizzazione
@@ -81,7 +81,6 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     this.tabella = true;
     this.codiceInput = false;
     this.descrizione = false;
-
     this.descrizione = false;
   }
   entraStatoAggiungi() {
@@ -170,10 +169,15 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
   aggiornaRisultatiRicerca() {
     let dto = new RicercaPreCriterioDto();
     dto.criterioRicerca = this.inputRicerca;
-    this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
-      .subscribe(k => {
-        this.prodotti = k.listaProdotti;
-      });
+    if (this.inputRicerca == null) {
+      this.errore = "Devi inserire un codice!"
+    } else {
+      this.errore = "";
+      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
+        .subscribe(k => {
+          this.prodotti = k.listaProdotti;
+        });
+    }
   }
 }
 
