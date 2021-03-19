@@ -153,8 +153,11 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   }
 
   aggiornaRisultatiRicerca() {
+    console.log("siamo in aggiornaRisultatiRicerca")
     let dto = new RicercaPreCriterioDto();
     dto.criterioRicerca = this.inputRicerca;
+    console.log("criterio ricerca: ");
+    console.log(this.inputRicerca);
     this.http.post<ListaCasseDto>("http://localhost:8080/cerca-cassa-codice-like", dto)
       .subscribe(l => {
         this.casse = l.listaCasse;
@@ -163,12 +166,12 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
 
   modificaDati() {
     let dto = new CassaDto();
-        dto.cassa = this.cassa;
-        this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto)
-          .subscribe(r => {
-            this.casse = r.listaCasse;
-            this.cassa = new Cassa();
-          });
+    dto.cassa = this.cassa;
+    this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto)
+      .subscribe(r => {
+        this.casse = r.listaCasse;
+        this.cassa = new Cassa();
+      });
   }
 
   eliminaDati() {

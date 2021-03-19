@@ -29,8 +29,8 @@ export class Ricerca implements State {
             a.stato = new Aggiungi(a);
         }
         else if (e instanceof RicercaEvent) {
-            a.ui.aggiornaRisultatiRicerca;
-            console.log("UI Aggiornami la ricerca")
+            a.ui.aggiornaRisultatiRicerca();
+            console.log("UI Aggiornami la ricerca; a.ui.aggiornaRisultatiRicerca")
         }
         else if (e instanceof SelezionaEvent) {
             a.stato = new Visualizza();
@@ -80,7 +80,7 @@ export class Visualizza implements State {
         else if (e instanceof RicercaEvent) {
             a.stato = new Ricerca();
             a.ui.entraStatoRicerca();
-            a.ui.aggiornaRisultatiRicerca;
+            a.ui.aggiornaRisultatiRicerca();
         }
         else {
             console.log("Errore ricevuto evento ", e, "inatteso");
