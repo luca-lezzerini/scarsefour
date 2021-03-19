@@ -37,8 +37,9 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
 
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
-    this.aggiorna();
+    this.aggiornaRisultatiRicerca();
   }
+
   ngOnInit(): void {
   }
 
@@ -63,6 +64,8 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.automa.next(new AnnullaEvent(), this.automa);
 
   }
+
+
   seleziona(c: Cassa) {
     this.cassa = c;
     this.automa.next(new SelezionaEvent(), this.automa);
@@ -155,6 +158,26 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.http.post<ListaCasseDto>("http://localhost:8080/cerca-cassa-codice-like", dto)
       .subscribe(l => {
         this.casse = l.listaCasse;
+      });
+  }
+
+  modificaDati() {
+    let dto = new CassaDto();
+        dto.cassa = this.cassa;
+        this.http.post<ListaCasseDto>("http://localhost:8080/", dto)
+          .subscribe(r => {
+            this.casse = r.listaCasse;
+            this.cassa = new Cassa();
+          });
+  }
+
+  eliminaDati() {
+    let dto = new CassaDto();
+    dto.cassa = this.cassa;
+    this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto)
+      .subscribe(r => {
+        this.casse = r.listaCasse;
+        this.cassa = new Cassa();
       });
   }
 
