@@ -1,52 +1,52 @@
-* {
+    * {
     box-sizing: border-box;
-  }
+    }
 
-body {
+    body {
     font-family: Arial;
     padding: 10px;
     background: #f1f1f1;
-  }
+    }
 
-.header {
+    .header {
     padding: 30px;
     text-align: center;
     background: white;
-  }
+    }
 
-  .link {
+    .link {
     overflow: hidden;
     background-color: #333;
-  }
-
-  .link a {
+    }
+ 
+    .link a {
     float: left;
     display: block;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-  }
+    }
 
-  .barranav {
+    .barranav {
     overflow: hidden;
     background-color: #333;
-  }
+    }
 
-  .barranav a {
+    .barranav a {
     float: left;
     display: block;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-  }
+    }
 
-  .titolo{
+    .titolo{
     padding: 2px;
     text-align: center;
     background: white;
-  }
+    }
 
     button {
     margin-left: 1%;
@@ -59,11 +59,18 @@ body {
     box-shadow: 0 15px 12px -12px rgb(0,0,0), 0 -2px 0 -1px rgb(20,110,140), 0 -4px 0 -2px rgb(18,108,138), 0 -6px 0 -3px rgb(16,106,136),0 -8px 0 -4px rgb(14,104,134),0 -10px 0 -5px rgb(12,102,132), 0 -12px 0 -6px rgb(10,100,130);
     }
 
-    .input [type=text] {
-        position:relative;
-        font-size: 1.5em;
-        background: linear-gradient(21deg, #10abff, #1beabd);
-        padding: 3px;
-        display: inline-block;
-        border-radius: 9999em;
-        }
+    input[type=text]{ 
+    border: 1px solid #848484; 
+    -webkit-border-radius: 30px; 
+    -moz-border-radius: 30px; 
+    border-radius: 30px; 
+    outline:0; 
+    height:25px; 
+    width: 275px; 
+    padding-left:10px; 
+    padding-right:10px; 
+  } 
+
+      
+      
+      
