@@ -52,41 +52,26 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
 
   }
   conferma() {
-    switch (true) {
-      case this.automa.stato instanceof Aggiungi:
-        let dto = new ProdottoDto();
-        dto.prodotto = this.prodotto;
-        this.http.post<ListaProdottiDto>("http://localhost:8080/aggiungi-prodotto", dto)
-          .subscribe(r => {
-            this.prodotti = r.listaProdotti;
-            this.prodotto = new Prodotto();
-            console.log("Aggiunto prodotto!")
-          });
-        break;
-      case this.automa.stato instanceof Rimuovi:
-        let dto1 = new ProdottoDto();
-        dto1.prodotto = this.prodotto;
-        this.http.post<ListaProdottiDto>("http://localhost:8080/rimuovi-prodotto", dto1)
-          .subscribe(r => {
-            this.prodotti = r.listaProdotti;
-            this.prodotto = new Prodotto();
-            console.log("Rimosso prodotto!")
-          });
-        break;
-      case this.automa.stato instanceof Modifica:
-        let dto2 = new ProdottoDto();
-        dto2.prodotto = this.prodotto;
-        this.http.post<ListaProdottiDto>("http://localhost:8080/modifica-prodotto", dto2)
-          .subscribe(r => {
-            this.prodotti = r.listaProdotti;
-            this.prodotto = new Prodotto();
-            console.log("modificato prodotto")
-          });
-        break;
-      default:
-        console.log("errore critico")
-        break;
-    }
+
+    let dto1 = new ProdottoDto();
+    dto1.prodotto = this.prodotto;
+    this.http.post<ListaProdottiDto>("http://localhost:8080/rimuovi-prodotto", dto1)
+      .subscribe(r => {
+        this.prodotti = r.listaProdotti;
+        this.prodotto = new Prodotto();
+        console.log("Rimosso prodotto!")
+      });
+
+    let dto2 = new ProdottoDto();
+    dto2.prodotto = this.prodotto;
+    this.http.post<ListaProdottiDto>("http://localhost:8080/modifica-prodotto", dto2)
+      .subscribe(r => {
+        this.prodotti = r.listaProdotti;
+        this.prodotto = new Prodotto();
+        console.log("modificato prodotto")
+      });
+
+
     this.automa.next(new ConfermaEvent, this.automa);
   }
 
@@ -176,7 +161,14 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
   }
 
   salvaDati() {
-
+    let dto = new ProdottoDto();
+    dto.prodotto = this.prodotto;
+    this.http.post<ListaProdottiDto>("http://localhost:8080/aggiungi-prodotto", dto)
+      .subscribe(r => {
+        this.prodotti = r.listaProdotti;
+        this.prodotto = new Prodotto();
+        console.log("Aggiunto prodotto!")
+      });
   }
 
   modificaDati() { }
