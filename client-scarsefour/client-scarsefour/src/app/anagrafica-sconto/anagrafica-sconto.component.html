@@ -1,3 +1,11 @@
+<body>
+    <div class="barranav">
+        <a href="app-home-page">Home page</a>
+    </div>
+    
+    <div class="titolo">
+        <h2>Anagrafica Sconto</h2>
+    </div>
 <div *ngIf="form">
     <input type="text" placeholder="codice" [(ngModel)]="sconto.codice" [disabled]="codiceInput">&nbsp;
     <input type="text" placeholder="descrizione" [(ngModel)]="sconto.descrizione" [disabled]="codiceInput">&nbsp;
@@ -33,3 +41,4 @@
         <td>{{s.allaData}}</td>
     </tr>
 </table>
+</body>

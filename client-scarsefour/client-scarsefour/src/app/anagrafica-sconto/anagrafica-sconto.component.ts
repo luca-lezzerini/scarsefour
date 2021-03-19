@@ -12,7 +12,7 @@ import { Sconto } from '../entità/sconto';
 @Component({
   selector: 'app-anagrafica-sconto',
   templateUrl: './anagrafica-sconto.component.html',
-  styleUrls: ['./anagrafica-sconto.component.css']
+  styleUrls: ['./anagrafica-sconto.component.css','../theme.css']
 })
 export class AnagraficaScontoComponent implements OnInit, Automabile {
 

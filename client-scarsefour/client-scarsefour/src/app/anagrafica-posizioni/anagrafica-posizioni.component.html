@@ -1,4 +1,12 @@
-<h2>Anagrafica Posizione</h2>
+<body>
+  <div class="barranav">
+    <a href="app-home-page">Home page</a>
+</div>
+
+<div class="titolo">
+    <h2>Anagrafica Posizioni</h2>
+</div>
+
 <div *ngIf="form">
     <input type="text" placeholder="Codice" [(ngModel)]="posizione.codice" [disabled]="codiceInput">
     <input type="text" placeholder="Descrizione" [(ngModel)]="posizione.descrizione" [disabled]="codiceInput">
@@ -34,3 +42,4 @@
         <td><button (click)="seleziona(p)">Seleziona</button></td>
     </tr>
 </table>
+</body>

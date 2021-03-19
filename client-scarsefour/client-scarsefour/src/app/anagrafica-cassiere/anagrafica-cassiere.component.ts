@@ -11,7 +11,7 @@ import { Cassiera } from '../entità/cassiera';
 @Component({
   selector: 'app-anagrafica-cassiere',
   templateUrl: './anagrafica-cassiere.component.html',
-  styleUrls: ['./anagrafica-cassiere.component.css']
+  styleUrls: ['./anagrafica-cassiere.component.css',  '../theme.css']
 })
 export class AnagraficaCassiereComponent implements OnInit, Automabile {
 

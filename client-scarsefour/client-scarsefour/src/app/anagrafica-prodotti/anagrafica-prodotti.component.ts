@@ -11,7 +11,7 @@ import { RicercaPreCriterioDto } from '../dto/ricerca-per-criterio-ricerca-dto';
 @Component({
   selector: 'app-anagrafica-prodotti',
   templateUrl: './anagrafica-prodotti.component.html',
-  styleUrls: ['./anagrafica-prodotti.component.css']
+  styleUrls: ['./anagrafica-prodotti.component.css','../theme.css']
 })
 export class AnagraficaProdottiComponent implements OnInit, Automabile {
   automa: Automa;
