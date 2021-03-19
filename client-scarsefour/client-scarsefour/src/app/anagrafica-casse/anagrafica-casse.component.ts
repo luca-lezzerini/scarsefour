@@ -11,7 +11,7 @@ import { Cassa } from '../entità/cassa';
 @Component({
   selector: 'app-anagrafica-casse',
   templateUrl: './anagrafica-casse.component.html',
-  styleUrls: ['./anagrafica-casse.component.css']
+  styleUrls: ['./anagrafica-casse.component.css', '../theme.css']
 })
 export class AnagraficaCasseComponent implements OnInit, Automabile {
 
