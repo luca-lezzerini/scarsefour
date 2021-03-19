@@ -90,6 +90,7 @@ export class Visualizza implements State {
 export class Rimuovi implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof ConfermaEvent) {
+            a.ui.eliminaDati();
             a.stato = new Ricerca();
             a.ui.entraStatoRicerca();
         } else if (e instanceof AnnullaEvent) {
@@ -105,7 +106,7 @@ export class Rimuovi implements State {
 export class Modifica implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof ConfermaEvent) {
-            a.ui.salvaDati();
+            a.ui.modificaDati();
             a.stato = new Visualizza();
             a.ui.entraStatoVisualizza();
         } else if (e instanceof AnnullaEvent) {
