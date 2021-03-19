@@ -40,6 +40,7 @@ public class AnagraficaCasseServiceImpl implements AnagraficaCasseService {
 
     @Override
     public ListaCasseDto cercaCassaLike(String codice) {
+        
         return new ListaCasseDto(cassaRepository.findByCodiceContains(codice));
     }
     
