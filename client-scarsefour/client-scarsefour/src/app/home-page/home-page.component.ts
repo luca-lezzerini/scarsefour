@@ -27,4 +27,8 @@ export class HomePageComponent implements OnInit {
   anagraficaSconto(){
     this.router.navigateByUrl('/app-anagrafica-sconto');
   }
+
+  anagraficaPosizione(){
+    this.router.navigateByUrl('/app-anagrafica-posizione');
+  }
 }

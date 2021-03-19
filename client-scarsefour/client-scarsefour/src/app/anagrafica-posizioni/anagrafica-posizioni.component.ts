@@ -75,7 +75,7 @@ export class AnagraficaPosizioniComponent implements OnInit {
   }
 
   aggiorna() {
-    this.http.get<ListaPosizioniDto>("http://localhost:8080/")
+    this.http.get<ListaPosizioniDto>("http://localhost:8080/aggiorna-posizione")
       .subscribe(l => {
         this.posizioni = l.listaPosizioni;
       });
@@ -146,7 +146,7 @@ export class AnagraficaPosizioniComponent implements OnInit {
   salvaDati() {
     let dto = new PosizioneDto();
     dto.posizione = this.posizione;
-    this.http.post<ListaPosizioniDto>("http://localhost:8080/aggiungi-", dto)
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/aggiungi-posizione", dto)
       .subscribe(r => {
         this.posizioni = r.listaPosizioni;
         this.posizione = new Posizione();
@@ -159,7 +159,7 @@ export class AnagraficaPosizioniComponent implements OnInit {
     dto.criterioRicerca = this.inputRicerca;
     console.log("criterio ricerca: ");
     console.log(this.inputRicerca);
-    this.http.post<ListaPosizioniDto>("http://localhost:8080/cerca-", dto)
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/ricerca-posizione", dto)
       .subscribe(l => {
         this.posizioni = l.listaPosizioni;
       });
@@ -168,7 +168,7 @@ export class AnagraficaPosizioniComponent implements OnInit {
   modificaDati() {
     let dto = new PosizioneDto();
     dto.posizione = this.posizione;
-    this.http.post<ListaPosizioniDto>("http://localhost:8080/modifica-", dto)
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/modifica-posizione", dto)
       .subscribe(r => {
         this.posizioni = r.listaPosizioni;
         this.posizione = new Posizione();
@@ -178,7 +178,7 @@ export class AnagraficaPosizioniComponent implements OnInit {
   eliminaDati() {
     let dto = new PosizioneDto();
     dto.posizione = this.posizione;
-    this.http.post<ListaPosizioniDto>("http://localhost:8080/rimuovi-cassa", dto)
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/rimuovi-posizione", dto)
       .subscribe(r => {
         this.posizioni = r.listaPosizioni;
         this.posizione = new Posizione();

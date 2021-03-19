@@ -5113,3 +5113,5 @@ java.lang.ClassCastException: class java.util.ArrayList cannot be cast to class 
 2021-03-19 14:08:46.155 DEBUG 15720 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : delete from cassa where id=?
 2021-03-19 14:08:46.155 TRACE 15720 --- [http-nio-8080-exec-7] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [9]
 2021-03-19 14:08:46.159 DEBUG 15720 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-19 14:40:45.352 DEBUG 14224 --- [main] org.hibernate.SQL                        : create table posizione (id bigint not null, codice varchar(255), descrizione varchar(255), primary key (id)) engine=InnoDB
+2021-03-19 14:40:47.608  WARN 14224 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
