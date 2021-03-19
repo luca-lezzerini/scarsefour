@@ -12,8 +12,6 @@ public interface AnagraficaCassiereService {
 
     ListaCassiereDto ricercaCassiera(String c);
 
-    CassieraDto modificaCassiera(Cassiera cas);
-
     ListaCassiereDto confermaModifica(Cassiera cas);
 
     ListaCassiereDto aggiornaCassieri();

@@ -36,12 +36,6 @@ public class AnagraficaCassiereController {
         return anagraficaCassiereService.ricercaCassiera(dto.getCriterioRicerca());
     }
 
-    @RequestMapping("/mod-cassiera")
-    @ResponseBody
-    public CassieraDto modificaCassiera(@RequestBody CassieraDto dto) {
-        return anagraficaCassiereService.modificaCassiera(dto.getCassiera());
-    }
-
     @RequestMapping("/conf-cassiera")
     @ResponseBody
     public ListaCassiereDto confermaModificaCassiera(@RequestBody CassieraDto dto) {

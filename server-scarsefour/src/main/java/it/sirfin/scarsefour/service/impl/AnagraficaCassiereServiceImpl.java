@@ -6,8 +6,10 @@ import it.sirfin.scarsefour.model.Cassiera;
 import it.sirfin.scarsefour.repository.AnagraficaCassiereRepository;
 import it.sirfin.scarsefour.service.AnagraficaCassiereService;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService {
@@ -16,18 +18,21 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
     AnagraficaCassiereRepository anagraficaCassiereRepository;
 
     @Override
+    @Transactional
     public ListaCassiereDto aggiungiCassiera(Cassiera cas) {
         anagraficaCassiereRepository.save(cas);
         return aggiornaCassieri();
     }
 
     @Override
+    @Transactional
     public ListaCassiereDto rimuoviCassiera(Cassiera cas) {
         anagraficaCassiereRepository.delete(cas);
         return aggiornaCassieri();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ListaCassiereDto ricercaCassiera(String c) {
         if (c.isBlank()) {
             return aggiornaCassieri();
@@ -38,17 +43,14 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
     }
 
     @Override
-    public CassieraDto modificaCassiera(Cassiera cas) {
-        return new CassieraDto(cas);
-    }
-
-    @Override
+    @Transactional
     public ListaCassiereDto confermaModifica(Cassiera cas) {
         anagraficaCassiereRepository.save(cas);
         return aggiornaCassieri();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ListaCassiereDto aggiornaCassieri() {
         List<Cassiera> lista = anagraficaCassiereRepository.findAll();
         return new ListaCassiereDto(lista);
