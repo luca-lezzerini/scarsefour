@@ -20,7 +20,7 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   cassa = new Cassa();
   casse: Cassa[] = [];
 
-  inputRicerca: string;
+  inputRicerca = "";
 
   //Variabili di visualizzazione
   form: boolean;
@@ -164,7 +164,7 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   modificaDati() {
     let dto = new CassaDto();
         dto.cassa = this.cassa;
-        this.http.post<ListaCasseDto>("http://localhost:8080/", dto)
+        this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto)
           .subscribe(r => {
             this.casse = r.listaCasse;
             this.cassa = new Cassa();
@@ -174,7 +174,7 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   eliminaDati() {
     let dto = new CassaDto();
     dto.cassa = this.cassa;
-    this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto)
+    this.http.post<ListaCasseDto>("http://localhost:8080/rimuovi-cassa", dto)
       .subscribe(r => {
         this.casse = r.listaCasse;
         this.cassa = new Cassa();
