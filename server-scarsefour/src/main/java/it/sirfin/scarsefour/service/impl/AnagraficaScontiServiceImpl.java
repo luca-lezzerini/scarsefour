@@ -12,9 +12,11 @@ import it.sirfin.scarsefour.repository.AnagraficaScontiRepository;
 import it.sirfin.scarsefour.service.AnagraficaScontiService;
 import java.util.List;
 import java.util.Set;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Transactional
 @Service 
 public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
     

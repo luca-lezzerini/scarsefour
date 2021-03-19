@@ -12,7 +12,7 @@ import { Sconto } from '../entità/sconto';
 @Component({
   selector: 'app-anagrafica-sconto',
   templateUrl: './anagrafica-sconto.component.html',
-  styleUrls: ['./anagrafica-sconto.component.css','../theme.css']
+  styleUrls: ['./anagrafica-sconto.component.css', '../theme.css']
 })
 export class AnagraficaScontoComponent implements OnInit, Automabile {
 
@@ -38,20 +38,9 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
   ngOnInit(): void {
   }
 
-  salvaDati() {
-    throw new Error('Method not implemented.');
-  }
-  modificaDati() {
-    throw new Error('Method not implemented.');
-  }
-  eliminaDati() {
-    throw new Error('Method not implemented.');
-  }
-  aggiornaRisultatiRicerca() {
-    throw new Error('Method not implemented.');
-  }
 
- 
+
+
 
   /*
    nuova() { }
@@ -101,13 +90,7 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
 
   conferma() {
     this.automa.next(new ConfermaEvent(), this.automa)
-    let dto = new ScontiDto();
-    dto.sconto = this.sconto;
-    this.http.post<ListaScontiDto>("http://localhost:8080/aggiungi-prodotto-scontato", dto)
-      .subscribe(r => {
-        this.sconti = r.listaSconti;
-        this.sconto = new Sconto();
-      });
+
   }
 
   annulla() {
@@ -192,6 +175,27 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
     this.descrizione = true;
   }
 
-
+  salvaDati() {
+    let dto = new ScontiDto();
+    dto.sconto = this.sconto;
+    this.http.post<ListaScontiDto>("http://localhost:8080/aggiungi-prodotto-scontato", dto)
+      .subscribe(r => {
+        this.sconti = r.listaSconti;
+        this.sconto = new Sconto();
+      });
+  }
+  modificaDati() {
+  }
+  eliminaDati() {
+    let dto = new ScontiDto();
+    dto.sconto = this.sconto;
+    this.http.post<ListaScontiDto>("http://localhost:8080/rimuovi-prodotto-scontato", dto)
+      .subscribe(r => {
+        this.sconti = r.listaSconti;
+        this.sconto = new Sconto();
+      });
+  }
+  aggiornaRisultatiRicerca() {
+  }
 
 }

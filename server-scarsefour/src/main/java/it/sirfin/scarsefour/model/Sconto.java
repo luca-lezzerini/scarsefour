@@ -43,13 +43,16 @@ public class Sconto implements Serializable {
     public Sconto() {
     }
 
-    public Sconto(LocalDate dallaData, LocalDate allaData, double sconto, String descrizione, String codice) {
+    public Sconto(String codice, String descrizione, double prezzoScontato, LocalDate dallaData, LocalDate allaData, List<Prodotto> prodotti) {
+        this.codice = codice;
+        this.descrizione = descrizione;
+        this.prezzoScontato = prezzoScontato;
         this.dallaData = dallaData;
         this.allaData = allaData;
-        this.prezzoScontato = sconto;
-        this.descrizione = descrizione;
-        this.codice = codice;
+        this.prodotti = prodotti;
     }
+
+   
 
     public Long getId() {
         return id;
