@@ -17,10 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
-/**
- *
- * @author manue
- */
+
 @Entity
 public class Sconto implements Serializable {
 
@@ -28,15 +25,16 @@ public class Sconto implements Serializable {
     @GeneratedValue
     private Long id;
     @Column
-    private LocalDate dallaData;
-    @Column
-    private LocalDate allaData;
-    @Column
-    private double sconto;
+    private String codice;
     @Column
     private String descrizione;
     @Column
-    private String codice;
+    private double prezzoScontato;
+    @Column
+    private LocalDate dallaData;
+    @Column
+    private LocalDate allaData;
+    
 
     @JsonIgnoreProperties(value = "sconto", allowSetters = true)
     @ManyToMany(mappedBy = "sconti")
@@ -48,7 +46,7 @@ public class Sconto implements Serializable {
     public Sconto(LocalDate dallaData, LocalDate allaData, double sconto, String descrizione, String codice) {
         this.dallaData = dallaData;
         this.allaData = allaData;
-        this.sconto = sconto;
+        this.prezzoScontato = sconto;
         this.descrizione = descrizione;
         this.codice = codice;
     }
@@ -78,11 +76,11 @@ public class Sconto implements Serializable {
     }
 
     public double getSconto() {
-        return sconto;
+        return prezzoScontato;
     }
 
     public void setSconto(double sconto) {
-        this.sconto = sconto;
+        this.prezzoScontato = sconto;
     }
 
     public String getDescrizione() {
@@ -114,7 +112,7 @@ public class Sconto implements Serializable {
 
     @Override
     public String toString() {
-        return "Sconto{" + "id=" + id + ", dallaData=" + dallaData + ", allaData=" + allaData + ", sconto=" + sconto + ", descrizione=" + descrizione + ", codice=" + codice + ", prodotti=" + prodotti + '}';
+        return "Sconto{" + "id=" + id + ", dallaData=" + dallaData + ", allaData=" + allaData + ", sconto=" + prezzoScontato + ", descrizione=" + descrizione + ", codice=" + codice + ", prodotti=" + prodotti + '}';
     }
 
 }
