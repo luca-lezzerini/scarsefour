@@ -42,35 +42,29 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
   }
 
   nuova() {
-    this.automa.next(new AddEvent, this.automa);
+    this.automa.next(new AddEvent(), this.automa);
   }
   rimuovi() {
-    this.automa.next(new RimuoviEvent, this.automa);
+    this.automa.next(new RimuoviEvent(), this.automa);
   }
   modifica() {
-    this.automa.next(new ModificaEvent, this.automa);
+    this.automa.next(new ModificaEvent(), this.automa);
 
   }
   conferma() {
-    this.automa.next(new ConfermaEvent, this.automa);
+    this.automa.next(new ConfermaEvent(), this.automa);
   }
 
   annulla() {
-    this.automa.next(new AnnullaEvent, this.automa);
+    this.automa.next(new AnnullaEvent(), this.automa);
 
   }
   seleziona(p: Prodotto) {
     this.prodotto = new Prodotto();
-    this.automa.next(new SelezionaEvent, this.automa);
+    this.automa.next(new SelezionaEvent(), this.automa);
   }
   cerca() {
-    let dto = new RicercaPreCriterioDto();
-    dto.criterioRicerca = this.inputRicerca;
-    this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
-      .subscribe(k => {
-        this.prodotti = k.listaProdotti;
-      });
-    this.automa.next(new RicercaEvent, this.automa);
+    this.automa.next(new RicercaEvent(), this.automa);
   }
 
   aggiorna() {
@@ -160,9 +154,9 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
         this.prodotto = new Prodotto();
         console.log("modificato prodotto")
       });
-   }
+  }
   eliminaDati() {
-    
+
     let dto1 = new ProdottoDto();
     dto1.prodotto = this.prodotto;
     this.http.post<ListaProdottiDto>("http://localhost:8080/rimuovi-prodotto", dto1)
@@ -171,10 +165,16 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
         this.prodotto = new Prodotto();
         console.log("Rimosso prodotto!")
       });
-   }
-   
-  aggiornaRisultatiRicerca() { }
+  }
 
+  aggiornaRisultatiRicerca() {
+    let dto = new RicercaPreCriterioDto();
+    dto.criterioRicerca = this.inputRicerca;
+    this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
+      .subscribe(k => {
+        this.prodotti = k.listaProdotti;
+      });
+  }
 }
 
 
