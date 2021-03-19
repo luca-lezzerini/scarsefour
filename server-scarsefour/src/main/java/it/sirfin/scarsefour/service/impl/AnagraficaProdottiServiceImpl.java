@@ -50,7 +50,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
      */
     @Override
     public ListaProdottiDto ricercaProdotto(String p) {
-        return new ListaProdottiDto((Set<Prodotto>) anagraficaProdottiRepository.trovaProdottoPerCodice(p));
+        return new ListaProdottiDto(anagraficaProdottiRepository.trovaProdottoPerCodice(p));
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
     @Override
     public ListaProdottiDto aggiornaProdotti() {
         List<Prodotto> lista = anagraficaProdottiRepository.findAll();
-        return new ListaProdottiDto((Set<Prodotto>) lista);
+        return new ListaProdottiDto(lista);
     }
 
 }
