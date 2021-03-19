@@ -42,6 +42,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
     this.automa = new Automa(this);
     this.aggiorna();
   }
+
   ngOnInit(): void {
   }
 
@@ -56,37 +57,6 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   }
 
   conferma() {
-    switch (true) {
-      case this.automa.stato instanceof Aggiungi:
-        let dto = new CassieraDto();
-        dto.cassiera = this.cassiera;
-        this.http.post<ListaCassiereDto>("http://localhost:8080/add-cassiera", dto)
-          .subscribe(r => {
-            this.cassiere = r.listaCassiere;
-            this.cassiera = new Cassiera();
-          });
-        break;
-      case this.automa.stato instanceof Rimuovi:
-        let dtox = new CassieraDto();
-        dtox.cassiera = this.cassiera;
-        this.http.post<ListaCassiereDto>("http://localhost:8080/rim-cassiera", dtox)
-          .subscribe(r => {
-            this.cassiere = r.listaCassiere;
-            this.cassiera = new Cassiera();
-          });
-        break;
-      case this.automa.stato instanceof Modifica:
-        let dtox2 = new CassieraDto();
-        dtox2.cassiera = this.cassiera;
-        this.http.post<ListaCassiereDto>("http://localhost:8080/conf-cassiera", dtox2)
-          .subscribe(r => {
-            this.cassiere = r.listaCassiere;
-            this.cassiera = new Cassiera();
-          });
-      default:
-        console.log("errore")
-        break;
-    }
     this.automa.next(new ConfermaEvent, this.automa);
   }
 
@@ -103,88 +73,119 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   }
 
   cerca() {
-    let dto = new RicercaCassiereDto();
-    dto.criterioRicerca = this.inputRicerca;
-    if (this.inputRicerca == null) {
-      this.errore = "Inserisci il criterio di ricerca";
-    } else {
-      this.errore = "";
-      this.http.post<ListaCassiereDto>("http://localhost:8080/ric-cassiera", dto)
-        .subscribe(r => this.cassiere = r.listaCassiere)
-      this.automa.next(new RicercaEvent, this.automa);
-    }
+    this.automa.next(new RicercaEvent, this.automa);
   }
 
-  aggiorna() {
-    this.http.get<ListaCassiereDto>("http://localhost:8080/aggiorna-cassieri")
+aggiorna() {
+  this.http.get<ListaCassiereDto>("http://localhost:8080/aggiorna-cassieri")
+    .subscribe(r => this.cassiere = r.listaCassiere);
+}
+
+entraStatoRicerca() {
+  this.form = false;
+  this.aggiungi = true;
+  this.search = true;
+  this.tabella = true;
+  this.nomeC = false;
+  this.cognomeC = false;
+  this.codiceC = false;
+  this.remove = false;
+  this.edit = false;
+  this.conf = false;
+  this.annull = false;
+
+}
+entraStatoAggiungi() {
+  this.form = true;
+  this.aggiungi = false;
+  this.remove = false;
+  this.edit = false;
+  this.conf = true;
+  this.annull = true;
+  this.search = false;
+  this.tabella = false;
+  this.nomeC = false;
+  this.codiceC = false;
+  this.cognomeC = false;
+
+}
+entraStatoVisualizza() {
+  this.form = true;
+  this.aggiungi = true;
+  this.remove = true;
+  this.edit = true;
+  this.conf = false;
+  this.annull = false;
+  this.search = true;
+  this.tabella = true;
+  this.nomeC = true;
+  this.cognomeC = true;
+  this.codiceC = true;
+}
+entraStatoModifica() {
+  this.form = true;
+  this.aggiungi = false;
+  this.remove = false;
+  this.edit = false;
+  this.conf = true;
+  this.annull = true;
+  this.search = false;
+  this.tabella = false;
+  this.nomeC = false;
+  this.cognomeC = false;
+  this.codiceC = false;
+}
+entraStatoRimuovi() {
+  this.form = true;
+  this.aggiungi = false;
+  this.remove = false;
+  this.edit = false;
+  this.conf = true;
+  this.annull = true;
+  this.search = false;
+  this.tabella = false;
+  this.nomeC = true;
+  this.cognomeC = true;
+  this.codiceC = true;
+}
+
+salvaDati() {
+  let dto = new CassieraDto();
+  dto.cassiera = this.cassiera;
+  this.http.post<ListaCassiereDto>("http://localhost:8080/add-cassiera", dto)
+    .subscribe(r => {
+      this.cassiere = r.listaCassiere;
+      this.cassiera = new Cassiera();
+    });
+}
+modificaDati() {
+  let dtox2 = new CassieraDto();
+  dtox2.cassiera = this.cassiera;
+  this.http.post<ListaCassiereDto>("http://localhost:8080/conf-cassiera", dtox2)
+    .subscribe(r => {
+      this.cassiere = r.listaCassiere;
+      this.cassiera = new Cassiera();
+    });
+}
+eliminaDati() {
+  let dtox = new CassieraDto();
+  dtox.cassiera = this.cassiera;
+  this.http.post<ListaCassiereDto>("http://localhost:8080/rim-cassiera", dtox)
+    .subscribe(r => {
+      this.cassiere = r.listaCassiere;
+      this.cassiera = new Cassiera();
+    });
+}
+
+aggiornaRisultatiRicerca() {
+  let dto = new RicercaCassiereDto();
+  dto.criterioRicerca = this.inputRicerca;
+  if (this.inputRicerca == null) {
+    this.errore = "Inserisci il criterio di ricerca";
+  } else {
+    this.errore = "";
+    this.http.post<ListaCassiereDto>("http://localhost:8080/ric-cassiera", dto)
       .subscribe(r => this.cassiere = r.listaCassiere);
   }
-
-  entraStatoRicerca() {
-    this.form = false;
-    this.aggiungi = true;
-    this.search = true;
-    this.tabella = true;
-    this.nomeC = false;
-    this.cognomeC = false;
-    this.codiceC = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = false;
-    this.annull = false;
-
-  }
-  entraStatoAggiungi() {
-    this.form = true;
-    this.aggiungi = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = true;
-    this.annull = true;
-    this.search = false;
-    this.tabella = false;
-    this.nomeC = false;
-    this.codiceC = false;
-    this.cognomeC = false;
-
-  }
-  entraStatoVisualizza() {
-    this.form = true;
-    this.aggiungi = true;
-    this.remove = true;
-    this.edit = true;
-    this.conf = false;
-    this.annull = false;
-    this.search = true;
-    this.tabella = true;
-    this.nomeC = true;
-    this.cognomeC = true;
-    this.codiceC = true;
-  }
-  entraStatoModifica() {
-    this.form = true;
-    this.aggiungi = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = true;
-    this.annull = true;
-    this.search = false;
-    this.tabella = false;
-    this.nomeC = false;
-    this.cognomeC = false;
-    this.codiceC = false;
-  }
-  entraStatoRimuovi() {
-    this.form = true;
-    this.aggiungi = false;
-    this.remove = false;
-    this.edit = false;
-    this.conf = true;
-    this.annull = true;
-    this.search = false;
-    this.tabella = false;
-    this.nomeC = true;
-    this.cognomeC = true;
-    this.codiceC = true;
-  }
+}
 }
