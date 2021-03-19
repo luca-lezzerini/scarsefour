@@ -1,0 +1,36 @@
+<h2>Anagrafica Cassa</h2>
+<div *ngIf="form">
+    <input type="text" placeholder="Codice" [(ngModel)]="posizione.codice" [disabled]="codiceInput">
+    <input type="text" placeholder="Descrizione" [(ngModel)]="posizione.descrizione" [disabled]="codiceInput">
+
+    <button (click)="modifica()" *ngIf="edit">Modifica</button>
+    <button (click)="annulla()" *ngIf="annull">Annulla</button>
+    <button (click)="conferma()" *ngIf="conf">Conferma</button>
+    <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button>
+
+</div>
+
+<button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
+<br>
+<br>
+
+
+<div *ngIf="search">
+    <input type="text" [(ngModel)]="inputRicerca" placeholder="Cerca per codice">
+    <button (click)="cerca()">Cerca</button>
+</div>
+
+<br>
+<br>
+<table *ngIf="tabella">
+    <tr>
+        <th>Codice</th>
+        <th>Descrizione</th>
+        <th>Seleziona</th>
+    </tr>
+    <tr *ngFor = "let p of posizioni">
+        <td>{{p.codice}}</td>
+        <td>{{p.descrizione}}</td>
+        <td><button (click)="seleziona(p)">Seleziona</button></td>
+    </tr>
+</table>

@@ -5086,3 +5086,30 @@ java.lang.ClassCastException: class java.util.ArrayList cannot be cast to class 
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.43.jar:9.0.43]
 	at java.base/java.lang.Thread.run(Thread.java:832) ~[na:na]
 
+2021-03-19 14:06:25.870  WARN 15720 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-19 14:07:31.181 DEBUG 15720 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_ where cassa0_.codice like ? escape ?
+2021-03-19 14:07:31.191 TRACE 15720 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [%%]
+2021-03-19 14:07:31.192 TRACE 15720 --- [http-nio-8080-exec-1] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [CHAR] - [\]
+2021-03-19 14:08:09.293 DEBUG 15720 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_ where cassa0_.codice like ? escape ?
+2021-03-19 14:08:09.294 TRACE 15720 --- [http-nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [%%]
+2021-03-19 14:08:09.295 TRACE 15720 --- [http-nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [CHAR] - [\]
+2021-03-19 14:08:26.698 DEBUG 15720 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select next_val as id_val from hibernate_sequence for update
+2021-03-19 14:08:26.699 DEBUG 15720 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : update hibernate_sequence set next_val= ? where next_val=?
+2021-03-19 14:08:26.707 DEBUG 15720 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : insert into cassa (codice, id) values (?, ?)
+2021-03-19 14:08:26.708 TRACE 15720 --- [http-nio-8080-exec-3] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [sajkhajsdhkdsahj]
+2021-03-19 14:08:26.709 TRACE 15720 --- [http-nio-8080-exec-3] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BIGINT] - [9]
+2021-03-19 14:08:26.711 DEBUG 15720 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_
+2021-03-19 14:08:36.160 DEBUG 15720 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_ where cassa0_.codice like ? escape ?
+2021-03-19 14:08:36.161 TRACE 15720 --- [http-nio-8080-exec-4] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [%sa%]
+2021-03-19 14:08:36.161 TRACE 15720 --- [http-nio-8080-exec-4] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [CHAR] - [\]
+2021-03-19 14:08:37.290 DEBUG 15720 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_ where cassa0_.codice like ? escape ?
+2021-03-19 14:08:37.291 TRACE 15720 --- [http-nio-8080-exec-5] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [%sa%]
+2021-03-19 14:08:37.292 TRACE 15720 --- [http-nio-8080-exec-5] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [CHAR] - [\]
+2021-03-19 14:08:41.472 DEBUG 15720 --- [http-nio-8080-exec-6] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_ where cassa0_.codice like ? escape ?
+2021-03-19 14:08:41.473 TRACE 15720 --- [http-nio-8080-exec-6] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [%jk%]
+2021-03-19 14:08:41.473 TRACE 15720 --- [http-nio-8080-exec-6] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [CHAR] - [\]
+2021-03-19 14:08:46.141 DEBUG 15720 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select cassa0_.id as id1_0_0_, cassa0_.codice as codice2_0_0_ from cassa cassa0_ where cassa0_.id=?
+2021-03-19 14:08:46.142 TRACE 15720 --- [http-nio-8080-exec-7] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [9]
+2021-03-19 14:08:46.155 DEBUG 15720 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : delete from cassa where id=?
+2021-03-19 14:08:46.155 TRACE 15720 --- [http-nio-8080-exec-7] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [9]
+2021-03-19 14:08:46.159 DEBUG 15720 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : select cassa0_.id as id1_0_, cassa0_.codice as codice2_0_ from cassa cassa0_

@@ -1,24 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Aggiungi, Automa, Modifica, Rimuovi } from '../automa-crud/automa';
-import { Automabile } from '../automa-crud/automabile';
+import { Automa } from '../automa-crud/automa';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
-import { CassaDto } from '../dto/cassa-dto';
-import { ListaCasseDto } from '../dto/lista-casse-dto';
+import { ListaPosizioniDto } from '../dto/lista-posizioni-dto';
+import { PosizioneDto } from '../dto/posizione-dto';
 import { RicercaPreCriterioDto } from '../dto/ricerca-per-criterio-ricerca-dto';
-import { Cassa } from '../entità/cassa';
+import { Posizione } from '../entità/posizione';
 
 @Component({
-  selector: 'app-anagrafica-casse',
-  templateUrl: './anagrafica-casse.component.html',
-  styleUrls: ['./anagrafica-casse.component.css']
+  selector: 'app-anagrafica-posizioni',
+  templateUrl: './anagrafica-posizioni.component.html',
+  styleUrls: ['./anagrafica-posizioni.component.css']
 })
-export class AnagraficaCasseComponent implements OnInit, Automabile {
+export class AnagraficaPosizioniComponent implements OnInit {
+
 
   automa: Automa;
 
-  cassa = new Cassa();
-  casse: Cassa[] = [];
+  posizione = new Posizione();
+  posizioni: Posizione[] = [];
 
   inputRicerca = "";
 
@@ -66,8 +66,8 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   }
 
 
-  seleziona(c: Cassa) {
-    this.cassa = c;
+  seleziona(p: Posizione) {
+    this.posizione = p;
     this.automa.next(new SelezionaEvent(), this.automa);
   }
   cerca() {
@@ -75,9 +75,9 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   }
 
   aggiorna() {
-    this.http.get<ListaCasseDto>("http://localhost:8080/aggiorna-cassa")
+    this.http.get<ListaPosizioniDto>("http://localhost:8080/")
       .subscribe(l => {
-        this.casse = l.listaCasse;
+        this.posizioni = l.listaPosizioni;
       });
   }
 
@@ -104,7 +104,7 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     this.tabella = false;
     this.codiceInput = false;
     this.descrizione = false;
-    this.cassa = new Cassa();
+    this.posizione = new Posizione();
   }
   entraStatoVisualizza() {
     this.form = true;
@@ -144,12 +144,12 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
   }
 
   salvaDati() {
-    let dto = new CassaDto();
-    dto.cassa = this.cassa;
-    this.http.post<ListaCasseDto>("http://localhost:8080/aggiungi-cassa", dto)
+    let dto = new PosizioneDto();
+    dto.posizione = this.posizione;
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/aggiungi-", dto)
       .subscribe(r => {
-        this.casse = r.listaCasse;
-        this.cassa = new Cassa();
+        this.posizioni = r.listaPosizioni;
+        this.posizione = new Posizione();
       });
   }
 
@@ -159,33 +159,31 @@ export class AnagraficaCasseComponent implements OnInit, Automabile {
     dto.criterioRicerca = this.inputRicerca;
     console.log("criterio ricerca: ");
     console.log(this.inputRicerca);
-    this.http.post<ListaCasseDto>("http://localhost:8080/cerca-cassa-codice-like", dto)
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/cerca-", dto)
       .subscribe(l => {
-        this.casse = l.listaCasse;
+        this.posizioni = l.listaPosizioni;
       });
   }
 
   modificaDati() {
-    let dto = new CassaDto();
-    dto.cassa = this.cassa;
-    this.http.post<ListaCasseDto>("http://localhost:8080/modifica-cassa", dto)
+    let dto = new PosizioneDto();
+    dto.posizione = this.posizione;
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/modifica-", dto)
       .subscribe(r => {
-        this.casse = r.listaCasse;
-        this.cassa = new Cassa();
+        this.posizioni = r.listaPosizioni;
+        this.posizione = new Posizione();
       });
   }
 
   eliminaDati() {
-    let dto = new CassaDto();
-    dto.cassa = this.cassa;
-    this.http.post<ListaCasseDto>("http://localhost:8080/rimuovi-cassa", dto)
+    let dto = new PosizioneDto();
+    dto.posizione = this.posizione;
+    this.http.post<ListaPosizioniDto>("http://localhost:8080/rimuovi-cassa", dto)
       .subscribe(r => {
-        this.casse = r.listaCasse;
-        this.cassa = new Cassa();
+        this.posizioni = r.listaPosizioni;
+        this.posizione = new Posizione();
       });
   }
 
 
 }
-
-
