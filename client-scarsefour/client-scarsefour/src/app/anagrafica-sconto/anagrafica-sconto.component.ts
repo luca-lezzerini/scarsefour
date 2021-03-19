@@ -100,7 +100,14 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
   }
 
   conferma() {
-    this.automa.next(new ConfermaEvent(), this.automa);
+    this.automa.next(new ConfermaEvent(), this.automa)
+    let dto = new ScontiDto();
+    dto.sconto = this.sconto;
+    this.http.post<ListaScontiDto>("http://localhost:8080/aggiungi-prodotto-scontato", dto)
+      .subscribe(r => {
+        this.sconti = r.listaSconti;
+        this.sconto = new Sconto();
+      });
   }
 
   annulla() {
