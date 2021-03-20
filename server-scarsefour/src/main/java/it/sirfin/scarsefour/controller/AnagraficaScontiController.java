@@ -53,7 +53,7 @@ public class AnagraficaScontiController {
 
     @RequestMapping("/modifica-prodotto-scontato")
     @ResponseBody
-    public ScontiDto modificaProdottoScontato(@RequestBody ScontiDto dto) {
+    public  ListaScontiDto modificaProdottoScontato(@RequestBody ScontiDto dto) {
         return anagraficaScontiService.modificaProdottoScontato(dto.getSconto());
     }
     

@@ -48,8 +48,9 @@ public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
     }
 
     @Override
-    public ScontiDto modificaProdottoScontato(Sconto s) {
-        return new ScontiDto(s);
+    public ListaScontiDto modificaProdottoScontato(Sconto s) {
+        anagraficaScontiRepository.save(s);
+        return aggiornaProdottiScontati();
     }
 
     @Override
