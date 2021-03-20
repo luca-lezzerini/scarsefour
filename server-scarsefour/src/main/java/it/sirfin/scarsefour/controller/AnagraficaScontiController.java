@@ -47,7 +47,7 @@ public class AnagraficaScontiController {
     @RequestMapping("/ricerca-prodotto-scontato")
     @ResponseBody
     public ListaScontiDto ricercaProdottoScontato(@RequestBody RicercaScontiDto dto) {
-        return anagraficaScontiService.ricercaProdottoScontato(dto.getRicercaPerCodice());
+        return anagraficaScontiService.ricercaProdottoScontato(dto.getCriterioRicerca());
     }
 
 

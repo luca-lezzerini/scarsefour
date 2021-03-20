@@ -44,7 +44,6 @@ public class AnagraficaScontiServiceImpl implements AnagraficaScontiService {
 
     @Override
     public ListaScontiDto ricercaProdottoScontato(String s) {
-    
     return new ListaScontiDto (anagraficaScontiRepository.findByCodiceContains(s));
     }
 
