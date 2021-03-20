@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -9,26 +7,8 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  anagraficaProdotti() {
-    this.router.navigateByUrl('/app-anagrafica-prodotti');
-  }  
-
-  anagraficaCassiere() {
-    this.router.navigateByUrl('/app-anagrafica-cassiere');
-  }
-  anagraficaCassa(){
-    this.router.navigateByUrl('/app-anagrafica-casse');
-  }
-  anagraficaSconto(){
-    this.router.navigateByUrl('/app-anagrafica-sconto');
-  }
-
-  anagraficaPosizione(){
-    this.router.navigateByUrl('/app-anagrafica-posizione');
   }
 }

@@ -6,9 +6,11 @@ import { AnagraficaPosizioniComponent } from './anagrafica-posizioni/anagrafica-
 import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-prodotti.component';
 import { AnagraficaScontoComponent } from './anagrafica-sconto/anagrafica-sconto.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { Homepage1Component } from './homepage1/homepage1.component';
 
 const routes: Routes = [
 
+  { path: 'app-home-page1', component: Homepage1Component },
   { path: 'app-home-page', component: HomePageComponent },
   { path: 'app-anagrafica-prodotti', component: AnagraficaProdottiComponent },
   { path: 'app-anagrafica-cassiere', component: AnagraficaCassiereComponent },
