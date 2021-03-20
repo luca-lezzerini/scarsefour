@@ -7,7 +7,7 @@
     body {
     font-family: Arial;
     padding: 10px;
-    background: #f1f1f1;
+    background: #0E8BB8;
     }
 
     .header {
@@ -29,7 +29,6 @@
     padding: 14px 16px;
     text-decoration: none;
     }
-    
     .barranav {
     overflow: hidden;
     background-color: #333;
