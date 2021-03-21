@@ -9,6 +9,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+/**
+ * Aggiunto import per l'annotazione @Transactional.
+ */
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -31,6 +34,11 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
         return aggiornaCassieri();
     }
 
+    /**
+     * readOnly è una flag di sola lettura
+     * @param c, stringa criterio di ricerca
+     * @return 
+     */
     @Override
     @Transactional(readOnly = true)
     public ListaCassiereDto ricercaCassiera(String c) {
@@ -57,6 +65,7 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
     }
 
     @Override
+    @Transactional
     public CassieraDto modCass(Cassiera cas) {
         return new CassieraDto(cas);
     }

@@ -45,7 +45,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
 
   ngOnInit(): void {
   }
-
+//////////////////////////////////////////////////Metodi UI///////////////////////////////////////////////
   nuova() {
     this.automa.next(new AddEvent(), this.automa);
   }
@@ -62,6 +62,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   }
 
   annulla() {
+    this.cassiera = new Cassiera();
     this.automa.next(new AnnullaEvent(), this.automa);
   }
 
@@ -78,7 +79,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
     this.http.get<ListaCassiereDto>("http://localhost:8080/aggiorna-cassieri")
       .subscribe(r => this.cassiere = r.listaCassiere);
   }
-
+////////////////////////////////////////////////////Metodi automabile//////////////////////////////////////////////////
   entraStatoRicerca() {
     this.form = false;
     this.aggiungi = true;
