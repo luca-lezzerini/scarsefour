@@ -35,6 +35,9 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
   descrizione: boolean;
   ean: boolean;
   prezzo: boolean;
+  scortaMinimaScaf: boolean;
+  scortaMinimaMag: boolean;
+  lottoRiordino: boolean;
 
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
@@ -84,7 +87,6 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     this.tabella = true;
     this.codiceInput = false;
     this.descrizione = false;
-    this.descrizione = false;
   }
   entraStatoAggiungi() {
     this.form = true;
@@ -97,6 +99,11 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     this.tabella = false;
     this.codiceInput = false;
     this.descrizione = false;
+    this.ean = false;
+    this.prezzo = false;
+    this.scortaMinimaScaf = false;
+    this.scortaMinimaMag = false;
+    this.lottoRiordino = false;
   }
   entraStatoVisualizza() {
     this.form = true;
@@ -111,6 +118,9 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     this.descrizione = true;
     this.ean = true;
     this.prezzo = true;
+    this.scortaMinimaScaf = true;
+    this.scortaMinimaMag = true;
+    this.lottoRiordino = true;
 
   }
   entraStatoModifica() {
@@ -126,6 +136,9 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     this.descrizione = false;
     this.ean = false;
     this.prezzo = false;
+    this.scortaMinimaScaf = false;
+    this.scortaMinimaMag = false;
+    this.lottoRiordino = false;
   }
   entraStatoRimuovi() {
     this.form = true;
@@ -181,7 +194,10 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     } else {
       this.errore = "";
       this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
-        .subscribe(k => this.prodotti = k.listaProdotti);
+        .subscribe(k => {
+          this.prodotti = k.listaProdotti;
+          this.inputRicerca = "";
+        });
     }
   }
 }

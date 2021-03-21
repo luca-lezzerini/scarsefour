@@ -18,6 +18,5 @@ public interface AnagraficaProdottiRepository extends JpaRepository<Prodotto, Lo
      * @param codice è una semplice stringa
      * @return ci ritorna una lista di prodotti
      */
-    @Query("select p from Prodotto p where codice = :cod")
-    List<Prodotto> trovaProdottoPerCodice(@Param("cod") String codice);
+    List<Prodotto> findByCodiceContains(String codice);
 }

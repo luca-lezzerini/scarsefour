@@ -50,7 +50,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
      */
     @Override
     public ListaProdottiDto ricercaProdotto(String p) {
-        return new ListaProdottiDto(anagraficaProdottiRepository.trovaProdottoPerCodice(p));
+        return new ListaProdottiDto(anagraficaProdottiRepository.findByCodiceContains(p));
     }
 
     @Override

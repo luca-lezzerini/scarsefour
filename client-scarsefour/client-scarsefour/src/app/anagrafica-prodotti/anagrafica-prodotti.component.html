@@ -2,54 +2,60 @@
     <div class="barranav">
         <a href="app-home-page1">Home page</a>
     </div>
-    
+
     <div class="titolo">
         <h2>Anagrafica Prodotti</h2>
     </div>
-<div *ngIf='form'>
-    <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="codiceInput"> &nbsp;
-    <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione" [disabled]="descrizione">&nbsp;
-    <input type="text" placeholder="EAN" [(ngModel)]="prodotto.ean" [disabled]="ean">&nbsp;
-    prezzo: <input type="text" placeholder="prezzo" [(ngModel)]="prodotto.prezzo" [disabled]="prezzo">&nbsp;
+    <div *ngIf='form'>
+        <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="codiceInput"> &nbsp;
+        <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione" [disabled]="descrizione">&nbsp;
+        <input type="text" placeholder="EAN" [(ngModel)]="prodotto.ean" [disabled]="ean">&nbsp;
+        prezzo: <input type="text" placeholder="prezzo" [(ngModel)]="prodotto.prezzo" [disabled]="prezzo">&nbsp;
+        scorta min. scaffale: <input type="text" placeholder="scorta minima scaffale"
+            [(ngModel)]="prodotto.scortaMinimaScaf" [disabled]="scortaMinimaScaf">&nbsp;
+        scorta min. magazzino:<input type="text" placeholder="scorta minima magazzino"
+            [(ngModel)]="prodotto.scortaMinimaMag " [disabled]="scortaMinimaMag">&nbsp;
+        lotto riordino:<input type="text" placeholder="lotto riordino" [(ngModel)]="prodotto.lottoRiordino "
+            [disabled]="lottoRiordino">&nbsp;
+        <br><br>
+        <button (click)="modifica()" *ngIf="edit">Modifica</button> &nbsp;
+        <button (click)="conferma()" *ngIf="conf">Conferma</button> &nbsp;
+        <button (click)="annulla()" *ngIf="annull">Annulla</button> &nbsp;
+        <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button> &nbsp;
+    </div>
+
+    <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
     <br><br>
-    <button (click)="modifica()" *ngIf="edit">Modifica</button> &nbsp;
-    <button (click)="conferma()" *ngIf="conf">Conferma</button> &nbsp;
-    <button (click)="annulla()" *ngIf="annull">Annulla</button> &nbsp;
-    <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button> &nbsp;
-</div>
+    <div *ngIf="search">
+        <input type="text" placeholder="Cerca per codice" [(ngModel)]="inputRicerca">&nbsp;
+        <button (click)="cerca()">Cerca</button>
+        <br>
+        <h4>{{errore}}</h4>
+    </div>
+    <br><br>
 
-<button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
-<br><br>
-<div *ngIf="search">
-    <input type="text" placeholder="Cerca per codice" [(ngModel)]="inputRicerca">&nbsp;
-    <button (click)="cerca()">Cerca</button>
-    <br>
-    <h4>{{errore}}</h4>
-</div>
-<br><br>
-
-<table *ngIf="tabella">
-    <tr>
-        <th>EAN</th>
-        <th>Codice</th>
-        <th>Descrizione</th>
-        <th>Prezzo</th>
-        <th>Scorta minima scaffale</th>
-        <th>Scorta minima magazzino</th>
-        <th>Lotto riordino</th>
-        <th>Seleziona</th>
-    </tr>
-    <tr *ngFor="let p of prodotti">
-        <td>{{p.ean}}</td>
-        <td>{{p.codice}}</td>
-        <td>{{p.descrizione}}</td>
-        <td>{{p.prezzo}}</td>
-        <td>{{p.scortaMinimaScaf}}</td>
-        <td>{{p.scortaMinimaMag}}</td>
-        <td>{{p.lottoRiordino}}</td>
-        <td>
-            <button (click)="seleziona(p)">Seleziona</button>
-        </td>
-    </tr>
-</table>
+    <table *ngIf="tabella">
+        <tr>
+            <th>EAN</th>
+            <th>Codice</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <th>Scorta minima scaffale</th>
+            <th>Scorta minima magazzino</th>
+            <th>Lotto riordino</th>
+            <th>Seleziona</th>
+        </tr>
+        <tr *ngFor="let p of prodotti">
+            <td>{{p.ean}}</td>
+            <td>{{p.codice}}</td>
+            <td>{{p.descrizione}}</td>
+            <td>{{p.prezzo}}</td>
+            <td>{{p.scortaMinimaScaf}}</td>
+            <td>{{p.scortaMinimaMag}}</td>
+            <td>{{p.lottoRiordino}}</td>
+            <td>
+                <button (click)="seleziona(p)">Seleziona</button>
+            </td>
+        </tr>
+    </table>
 </body>
