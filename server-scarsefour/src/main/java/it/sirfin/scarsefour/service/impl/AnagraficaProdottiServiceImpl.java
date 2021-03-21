@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService {
@@ -23,6 +24,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
      * @param p è un parametro di tipo prodotto
      * @return ci ritorna una lista aggiornata di prodotti dal DB
      */
+    @Transactional
     @Override
     public ListaProdottiDto aggiungiProdotto(Prodotto p) {
         anagraficaProdottiRepository.save(p);
@@ -35,6 +37,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
      * @param p è un parametro di tipo Prodotto
      * @return lista aggiornata del db
      */
+    @Transactional
     @Override
     public ListaProdottiDto rimuoviProdotto(Prodotto p) {
         anagraficaProdottiRepository.delete(p);
@@ -48,11 +51,18 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
      * @return ci ritorna il dto contenente la lista di prodotti con
      * l'aggiornamento al criterio di ricerca
      */
+    @Transactional(readOnly = true)
     @Override
     public ListaProdottiDto ricercaProdotto(String p) {
         return new ListaProdottiDto(anagraficaProdottiRepository.findByCodiceContains(p));
     }
 
+    /**
+    * Questo metodo salva un prodotto nel DB
+    @param p è il parametro di tipo prodotto
+    @return ci ritorna una lista dei prodotti aggiornata
+     */
+    @Transactional
     @Override
     public ListaProdottiDto modificaProdotto(Prodotto p) {
         anagraficaProdottiRepository.save(p);
@@ -65,6 +75,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
      * @param p il parametro è di tipo Prodotto
      * @return ci ritorna la lista di prodotti aggiornata
      */
+    @Transactional
     @Override
     public ListaProdottiDto confermaProdotto(Prodotto p) {
         anagraficaProdottiRepository.save(p);
@@ -76,6 +87,7 @@ public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService 
      *
      * @return ci ritorna un dto con la lista aggiornata all'interno
      */
+    @Transactional(readOnly = true)
     @Override
     public ListaProdottiDto aggiornaProdotti() {
         List<Prodotto> lista = anagraficaProdottiRepository.findAll();
