@@ -56,4 +56,9 @@ public class AnagraficaCassiereServiceImpl implements AnagraficaCassiereService 
         return new ListaCassiereDto(lista);
     }
 
+    @Override
+    public CassieraDto modCass(Cassiera cas) {
+        return new CassieraDto(cas);
+    }
+
 }

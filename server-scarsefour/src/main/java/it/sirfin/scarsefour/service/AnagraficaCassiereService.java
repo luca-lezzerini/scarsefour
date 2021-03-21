@@ -15,4 +15,6 @@ public interface AnagraficaCassiereService {
     ListaCassiereDto confermaModifica(Cassiera cas);
 
     ListaCassiereDto aggiornaCassieri();
+    
+    CassieraDto modCass(Cassiera cas);
 }

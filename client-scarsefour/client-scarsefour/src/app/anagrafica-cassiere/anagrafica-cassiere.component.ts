@@ -11,7 +11,7 @@ import { Cassiera } from '../entità/cassiera';
 @Component({
   selector: 'app-anagrafica-cassiere',
   templateUrl: './anagrafica-cassiere.component.html',
-  styleUrls: ['./anagrafica-cassiere.component.css',  '../theme.css']
+  styleUrls: ['./anagrafica-cassiere.component.css', '../theme.css']
 })
 export class AnagraficaCassiereComponent implements OnInit, Automabile {
 
@@ -53,6 +53,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
     this.automa.next(new RimuoviEvent(), this.automa);
   }
   modifica() {
+
     this.automa.next(new ModificaEvent(), this.automa);
   }
 
@@ -65,7 +66,7 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
   }
 
   seleziona(c: Cassiera) {
-    this.cassiera = c;
+    this.confermaMod(c);
     this.automa.next(new SelezionaEvent(), this.automa);
   }
 
@@ -184,5 +185,13 @@ export class AnagraficaCassiereComponent implements OnInit, Automabile {
       this.http.post<ListaCassiereDto>("http://localhost:8080/ric-cassiera", dto)
         .subscribe(r => this.cassiere = r.listaCassiere);
     }
+  }
+  confermaMod(c: Cassiera) {
+    let dto = new CassieraDto();
+    dto.cassiera = c;
+    this.http.post<CassieraDto>("http://localhost:8080/mod-cassiera", dto)
+      .subscribe(r => {
+        this.cassiera = r.cassiera;
+      });
   }
 }
