@@ -14,6 +14,8 @@ export class Homepage1Component implements OnInit {
   ngOnInit(): void {
   }
 
+  immagine1:string = "assets/immagini/1.jpg";
+
   anagraficaProdotti() {
     this.router.navigateByUrl('/app-anagrafica-prodotti');
   }  

@@ -49,6 +49,11 @@
     background: white;
     }
 
+    .sfondo{
+      margin: auto;
+      text-align: center;
+    }
+
     button {
     margin-left: 1%;
     display: inline-block;
