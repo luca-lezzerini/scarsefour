@@ -11,28 +11,29 @@ package it.sirfin.scarsefour.dto;
  */
 public class RicercaScontiDto {
     
-    private String ricercaPerCodice;
+    private String criterioRicerca;
 
     public RicercaScontiDto() {
     }
 
-    public RicercaScontiDto(String ricercaPerCodice) {
-        this.ricercaPerCodice = ricercaPerCodice;
+    public RicercaScontiDto(String criterioRicerca) {
+        this.criterioRicerca = criterioRicerca;
     }
 
-    public String getRicercaPerCodice() {
-        return ricercaPerCodice;
+    public String getCriterioRicerca() {
+        return criterioRicerca;
     }
 
-    public void setRicercaPerCodice(String ricercaPerCodice) {
-        this.ricercaPerCodice = ricercaPerCodice;
+    public void setCriterioRicerca(String criterioRicerca) {
+        this.criterioRicerca = criterioRicerca;
     }
 
     @Override
     public String toString() {
-        return "RicercaScontiDto{" + "ricercaPerCodice=" + ricercaPerCodice + '}';
+        return "RicercaScontiDto{" + "criterioRicerca=" + criterioRicerca + '}';
     }
 
+   
     
     
     

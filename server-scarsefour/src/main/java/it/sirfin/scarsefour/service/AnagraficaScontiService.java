@@ -22,7 +22,7 @@ public interface AnagraficaScontiService {
 
     ListaScontiDto ricercaProdottoScontato(String s);
 
-    ScontiDto modificaProdottoScontato(Sconto s);
+     ListaScontiDto modificaProdottoScontato(Sconto s);
 
     ListaScontiDto confermaProdottoScontato(Sconto s);
 

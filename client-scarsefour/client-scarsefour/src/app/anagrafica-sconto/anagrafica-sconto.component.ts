@@ -170,8 +170,8 @@ export class AnagraficaScontoComponent implements OnInit, Automabile {
       });
   }
   aggiornaRisultatiRicerca() {
-    let dto2 = new ScontiDto();
-    dto2.sconto = this.sconto;
+    let dto2 = new RicercaScontiDto();
+    dto2.criterioRicerca = this.criterioRicerca;
     this.http.post<ListaScontiDto>("http://localhost:8080/ricerca-prodotto-scontato", dto2)
       .subscribe(r => this.sconti = r.listaSconti);
   }
