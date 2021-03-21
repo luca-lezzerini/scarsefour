@@ -7,6 +7,7 @@ import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { AddEvent, AnnullaEvent, ConfermaEvent, ModificaEvent, RicercaEvent, RimuoviEvent, SelezionaEvent } from '../automa-crud/eventi';
 import { Prodotto } from '../prodotto';
 import { RicercaPreCriterioDto } from '../dto/ricerca-per-criterio-ricerca-dto';
+import { RicercaProdottoDto } from '../dto/ricerca-prodotto-dto';
 
 @Component({
   selector: 'app-anagrafica-prodotti',
@@ -173,8 +174,8 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
   }
 
   aggiornaRisultatiRicerca() {
-    let dto = new RicercaPreCriterioDto();
-    dto.criterioRicerca = this.inputRicerca;
+    let dto = new RicercaProdottoDto();
+    dto.ricercaPerCodice = this.inputRicerca;
     if (this.inputRicerca == null) {
       this.errore = "Devi inserire un codice!"
     } else {
