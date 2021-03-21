@@ -11,7 +11,7 @@ import { RicercaPreCriterioDto } from '../dto/ricerca-per-criterio-ricerca-dto';
 @Component({
   selector: 'app-anagrafica-prodotti',
   templateUrl: './anagrafica-prodotti.component.html',
-  styleUrls: ['./anagrafica-prodotti.component.css','../theme.css']
+  styleUrls: ['./anagrafica-prodotti.component.css', '../theme.css']
 })
 export class AnagraficaProdottiComponent implements OnInit, Automabile {
   automa: Automa;
@@ -32,6 +32,8 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
   tabella: boolean;
   codiceInput: boolean;
   descrizione: boolean;
+  ean: boolean;
+  prezzo: boolean;
 
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
@@ -60,7 +62,7 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
 
   }
   seleziona(p: Prodotto) {
-    this.prodotto = new Prodotto();
+    this.prodotto = p;
     this.automa.next(new SelezionaEvent(), this.automa);
   }
   cerca() {
@@ -106,6 +108,8 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     this.tabella = true;
     this.codiceInput = true;
     this.descrizione = true;
+    this.ean = true;
+    this.prezzo = true;
 
   }
   entraStatoModifica() {
@@ -119,6 +123,8 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     this.tabella = false;
     this.codiceInput = false;
     this.descrizione = false;
+    this.ean = false;
+    this.prezzo = false;
   }
   entraStatoRimuovi() {
     this.form = true;
@@ -174,9 +180,7 @@ export class AnagraficaProdottiComponent implements OnInit, Automabile {
     } else {
       this.errore = "";
       this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
-        .subscribe(k => {
-          this.prodotti = k.listaProdotti;
-        });
+        .subscribe(k => this.prodotti = k.listaProdotti);
     }
   }
 }

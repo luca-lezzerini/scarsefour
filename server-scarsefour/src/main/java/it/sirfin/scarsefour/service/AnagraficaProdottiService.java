@@ -12,7 +12,7 @@ public interface AnagraficaProdottiService {
 
     ListaProdottiDto ricercaProdotto(String p);
 
-    ProdottoDto modificaProdotto(Prodotto p);
+    ListaProdottiDto modificaProdotto(Prodotto p);
 
     ListaProdottiDto confermaProdotto(Prodotto p);
 

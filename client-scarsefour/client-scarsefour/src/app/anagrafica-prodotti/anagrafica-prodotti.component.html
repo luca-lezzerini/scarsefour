@@ -7,8 +7,10 @@
         <h2>Anagrafica Prodotti</h2>
     </div>
 <div *ngIf='form'>
-    <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="codice"> &nbsp;
+    <input type="text" placeholder="codice" [(ngModel)]="prodotto.codice" [disabled]="codiceInput"> &nbsp;
     <input type="text" placeholder="descrizione" [(ngModel)]="prodotto.descrizione" [disabled]="descrizione">&nbsp;
+    <input type="text" placeholder="EAN" [(ngModel)]="prodotto.ean" [disabled]="ean">&nbsp;
+    prezzo: <input type="text" placeholder="prezzo" [(ngModel)]="prodotto.prezzo" [disabled]="prezzo">&nbsp;
     <br><br>
     <button (click)="modifica()" *ngIf="edit">Modifica</button> &nbsp;
     <button (click)="conferma()" *ngIf="conf">Conferma</button> &nbsp;

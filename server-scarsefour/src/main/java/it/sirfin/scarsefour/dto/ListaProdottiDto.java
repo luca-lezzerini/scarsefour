@@ -1,25 +1,24 @@
 package it.sirfin.scarsefour.dto;
 
-import it.sirfin.scarsefour.model.Cassiera;
 import it.sirfin.scarsefour.model.Prodotto;
-import java.util.Set;
+import java.util.List;
 
 public class ListaProdottiDto {
 
-    private Set<Prodotto> listaProdotti;
+    private List<Prodotto> listaProdotti;
 
     public ListaProdottiDto() {
     }
 
-    public ListaProdottiDto(Set<Prodotto> listaProdotti) {
+    public ListaProdottiDto(List<Prodotto> listaProdotti) {
         this.listaProdotti = listaProdotti;
     }
 
-    public Set<Prodotto> getListaProdotti() {
+    public List<Prodotto> getListaProdotti() {
         return listaProdotti;
     }
 
-    public void setListaProdotti(Set<Prodotto> listaProdotti) {
+    public void setListaProdotti(List<Prodotto> listaProdotti) {
         this.listaProdotti = listaProdotti;
     }
 

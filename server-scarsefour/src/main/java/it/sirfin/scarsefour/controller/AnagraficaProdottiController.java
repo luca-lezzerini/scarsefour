@@ -48,7 +48,7 @@ public class AnagraficaProdottiController {
 
     @RequestMapping("/modifica-prodotto")
     @ResponseBody
-    public ProdottoDto modificaProdotto(@RequestBody ProdottoDto dto) {
+    public ListaProdottiDto modificaProdotto(@RequestBody ProdottoDto dto) {
         return anagraficaProdottiService.modificaProdotto(dto.getProdotto());
     }
     
