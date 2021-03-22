@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -27,6 +29,10 @@ public class RigaScontrino implements Serializable {
     @Column
     private Integer quantità;
 
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Prodotto prodotto;
+    
     public RigaScontrino() {
     }
 
