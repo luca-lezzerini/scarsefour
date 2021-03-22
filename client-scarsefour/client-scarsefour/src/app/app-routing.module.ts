@@ -9,6 +9,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { Homepage1Component } from './homepage1/homepage1.component';
 
 // rotte del programma
+// richieste del router
 const routes: Routes = [
 
   { path: 'app-home-page1', component: Homepage1Component },
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'app-anagrafica-cassiere', component: AnagraficaCassiereComponent },
   { path: 'app-anagrafica-casse', component: AnagraficaCasseComponent },
   { path: 'app-anagrafica-sconto', component: AnagraficaScontoComponent },
-  { path: 'app-anagrafica-posizione', component:AnagraficaPosizioniComponent },
+  { path: 'app-anagrafica-posizione', component: AnagraficaPosizioniComponent },
   { path: '', redirectTo: '/app-home-page', pathMatch: 'full' }
 ];
 
