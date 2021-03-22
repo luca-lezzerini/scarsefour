@@ -24,57 +24,41 @@ export class Automa implements State {
 
 export class ScontrinoVuoto implements State {
     next(e: Event, a?: Automa) {
-        if (e instanceof EanEventGalli) {
-            //Verificare che l'ean esiste nel db
-            if (e.ean == null || e.ean == "") { //Dopo di che se non esiste lo stato rimane ScontrinoVuoto    
-                a.stato = new ScontrinoVuoto();
-                a.ui.entraStatoScontrinoVuoto();
-            }
-            else {
-                a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
+        
+            if (e instanceof VediPrezzoEvent) {
+                a.stato = new VediPrezzo();
+            } else if (e instanceof EanEventGalli) {
+                a.ui.verificaEan();
+                if (e.ean) {
+                    a.stato = new ScontrinoNonVuoto();
+                } else {
+                    a.stato = new ScontrinoVuoto();
+                }
+            } else {
+                console.log("ricevuto evento ", e, " inatteso");
             }
         }
-
-        if (e instanceof VediPrezzoEvent) {
-            a.stato = new VediPrezzo();
-            a.ui.entraStatoVediPrezzo();
-        }
-        throw new Error("Method not implemented.");
-    }
-
 }
 
 export class VediPrezzo implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof EanEventGalli) {
-            if (e.ean == null || e.ean == "") {
-                a.stato = new ScontrinoVuoto();
-                a.ui.entraStatoScontrinoVuoto();
-            }
-        }
-        if (e instanceof EanEventGalli)
-            if (e.ean == null || e.ean == "") {
+            if (e.ean && e.scontrino) {
                 a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
+            } else if (!e.ean && e.scontrino) {
+                a.stato = new ScontrinoNonVuoto();
+            } else if (!e.ean && !e.scontrino) {
+                a.stato = new ScontrinoVuoto();
+            } else if (e.ean && !e.scontrino) {
+                a.stato = new ScontrinoVuoto();
+            } else {
+                console.log("errore inatteso");
             }
-
-        if (e instanceof EanEventGalli) {
-            a.stato = new ScontrinoNonVuoto();
-            a.ui.entraStatoScontrinoNonVuoto();
-        }
-
-        if (e instanceof EanEventGalli) {
-            a.stato = new ScontrinoVuoto();
-            a.ui.entraStatoScontrinoVuoto();
-        }
-        else {
+        } else {
             console.log("ricevuto evento ", e, " inatteso");
-
         }
     }
 }
-
 
 export class ScontrinoNonVuoto implements State {
     next(e: Event, a?: Automa) {
@@ -101,7 +85,6 @@ export class ScontrinoNonVuoto implements State {
         }
     }
 }
-
 
 export class AnnullamentoScontrino implements State {
     next(e: Event, a?: Automa) {

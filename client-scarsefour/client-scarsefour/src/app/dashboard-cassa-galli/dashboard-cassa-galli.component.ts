@@ -33,22 +33,41 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   prezzo: boolean;
   scontrino = new Scontrino();
 
+  ngOnInit(): void {
+  }
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
   }
-
-  ngOnInit(): void {
+  entraStatoScontrinoVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoVediPrezzo() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoAnnullamentoScontrino() {
+    throw new Error('Method not implemented.');
+  }
+  verificaEan() {
+    throw new Error('Method not implemented.');
   }
 
-  vediPrezzo() { }
-  chiudiScontrino() { }
-  stornaUltimo() { }
-  annullaScontrino() { }
-  annulla() { }
-  conferma() { }
+  vediPrezzo() {
+  }
+  chiudiScontrino() {
+    
+  }
+  annullaScontrino() {
+  }
+  stornaUltimo() {
+  }
 
-  entraStatoScontrinoVuoto(){}
-  entraStatoVediPrezzo(){}
-  entraStatoScontrinoNonVuoto(){}
-  entraStatoAnnullamentoScontrino(){}
+  conferma() {
+  }
+
+  annulla() {
+  }
+
 }

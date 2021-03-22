@@ -1,4 +1,5 @@
 import { Automa } from "./automa";
+import { Event } from "./eventi-galli";
 
 
 export interface State {

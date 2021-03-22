@@ -3,4 +3,5 @@ export interface AutomabileGalli {
     entraStatoVediPrezzo();
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
+    verificaEan();
 }
