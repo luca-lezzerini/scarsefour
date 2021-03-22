@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Prodotto } from '../prodotto';
 
 @Component({
   selector: 'app-dashboard-cassa-galli',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardCassaGalliComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+  prodotto: Prodotto;
 
   ngOnInit(): void {
   }
 
+  vediPrezzo() { }
+  chiudiScontrino() { }
+  stornaUltimo() { }
+  annullaScontrino() { }
+  annulla() { }
+  conferma() { }
 }

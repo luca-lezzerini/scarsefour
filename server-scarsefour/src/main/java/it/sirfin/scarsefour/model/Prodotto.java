@@ -9,12 +9,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Prodotto implements Serializable {
@@ -41,7 +43,11 @@ public class Prodotto implements Serializable {
     @JsonIgnoreProperties(value = "prodotto", allowSetters = true)
     @ManyToMany
     private Set<Sconto> sconti;
-
+    
+    @OneToMany(mappedBy = "prodotto")
+    private List<RigaScontrino> righeScontrini;
+    
+    
     public Prodotto() {
     }
 
