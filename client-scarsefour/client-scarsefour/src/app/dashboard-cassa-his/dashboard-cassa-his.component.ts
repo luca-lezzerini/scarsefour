@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AutomaCassa } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
+import { Scontrino } from '../entità/scontrino';
 
 @Component({
   selector: 'app-dashboard-cassa-his',
@@ -14,18 +17,25 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   prezzoE = 0;
   prezzoTot = 0;
 
-  ean:boolean;
-  vediPrezzoVis:boolean;
-  table:boolean;
-  storna:boolean;
-  annullaScontrinoVis:boolean;
-  confermaVis:boolean;
-  annullaVis:boolean;
-  chiudi:boolean;
-  prezzo:boolean;
-  creaNuovoScontrino:boolean;
+  ean: boolean;
+  vediPrezzoVis: boolean;
+  table: boolean;
+  storna: boolean;
+  annullaScontrinoVis: boolean;
+  annullaScontrinoEnabled: boolean;
+  confermaVis: boolean;
+  confermaEnabled: boolean;
+  annullaVis: boolean;
+  annullaEnabled: boolean;
+  chiudi: boolean;
+  chiudiEnabled: boolean;
+  prezzo: boolean;
+  scontrino = new Scontrino();
 
-  constructor() { }
+  automa:AutomaCassa;
+  constructor(private http: HttpClient) {
+    this.automa = new AutomaCassa(this);
+   }
 
 
 
@@ -40,7 +50,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   annullaScontrino() {
 
   }
-  tornaUltimo() {
+  stornaUltimo() {
 
   }
 
@@ -56,7 +66,19 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     throw new Error('Method not implemented.');
   }
   entraStatoScontrinoVuoto() {
-
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = false;
+    this.confermaEnabled = false;
+    this.annullaEnabled = false;
+    this.chiudiEnabled = false;
   }
   entraStatoScontrinoNonVuoto() {
     throw new Error('Method not implemented.');
