@@ -12,7 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ScarsefourApplication {
 
     /**
-     * Punto di partenza main
+     * Punto di partenza dell'applicazione
+     *
      * @args
      *
      */
