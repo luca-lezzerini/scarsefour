@@ -6,8 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ScarsefourApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ScarsefourApplication.class, args);
-	}
+    /**
+     * applicazione di run
+     *
+     */
+
+    public static void main(String[] args) {
+        SpringApplication.run(ScarsefourApplication.class, args);
+    }
 
 }
