@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -32,6 +34,9 @@ public class RigaScontrino implements Serializable {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
+    
+    @OneToOne(mappedBy = "rigascontrino")  
+    private MovimentiScaffale movimentiScaffale;
     
     public RigaScontrino() {
     }

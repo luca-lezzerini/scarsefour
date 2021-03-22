@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class MovimentiScaffale implements Serializable {
@@ -26,6 +27,9 @@ public class MovimentiScaffale implements Serializable {
     private int quantità;
     @Column
     private LocalDateTime timestamp;
+    
+    @OneToOne
+    private RigaScontrino rigascontrino;
 
     public MovimentiScaffale() {
     }
