@@ -1,11 +1,12 @@
-import { Automabile } from "../automa-crud/automabile";
 import { AnnullaEvent, ConfermaEvent, Event } from "../automa-crud/eventi";
 import { StateCassa } from "../automa-gestione-cassa-his/stati";
-import { Scontrino } from "../entità/scontrino";
 import { AutomabileDashboardHis } from "./automabile-dashboard-his";
 import { AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent } from "./eventi";
 
 export class AutomaCassa implements StateCassa {
+
+    stato: StateCassa;
+    ui: AutomabileDashboardHis;
 
     constructor(ui: AutomabileDashboardHis) {
         this.ui = ui;
@@ -20,11 +21,6 @@ export class AutomaCassa implements StateCassa {
         this.stato.next(e, a);
         console.log("Siamo arrivati nello stato: ", this.stato);
     }
-
-    stato: StateCassa;
-    ui: AutomabileDashboardHis;
-
-
 }
 
 export class ScontrinoVuoto implements StateCassa {

@@ -3,4 +3,5 @@ export interface AutomabileDashboardHis {
     entraStatoScontrinoVuoto();
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
+    verificaEan(barcode: string);
 }

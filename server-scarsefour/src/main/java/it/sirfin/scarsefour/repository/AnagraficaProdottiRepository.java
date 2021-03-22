@@ -1,5 +1,6 @@
 package it.sirfin.scarsefour.repository;
 
+import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,5 @@ public interface AnagraficaProdottiRepository extends JpaRepository<Prodotto, Lo
      * @return ci ritorna una lista di prodotti
      */
     List<Prodotto> findByCodiceContains(String codice);
+    Prodotto findByEan (String barcode);
 }

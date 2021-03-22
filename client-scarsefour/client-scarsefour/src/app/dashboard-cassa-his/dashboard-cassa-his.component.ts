@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { AutomaCassa } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
+import { EanEvent } from '../automa-gestione-cassa-his/eventi';
 import { Scontrino } from '../entità/scontrino';
 
 @Component({
@@ -11,7 +13,7 @@ import { Scontrino } from '../entità/scontrino';
 })
 export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHis {
 
-
+  
   barcode = "";
   descrizioneE = "";
   prezzoE = 0;
@@ -32,18 +34,26 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   prezzo: boolean;
   scontrino = new Scontrino();
 
-  automa:AutomaCassa;
+  automaCassa:AutomaCassa;
   constructor(private http: HttpClient) {
-    this.automa = new AutomaCassa(this);
+    this.automaCassa = new AutomaCassa(this);
    }
 
 
 
   ngOnInit(): void {
   }
-  vediPrezzo() {
+  vediPrezzo() {}
 
+  generaEanEvent(){
+    this.automaCassa.next(new EanEvent(this.barcode), this.automaCassa);
   }
+
+  verificaEan(barcode: string){
+    barcode = this.barcode;
+    
+  }
+
   chiudiScontrino() {
 
   }
@@ -70,11 +80,11 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.vediPrezzoVis = true;
     this.table = false;
     this.storna = false;
-    this.annullaScontrinoVis = false;
-    this.confermaVis = false;
-    this.annullaVis = false;
-    this.chiudi = false;
-    this.prezzo = false;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = true;
+    this.annullaVis = true;
+    this.chiudi = true;
+    this.prezzo = true;
     this.annullaScontrinoEnabled = false;
     this.confermaEnabled = false;
     this.annullaEnabled = false;
