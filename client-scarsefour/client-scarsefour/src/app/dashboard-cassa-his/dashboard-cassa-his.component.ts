@@ -49,7 +49,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
   vediPrezzo() { }
 
-  generaEanEvent(barcode:string) {
+  generaEanEvent(barcode: string) {
     this.automaCassa.next(new EanEvent(barcode), this.automaCassa);
   }
 
@@ -97,13 +97,17 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     throw new Error('Method not implemented.');
   }
 
-  leggiEan(){
+  leggiEan() {
     let eanDtoHis = new EanDtoHis();
     eanDtoHis.barcode = this.barcode;
     this.http.post<ProdottoDto>("http://localhost:8080/verifica-ean", eanDtoHis)
       .subscribe(r => {
-        this.prodotti.push(r.prodotto);
-        this.generaEanEvent(r.prodotto.ean);
+        let codiceEan = "";
+        if (r.prodotto) {
+          this.prodotti.push(r.prodotto);
+          codiceEan = r.prodotto.ean;
+        }
+        this.generaEanEvent(codiceEan);
       });
   }
 
