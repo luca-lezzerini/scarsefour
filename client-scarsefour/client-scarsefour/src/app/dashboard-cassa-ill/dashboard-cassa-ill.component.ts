@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { AutomaCassa } from '../automa-gestione-cassa-ill/automa-ill';
 import { AutomabileIll } from '../automa-gestione-cassa-ill/automabile-ill';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-ill/eventi-ill';
+import { ProdottoDto } from '../dto/prodotto-dto';
+import { ReqEanDtoIll } from '../dto/req-ean-dto-ill';
+import { Prodotto } from '../entità/prodotto';
 import { Scontrino } from '../entità/scontrino';
 
 @Component({
@@ -34,6 +37,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   confermaE: boolean;
 
   scontrino = new Scontrino();
+  prodotti: Prodotto[] = [];
 
 
   ngOnInit(): void {
@@ -41,6 +45,13 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
 
   constructor(private http: HttpClient) {
     this.automa = new AutomaCassa(this);
+  }
+
+  trovaEan() {
+    let dto = new ReqEanDtoIll();
+    dto.codiceABarre = this.barcode;
+    this.http.post<ProdottoDto>("http://localhost:8080/trova-ean", dto)
+      .subscribe(r => this.prodotti.push(r.prodotto));
   }
 
   vediPrezzo() {
@@ -72,15 +83,15 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     this.vediPrezzoV = true;
     this.table = false;
     this.storna = false;
-    this.annullaScontrinoV = false;
-    this.confermaV = false;
-    this.annullaV = false;
+    this.annullaScontrinoV = true;
+    this.confermaV = true;
+    this.annullaV = true;
     this.chiudi = true;
-    this.prezzo = false;
+    this.prezzo = true;
     this.annullaScontrinoE = false;
     this.confermaE = false;
     this.annullaE = false;
-    this.chiudiE = true;
+    this.chiudiE = false;
   }
   entraStatoVediPrezzo() {
     this.ean = true;

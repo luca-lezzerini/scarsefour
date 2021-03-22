@@ -3,4 +3,5 @@ export interface AutomabileIll {
     entraStatoVediPrezzo();
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
+    trovaEan();
 }

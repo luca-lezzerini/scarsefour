@@ -29,6 +29,7 @@ export class ScontrinoVuoto implements State {
             a.stato = new VediPrezzo();
             a.ui.entraStatoVediPrezzo();
         } else if (e instanceof EanEvent) {
+            a.ui.trovaEan();
             if (e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
                 a.ui.entraStatoScontrinoNonVuoto();
