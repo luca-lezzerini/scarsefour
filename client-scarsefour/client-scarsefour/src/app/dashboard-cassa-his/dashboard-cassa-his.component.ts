@@ -1,9 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { runInThisContext } from 'node:vm';
 import { AutomaCassa } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
 import { EanEvent } from '../automa-gestione-cassa-his/eventi';
+import { EanDtoHis } from '../dto/ean-dto-his';
+import { ProdottoDto } from '../dto/prodotto-dto';
+import { Prodotto } from '../entità/prodotto';
 import { Scontrino } from '../entità/scontrino';
 
 @Component({
@@ -18,6 +22,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
+  prodotti : Prodotto[] = [];
 
   ean: boolean;
   vediPrezzoVis: boolean;
@@ -49,9 +54,12 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.automaCassa.next(new EanEvent(this.barcode), this.automaCassa);
   }
 
-  verificaEan(barcode: string){
-    barcode = this.barcode;
-    
+  verificaEan(){
+    let eanDtoHis = new EanDtoHis();
+    eanDtoHis.barcode = this.barcode;
+    this.http.post<ProdottoDto>("http://localhost:8080/verifica-ean", eanDtoHis)
+    .subscribe( r =>
+     this.prodotti.push(r.prodotto));
   }
 
   chiudiScontrino() {
