@@ -13,6 +13,7 @@ public class ScarsefourApplication {
 
     /**
      * applicazione di run
+     * Bonaccorso
      *
      */
     public static void main(String[] args) {
