@@ -3,5 +3,5 @@ export interface AutomabileDashboardHis {
     entraStatoScontrinoVuoto();
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
-    verificaEan();
+    leggiEan();
 }

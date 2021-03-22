@@ -16,12 +16,12 @@ import { Scontrino } from '../entità/scontrino';
 })
 export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHis {
 
-  
+
   barcode = "";
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
-  prodotti : Prodotto[] = [];
+  prodotti: Prodotto[] = [];
 
   ean: boolean;
   vediPrezzoVis: boolean;
@@ -38,27 +38,19 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   prezzo: boolean;
   scontrino = new Scontrino();
 
-  automaCassa:AutomaCassa;
+  automaCassa: AutomaCassa;
   constructor(private http: HttpClient) {
     this.automaCassa = new AutomaCassa(this);
-   }
+  }
 
 
 
   ngOnInit(): void {
   }
-  vediPrezzo() {}
+  vediPrezzo() { }
 
-  generaEanEvent(){
-    this.automaCassa.next(new EanEvent(this.barcode), this.automaCassa);
-  }
-
-  verificaEan(){
-    let eanDtoHis = new EanDtoHis();
-    eanDtoHis.barcode = this.barcode;
-    this.http.post<ProdottoDto>("http://localhost:8080/verifica-ean", eanDtoHis)
-    .subscribe( r =>
-     this.prodotti.push(r.prodotto));
+  generaEanEvent(barcode:string) {
+    this.automaCassa.next(new EanEvent(barcode), this.automaCassa);
   }
 
   chiudiScontrino() {
@@ -82,6 +74,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   entraStatoVediPrezzo() {
     throw new Error('Method not implemented.');
   }
+
   entraStatoScontrinoVuoto() {
     this.ean = true;
     this.vediPrezzoVis = true;
@@ -102,6 +95,16 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
   entraStatoAnnullamentoScontrino() {
     throw new Error('Method not implemented.');
+  }
+
+  leggiEan(){
+    let eanDtoHis = new EanDtoHis();
+    eanDtoHis.barcode = this.barcode;
+    this.http.post<ProdottoDto>("http://localhost:8080/verifica-ean", eanDtoHis)
+      .subscribe(r => {
+        this.prodotti.push(r.prodotto);
+        this.generaEanEvent(r.prodotto.ean);
+      });
   }
 
 }

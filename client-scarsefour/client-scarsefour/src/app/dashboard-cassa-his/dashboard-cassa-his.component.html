@@ -7,7 +7,7 @@
     <h2>Dashboard Hispanici</h2>
 </div>
 
-<input type="text" [(ngModel)]="barcode" placeholder="barcode" *ngIf="ean"  (keydown.tab)="generaEanEvent()" autofocus>
+<input type="text" [(ngModel)]="barcode" placeholder="barcode" *ngIf="ean"  (keydown.tab)="leggiEan()" autofocus>
 <br>
 <br>
 <br>
@@ -25,7 +25,9 @@ Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
 <br>
 <br>
 <div class="tabella">
-<table *ngIf="table">
+    <!--*ngIf="table"--> 
+    <!--da reinserire appena pronte le variazioni grafiche per gli stati-->
+<table >
     <tr>
         <th>Quantità</th>
         <th>Descrizione</th>
