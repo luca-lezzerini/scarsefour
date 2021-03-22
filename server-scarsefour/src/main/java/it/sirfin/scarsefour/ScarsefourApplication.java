@@ -5,13 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Applicazione principale che viene eseguita all'avvio
+ *
  * @author use
  */
 @SpringBootApplication
 public class ScarsefourApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(ScarsefourApplication.class, args);
-	}
+    /**
+     * Metodo main dell'applicazione
+     * @param args 
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(ScarsefourApplication.class, args);
+    }
 
 }
