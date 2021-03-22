@@ -6,12 +6,13 @@
     <div class="titolo">
         <h2>Dashboard Galli</h2>
     </div>
-    <input type="text" [(ngModel)]="prodotto.codice" placeholder="Barcode">
+    <input type="text" [(ngModel)]="barcode" placeholder="Barcode" *ngIf="ean" (keydown.tab)="verificaEan()">
     <br><br>
     <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
     <button (click)="chiudiScontrino()" *ngIf="chiudi" [disabled]="chiudiEnabled">Chiudi Scontrino</button>&nbsp;
     <button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>&nbsp;
-    <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="annullaScontrinoEnabled">Annulla Scontrino</button>&nbsp;
+    <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="annullaScontrinoEnabled">Annulla
+        Scontrino</button>&nbsp;
     <div>
         <button (click)="annulla()" *ngIf="confermaVis" [disabled]="confermaEnabled">Annulla</button>&nbsp;
         <button (click)="conferma()" *ngIf="annullaVis" [disabled]="annullaEnabled">Conferma</button>&nbsp;
