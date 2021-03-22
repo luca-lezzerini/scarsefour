@@ -8,6 +8,7 @@ export class AutomaCassa implements State {
         this.ui = ui;
         this.stato = new ScontrinoVuoto();
         console.log("Siamo nello stato: ", this.stato);
+        ui.entraStatoScontrinoVuoto();
     }
 
     stato: State;
