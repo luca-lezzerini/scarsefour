@@ -14,6 +14,7 @@ import { AnagraficaPosizioniComponent } from './anagrafica-posizioni/anagrafica-
 import { Homepage1Component } from './homepage1/homepage1.component';
 import { DashboardCassaIllComponent } from './dashboard-cassa-ill/dashboard-cassa-ill.component';
 import { CassaMacComponent } from './cassa-mac/cassa-mac.component';
+import { DashboardCassaGalliComponent } from './dashboard-cassa-galli/dashboard-cassa-galli.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CassaMacComponent } from './cassa-mac/cassa-mac.component';
     AnagraficaPosizioniComponent,
     Homepage1Component,
     DashboardCassaIllComponent,
-    CassaMacComponent
+    CassaMacComponent,
+    DashboardCassaGalliComponent
   ],
   imports: [
     BrowserModule,
