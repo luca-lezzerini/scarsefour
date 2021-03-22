@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CassaMacComponent implements OnInit {
 
-  constructor() { }
+  barcode = "";
+  descrizioneP = "";
+  prezzoP = 0;
+  totale = 0;
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
-
+  VediPrezzo() { }
+  ChiudiScontrino() { }
+  StornaUltimo() { }
+  AnnullaScontrino() { }
+  Annulla() { }
+  Conferma() { }
 }
