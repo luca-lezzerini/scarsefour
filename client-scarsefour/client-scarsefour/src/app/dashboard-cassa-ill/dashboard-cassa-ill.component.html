@@ -1,14 +1,21 @@
-<input type="text" [(ngModel)]="barcode">
+<input type="text" [(ngModel)]="barcode" placeholder="barcode" [disabled]="eanE" *ngIf="ean">
 <br>
-<button (click)="vediPrezzo()">Vedi Prezzo</button>
-<button (click)="chiudiScontrino()">Chiudi Scontrino</button>
-<button (click)="annullaScontrino()">Annulla Scontrino</button>
-<button (click)="stornaUltimo()">Storna Ultimo</button>
-Prezzo : {{prezzoTot}}
-<!-- <button (click)="annulla()">Annulla</button>
-<button (click)="conferma()">Conferma</button> -->
+<br>
+<br>
+<button (click)="vediPrezzo()" *ngIf="vediPrezzoV">Vedi Prezzo</button>
+<button (click)="chiudiScontrino()" *ngIf="chiudi" [disabled]="chiudiE">Chiudi Scontrino</button>
+<button (click)="annullaScontrino()" *ngIf="annullaScontrinoV" [disabled]="annullaScontrinoE">Annulla Scontrino</button>
+<button (click)="conferma()" *ngIf="confermaV" [disabled]="confermaE">Conferma</button>
+<button (click)="annulla()" *ngIf="annullaV" [disabled]="annullaE">Annulla</button>
+<button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>
+
+<p *ngIf="prezzo"> Prezzo : {{prezzoTot}}</p>
+<br>
 Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
-<table>
+<br>
+<br>
+<br>
+<table *ngIf="table">
     <tr>
         <th>Quantità</th>
         <th>Descrizione</th>
