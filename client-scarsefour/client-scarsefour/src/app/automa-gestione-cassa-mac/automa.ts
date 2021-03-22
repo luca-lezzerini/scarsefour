@@ -1,18 +1,20 @@
+import { Automa } from "../automa-crud/automa";
 import { Automabile } from "../automa-crud/automabile";
 import { AnnullaEvent, ConfermaEvent, Event } from "../automa-crud/eventi";
-import { StateCassa } from "../automa-gestione-cassa-his/stati";
+import { State } from "../automa-crud/stati";
 import { Scontrino } from "../entità/scontrino";
-import { AutomabileDashboardHis } from "./automabile-dashboard-his";
 import { AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent } from "./eventi";
 
-export class AutomaCassa implements StateCassa {
-
-    constructor(ui: AutomabileDashboardHis) {
+export class AutomaCassa {
+    constructor(ui: Automabile) {
         this.ui = ui;
         this.stato = new ScontrinoVuoto();
         console.log("Siamo nello stato: ", this.stato);
-        ui.entraStatoScontrinoVuoto();
+        ui.entraStatoRicerca();
     }
+
+    stato: State;
+    ui: Automabile;
 
     next(e: Event, a?: AutomaCassa) {
         console.log("Siamo nello stato: ", this.stato);
@@ -21,14 +23,11 @@ export class AutomaCassa implements StateCassa {
         console.log("Siamo arrivati nello stato: ", this.stato);
     }
 
-    stato: StateCassa;
-    ui: AutomabileDashboardHis;
-
 
 }
 
-export class ScontrinoVuoto implements StateCassa {
-    next(e: Event, a?: AutomaCassa) {
+export class ScontrinoVuoto implements State {
+    next(e: Event, a?: Automa) {
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
         } else if (e instanceof EanEvent) {
@@ -43,8 +42,8 @@ export class ScontrinoVuoto implements StateCassa {
     }
 }
 
-export class VediPrezzo implements StateCassa {
-    next(e: Event, a?: AutomaCassa) {
+export class VediPrezzo implements State {
+    next(e: Event, a?: Automa) {
         if (e instanceof EanEvent) {
             if (e.codiceEan && e.scontrino) {
                 a.stato = new ScontrinoNonVuoto();
@@ -63,8 +62,8 @@ export class VediPrezzo implements StateCassa {
     }
 }
 
-export class ScontrinoNonVuoto implements StateCassa {
-    next(e: Event, a?: AutomaCassa) {
+export class ScontrinoNonVuoto implements State {
+    next(e: Event, a?: Automa) {
         if (e instanceof ChiudiEvent) {
             a.stato = new ScontrinoVuoto();
         } else if (e instanceof StornaEvent) {
@@ -89,8 +88,8 @@ export class ScontrinoNonVuoto implements StateCassa {
     }
 }
 
-export class AnnullamentoScontrino implements StateCassa {
-    next(e: Event, a?: AutomaCassa) {
+export class AnnullamentoScontrino implements State {
+    next(e: Event, a?: Automa) {
         if (e instanceof AnnullaEvent) {
             a.stato = new ScontrinoNonVuoto();
         } else if (e instanceof ConfermaEvent) {
