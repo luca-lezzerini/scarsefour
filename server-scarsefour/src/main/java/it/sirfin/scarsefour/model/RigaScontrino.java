@@ -18,10 +18,12 @@ import javax.persistence.Id;
 @Entity
 public class RigaScontrino implements Serializable {
 
+    /* non sono stati creati ancora i get e set e il to string 
+    perchè bisogna aggiungere le asscoiazioni prima */
     @Id
     @GeneratedValue
     private Long id;
-    
+
     @Column
     private Integer quantità;
 
