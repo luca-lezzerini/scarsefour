@@ -5,6 +5,7 @@ import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-ca
 import { AnagraficaPosizioniComponent } from './anagrafica-posizioni/anagrafica-posizioni.component';
 import { AnagraficaProdottiComponent } from './anagrafica-prodotti/anagrafica-prodotti.component';
 import { AnagraficaScontoComponent } from './anagrafica-sconto/anagrafica-sconto.component';
+import { DashboardCassaIllComponent } from './dashboard-cassa-ill/dashboard-cassa-ill.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { Homepage1Component } from './homepage1/homepage1.component';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'app-anagrafica-casse', component: AnagraficaCasseComponent },
   { path: 'app-anagrafica-sconto', component: AnagraficaScontoComponent },
   { path: 'app-anagrafica-posizione', component:AnagraficaPosizioniComponent },
+  { path: 'app-dashboard-cassa-ill', component: DashboardCassaIllComponent},
   { path: '', redirectTo: '/app-home-page', pathMatch: 'full' }
 ];
 
