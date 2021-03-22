@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardCassaIllComponent implements OnInit {
   barcode = "";
+  descrizioneE = "";
+  prezzoE = 0;
+  prezzoTot = 0;
   constructor() { }
 
   ngOnInit(): void {
