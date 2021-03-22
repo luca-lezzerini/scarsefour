@@ -3,9 +3,9 @@
 </div>
 
 <div class="titolo">
-    <h2>Dashboard Macedoni</h2>caio
+    <h2>Dashboard Macedoni</h2>
 </div>
-<input type="text" [(ngModel)]="barcode">&nbsp;
+<input type="text" [(ngModel)]="barcode" placeholder="barcode" *ngIf="ean"  (keydown.tab)="generaEanEvent()" autofocus>&nbsp;
 <button (click)="VediPrezzo()">Vedi prezzo</button>&nbsp;
 <button (click)="ChiudiScontrino()">Chiudi scontrino</button>&nbsp;
 <button (click)="StornaUltimo()">Storna ultimo</button>&nbsp;

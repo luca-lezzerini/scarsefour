@@ -30,6 +30,7 @@ export class ScontrinoVuoto implements StateCassa {
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
         } else if (e instanceof EanEvent) {
+            a.ui.ricercaEanEvent();
             if (e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
             } else {

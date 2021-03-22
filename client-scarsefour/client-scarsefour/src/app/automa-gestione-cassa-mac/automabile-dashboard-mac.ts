@@ -3,4 +3,5 @@ export interface AutomabileDashboardMac {
     entraStatoScontrinoVuoto();
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
+    ricercaEanEvent();
 }
