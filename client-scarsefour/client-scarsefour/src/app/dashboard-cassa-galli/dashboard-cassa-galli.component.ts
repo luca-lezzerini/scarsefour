@@ -10,7 +10,9 @@ import { Prodotto } from '../prodotto';
 export class DashboardCassaGalliComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
+
   prodotto: Prodotto;
+  prodotti: Prodotto[] = [];
 
   ngOnInit(): void {
   }

@@ -28,15 +28,19 @@ export class ScontrinoVuoto implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof EanEventGalli) {
             //Verificare che l'ean esiste nel db
-            if (e.ean == null || e.ean == "")
-                //Dopo di che se non esiste lo stato rimane ScontrinoVuoto    
+            if (e.ean == null || e.ean == "") { //Dopo di che se non esiste lo stato rimane ScontrinoVuoto    
                 a.stato = new ScontrinoVuoto();
-            else
+                a.ui.entraStatoScontrinoVuoto();
+            }
+            else {
                 a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuoto();
+            }
         }
 
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
+            a.ui.entraStatoVediPrezzo();
         }
         throw new Error("Method not implemented.");
     }
@@ -45,6 +49,28 @@ export class ScontrinoVuoto implements State {
 
 export class VediPrezzo implements State {
     next(e: Event, a?: Automa) {
+        if (e instanceof EanEventGalli) {
+            if (e.ean == null || e.ean == "") {
+                a.stato = new ScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuoto();
+            }
+        }
+        if (e instanceof EanEventGalli)
+            if (e.ean == null || e.ean == "") {
+                a.stato = new ScontrinoNonVuoto;
+                a.ui.entraStatoScontrinoNonVuoto();
+            }
+
+        if (e instanceof EanEventGalli) {
+            a.stato = new ScontrinoNonVuoto;
+            a.ui.entraStatoScontrinoNonVuoto();
+        }
+
+        if (e instanceof EanEventGalli) {
+            a.stato = new ScontrinoVuoto();
+            a.ui.entraStatoScontrinoVuoto();
+        }
+
         throw new Error("Method not implemented.");
     }
 
@@ -59,5 +85,6 @@ export class AnnullamentoScontrino implements State {
     next(e: Event, a?: Automa) {
         throw new Error("Method not implemented.");
     }
+
 
 }
