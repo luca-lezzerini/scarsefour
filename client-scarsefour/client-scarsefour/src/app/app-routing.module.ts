@@ -8,7 +8,7 @@ import { AnagraficaScontoComponent } from './anagrafica-sconto/anagrafica-sconto
 import { HomePageComponent } from './home-page/home-page.component';
 import { Homepage1Component } from './homepage1/homepage1.component';
 
-//richieste del router
+//richieste del routing
 const routes: Routes = [
 
   { path: 'app-home-page1', component: Homepage1Component },
