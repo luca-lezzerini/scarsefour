@@ -12,8 +12,8 @@ import { AnagraficaCassiereComponent } from './anagrafica-cassiere/anagrafica-ca
 import { AnagraficaScontoComponent } from './anagrafica-sconto/anagrafica-sconto.component';
 import { AnagraficaPosizioniComponent } from './anagrafica-posizioni/anagrafica-posizioni.component';
 import { Homepage1Component } from './homepage1/homepage1.component';
+import { DashboardCassaIllComponent } from './dashboard-cassa-ill/dashboard-cassa-ill.component';
 import { CassaMacComponent } from './cassa-mac/cassa-mac.component';
-import { DashboardCassaGalliComponent } from './dashboard-cassa-galli/dashboard-cassa-galli.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,8 @@ import { DashboardCassaGalliComponent } from './dashboard-cassa-galli/dashboard-
     AnagraficaScontoComponent,
     AnagraficaPosizioniComponent,
     Homepage1Component,
-    CassaMacComponent,
-    DashboardCassaGalliComponent
+    DashboardCassaIllComponent,
+    CassaMacComponent
   ],
   imports: [
     BrowserModule,
