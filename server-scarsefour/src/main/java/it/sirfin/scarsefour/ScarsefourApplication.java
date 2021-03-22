@@ -12,9 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ScarsefourApplication {
 
     /**
-     * Metodo main
+     * applicazione di run
+     * Bonaccorso
      *
-     * @param args
      */
     public static void main(String[] args) {
         SpringApplication.run(ScarsefourApplication.class, args);
