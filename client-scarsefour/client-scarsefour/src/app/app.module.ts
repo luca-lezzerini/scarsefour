@@ -28,7 +28,7 @@ import { DashboardCassaGalliComponent } from './dashboard-cassa-galli/dashboard-
     Homepage1Component,
     DashboardCassaIllComponent,
     CassaMacComponent,
-    DashboardCassaGalliComponent
+    DashboardCassaGalliComponent,
   ],
   imports: [
     BrowserModule,

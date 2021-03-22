@@ -1,1 +1,30 @@
-<p>dashboard-cassa-galli works!</p>
+<h1>Dashboard Cassa dei Galli</h1>
+<br><br>
+<input type="text" [(ngModel)]="prodotto.codice" placeholder="Barcode">
+<br><br>
+<button (click)="vediPrezzo()">Vedi Prezzo</button>&nbsp;
+<button (click)="chiudiScontrino()">Chiudi Scontrino</button>&nbsp;
+<button (click)="stornaUltimo()">Storna Ultimo</button>&nbsp;
+<button (click)="annullaScontrino()">Annulla Scontrino</button>&nbsp;
+<div>
+    <button (click)="annulla()">Annulla</button>&nbsp;
+    <button (click)="conferma()">Conferma</button>&nbsp;
+</div>
+<table>
+    <tr>
+        <th>Quantità</th>
+        <th>Descrizione</th>
+        <th>Prezzo</th>
+    </tr>
+    <tr *ngFor="let p of prodotti">
+        <td>
+            1
+        </td>
+        <td>
+            {{p.descrizione}}
+        </td>
+        <td>
+            {{p.prezzo}}
+        </td>
+    </tr>
+</table>
