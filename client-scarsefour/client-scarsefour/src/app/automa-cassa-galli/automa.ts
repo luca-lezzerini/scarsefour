@@ -1,5 +1,5 @@
 import { AutomabileGalli } from "./automabile-galli";
-import { EanEventGalli, VediPrezzoEvent } from "./eventi-galli";
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEventGalli, StornaEvent, VediPrezzoEvent } from "./eventi-galli";
 import { State } from "./state-galli";
 
 export class Automa implements State {
@@ -19,8 +19,6 @@ export class Automa implements State {
         this.stato.next(e, a);
         console.log("Siamo arrivati nello stato: ", this.stato);
     }
-
-
 
 }
 
@@ -57,12 +55,12 @@ export class VediPrezzo implements State {
         }
         if (e instanceof EanEventGalli)
             if (e.ean == null || e.ean == "") {
-                a.stato = new ScontrinoNonVuoto;
+                a.stato = new ScontrinoNonVuoto();
                 a.ui.entraStatoScontrinoNonVuoto();
             }
 
         if (e instanceof EanEventGalli) {
-            a.stato = new ScontrinoNonVuoto;
+            a.stato = new ScontrinoNonVuoto();
             a.ui.entraStatoScontrinoNonVuoto();
         }
 
@@ -70,21 +68,53 @@ export class VediPrezzo implements State {
             a.stato = new ScontrinoVuoto();
             a.ui.entraStatoScontrinoVuoto();
         }
+        else {
+            console.log("ricevuto evento ", e, " inatteso");
 
-        throw new Error("Method not implemented.");
+        }
     }
-
 }
+
+
 export class ScontrinoNonVuoto implements State {
     next(e: Event, a?: Automa) {
-        throw new Error("Method not implemented.");
+        if (e instanceof ChiudiEvent) {
+            a.stato = new ScontrinoVuoto();
+        } else if (e instanceof StornaEvent) {
+            if (e.numeroElementi == 1) {
+                a.stato = new ScontrinoVuoto();
+            } else if (e.numeroElementi > 1) {
+                a.stato = new ScontrinoNonVuoto();
+            }
+        } else if (e instanceof EanEventGalli) {
+            if (!e.ean) {
+                a.stato = new ScontrinoNonVuoto();
+            } else if (e.ean) {
+                a.stato = new ScontrinoNonVuoto();
+            }
+        } else if (e instanceof AnnullaScontrinoEvent) {
+            a.stato = new AnnullamentoScontrino();
+        } else if (e instanceof VediPrezzoEvent) {
+            a.stato = new VediPrezzo();
+        } else {
+            console.log("ricevuto evento ", e, " inatteso");
+        }
     }
-
 }
+
+
 export class AnnullamentoScontrino implements State {
     next(e: Event, a?: Automa) {
-        throw new Error("Method not implemented.");
+
+        if (e instanceof AnnullaEvent) {
+            a.stato = new ScontrinoNonVuoto();
+        } else if (e instanceof ConfermaEvent) {
+            a.stato = new ScontrinoVuoto();
+        } else {
+            console.log("ricevuto evento ", e, " inatteso");
+        }
     }
-
-
 }
+
+
+

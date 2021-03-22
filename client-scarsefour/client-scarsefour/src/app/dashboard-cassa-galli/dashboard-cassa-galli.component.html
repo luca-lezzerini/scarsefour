@@ -1,30 +1,39 @@
-<h1>Dashboard Cassa dei Galli</h1>
-<br><br>
-<input type="text" [(ngModel)]="prodotto.codice" placeholder="Barcode">
-<br><br>
-<button (click)="vediPrezzo()">Vedi Prezzo</button>&nbsp;
-<button (click)="chiudiScontrino()">Chiudi Scontrino</button>&nbsp;
-<button (click)="stornaUltimo()">Storna Ultimo</button>&nbsp;
-<button (click)="annullaScontrino()">Annulla Scontrino</button>&nbsp;
-<div>
-    <button (click)="annulla()">Annulla</button>&nbsp;
-    <button (click)="conferma()">Conferma</button>&nbsp;
-</div>
-<table>
-    <tr>
-        <th>Quantità</th>
-        <th>Descrizione</th>
-        <th>Prezzo</th>
-    </tr>
-    <tr *ngFor="let p of prodotti">
-        <td>
-            1
-        </td>
-        <td>
-            {{p.descrizione}}
-        </td>
-        <td>
-            {{p.prezzo}}
-        </td>
-    </tr>
-</table>
+<body>
+    <div class="barranav">
+        <a href="app-home-page1">Home page</a>
+    </div>
+
+    <div class="titolo">
+        <h2>Dashboard Galli</h2>
+    </div>
+    <input type="text" [(ngModel)]="prodotto.codice" placeholder="Barcode">
+    <br><br>
+    <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
+    <button (click)="chiudiScontrino()" *ngIf="chiudi" [disabled]="chiudiEnabled">Chiudi Scontrino</button>&nbsp;
+    <button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>&nbsp;
+    <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="annullaScontrinoEnabled">Annulla Scontrino</button>&nbsp;
+    <div>
+        <button (click)="annulla()" *ngIf="confermaVis" [disabled]="confermaEnabled">Annulla</button>&nbsp;
+        <button (click)="conferma()" *ngIf="annullaVis" [disabled]="annullaEnabled">Conferma</button>&nbsp;
+    </div>
+    <p *ngIf="prezzo"> Prezzo : {{prezzoTot}}</p>
+
+    Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
+    <br>
+    <br>
+    <br>
+    <div class="tabella">
+        <table *ngIf="table">
+            <tr>
+                <th>Quantità</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+            </tr>
+            <tr *ngFor="let p of prodotti">
+                <td></td>
+                <td>{{p.descrizione}}</td>
+                <td>{{p.prezzo}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
