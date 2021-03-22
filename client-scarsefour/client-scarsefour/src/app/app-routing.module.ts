@@ -10,6 +10,7 @@ import { DashboardCassaIllComponent } from './dashboard-cassa-ill/dashboard-cass
 import { CassaMacComponent } from './cassa-mac/cassa-mac.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { Homepage1Component } from './homepage1/homepage1.component';
+import { DashboardCassaGalliComponent } from './dashboard-cassa-galli/dashboard-cassa-galli.component';
 
 //richieste del         routing
 const routes: Routes = [
@@ -24,6 +25,8 @@ const routes: Routes = [
   { path: 'app-dashboard-cassa-ill', component: DashboardCassaIllComponent },
   { path: 'app-dashboard-cassa-his', component: DashboardCassaHisComponent },
   { path: 'app-cassa-mac', component: CassaMacComponent },
+  { path: 'app-dashboard-cassa-galli', component: DashboardCassaGalliComponent },
+
   { path: '', redirectTo: '/app-home-page', pathMatch: 'full' }
 ];
 
