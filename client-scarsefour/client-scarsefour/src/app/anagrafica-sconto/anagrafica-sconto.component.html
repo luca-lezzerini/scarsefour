@@ -17,7 +17,7 @@
         <button (click)="annulla()" *ngIf="annull">Annulla</button>
         <button (click)="conferma()" *ngIf="conf">Conferma</button>
         <button (click)="rimuovi()" *ngIf="remove">Rimuovi</button>
-       
+
     </div>
     <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
     <br><br>
@@ -25,23 +25,24 @@
         <input type="text" placeholder="Cerca per codice" [(ngModel)]="criterioRicerca" [disabled]="codiceInput">&nbsp;
         <button (click)="cerca()">Cerca</button>
     </div><br><br>
-
-    <table *ngIf="tabella">
-        <tr>
-            <th>Codice</th>
-            <th>Descrizione</th>
-            <th>Sconto</th>
-            <th>Dalla Data</th>
-            <th>Alla Data</th>
-            <th>Azioni</th>
-        </tr>
-        <tr *ngFor="let s of sconti">
-            <td>{{s.codice}}</td>
-            <td>{{s.descrizione}}</td>
-            <td>{{s.prezzoScontato}}%</td>
-            <td>{{s.dallaData}}</td>
-            <td>{{s.allaData}}</td>
-            <td><button (click)="seleziona(s)">Seleziona</button></td>
-        </tr>
-    </table>
+    <div class="tabella">
+        <table *ngIf="tabella">
+            <tr>
+                <th>Codice</th>
+                <th>Descrizione</th>
+                <th>Sconto</th>
+                <th>Dalla Data</th>
+                <th>Alla Data</th>
+                <th>Azioni</th>
+            </tr>
+            <tr *ngFor="let s of sconti">
+                <td>{{s.codice}}</td>
+                <td>{{s.descrizione}}</td>
+                <td>{{s.prezzoScontato}}%</td>
+                <td>{{s.dallaData}}</td>
+                <td>{{s.allaData}}</td>
+                <td><button (click)="seleziona(s)">Seleziona</button></td>
+            </tr>
+        </table>
+    </div>
 </body>

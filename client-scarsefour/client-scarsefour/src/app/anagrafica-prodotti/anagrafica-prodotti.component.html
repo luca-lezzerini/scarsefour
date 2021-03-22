@@ -33,29 +33,30 @@
         <h4>{{errore}}</h4>
     </div>
     <br><br>
-
-    <table *ngIf="tabella">
-        <tr>
-            <th>EAN</th>
-            <th>Codice</th>
-            <th>Descrizione</th>
-            <th>Prezzo</th>
-            <th>Scorta minima scaffale</th>
-            <th>Scorta minima magazzino</th>
-            <th>Lotto riordino</th>
-            <th>Seleziona</th>
-        </tr>
-        <tr *ngFor="let p of prodotti">
-            <td>{{p.ean}}</td>
-            <td>{{p.codice}}</td>
-            <td>{{p.descrizione}}</td>
-            <td>{{p.prezzo}}</td>
-            <td>{{p.scortaMinimaScaf}}</td>
-            <td>{{p.scortaMinimaMag}}</td>
-            <td>{{p.lottoRiordino}}</td>
-            <td>
-                <button (click)="seleziona(p)">Seleziona</button>
-            </td>
-        </tr>
-    </table>
+    <div class="tabella">
+        <table *ngIf="tabella">
+            <tr>
+                <th>EAN</th>
+                <th>Codice</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+                <th>Scorta minima scaffale</th>
+                <th>Scorta minima magazzino</th>
+                <th>Lotto riordino</th>
+                <th>Seleziona</th>
+            </tr>
+            <tr *ngFor="let p of prodotti">
+                <td>{{p.ean}}</td>
+                <td>{{p.codice}}</td>
+                <td>{{p.descrizione}}</td>
+                <td>{{p.prezzo}}</td>
+                <td>{{p.scortaMinimaScaf}}</td>
+                <td>{{p.scortaMinimaMag}}</td>
+                <td>{{p.lottoRiordino}}</td>
+                <td>
+                    <button (click)="seleziona(p)">Seleziona</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>

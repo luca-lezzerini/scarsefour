@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { runInThisContext } from 'node:vm';
 import { AutomaCassa } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
 import { EanEvent } from '../automa-gestione-cassa-his/eventi';
