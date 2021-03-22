@@ -23,7 +23,7 @@ export class DashboardCassaIllComponent implements OnInit {
   annullaScontrino() {
 
   }
-  tornaUltimo() {
+  stornaUltimo() {
 
   }
 }
