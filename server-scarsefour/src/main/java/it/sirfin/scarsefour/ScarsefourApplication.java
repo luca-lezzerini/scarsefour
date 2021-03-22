@@ -13,7 +13,6 @@ public class ScarsefourApplication {
 
     /**
      * applicazione di run
-     * Lezzerini
      *
      */
     public static void main(String[] args) {
