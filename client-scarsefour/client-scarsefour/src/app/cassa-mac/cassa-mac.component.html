@@ -7,6 +7,7 @@
         <h2>Dashboard Macedoni</h2>
     </div>
     <input type="text" [(ngModel)]="barcode" placeholder="barcode" *ngIf="ean" (keydown.tab)="ricercaEan()" autofocus>
+    <p *ngif = "errore">ean non trovato</p>
     <br>
     <br>
     <br>
@@ -20,7 +21,7 @@
 
     <p *ngIf="prezzo"> Prezzo : {{prezzoTot}} €</p>
 
-    <!--<p *ngIf="ultimoProdotto.id">Ultimo elemento : {{ultimoProdotto.descrizione}}, {{ultimoProdotto.prezzo}} € </p> -->
+    <p *ngIf="ultimoProdotto.id">Ultimo elemento : {{ultimoProdotto.descrizione}}, {{ultimoProdotto.prezzo}} € </p> 
     <br>
     <br>
     <br>

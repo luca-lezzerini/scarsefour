@@ -23,11 +23,12 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   prodotti: Prodotto[] = [];
   righeScontrino: RigaScontrino[] = [];
   rigaScontrino = new RigaScontrino();
-
+  ultimoProdotto = new Prodotto();
+  errore: boolean;
 
   ean: boolean;
   vediPrezzoVis: boolean;
-  table: boolean;
+  table: boolean;//si riferisce a lista scontrino
   storna: boolean;
   annullaScontrinoVis: boolean;
   annullaScontrinoEnabled: boolean;
@@ -106,6 +107,22 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     this.ean = true;
     this.vediPrezzoVis = true;
     this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = false;
+    this.confermaEnabled = false;
+    this.annullaEnabled = false;
+    this.chiudiEnabled = false;
+  }
+  entraStatoScontrinoVuotoDaVediPrezzo() {
+    //ean conosciuto
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
     this.storna = true;
     this.annullaScontrinoVis = true;
     this.confermaVis = false;
@@ -116,6 +133,59 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     this.confermaEnabled = true;
     this.annullaEnabled = true;
     this.chiudiEnabled = true;
+  }
+  entraStatoScontrinoVuotoDaVediPrezzoErrore() {
+    //ean sconosciuto
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
+    this.errore = true;
+  }
+  entraStatoScontrinoVuotoDaNonVuoto() {
+    //da scontrino non vuoto a scontrino vuoto
+    this.ean = true;
+    this.vediPrezzoVis = false;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = false;
+    this.annullaEnabled = false;
+    this.chiudiEnabled = true;
+    this.errore = false;
+  }
+  entraStatoScontrinoVuotoDaNonVuotoStornaUno() {
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.chiudi = true;
+    this.storna = true;
+    this.annullaScontrinoVis = false;
+    this.annullaVis = false;
+    this.confermaVis = false;
+    this.table = false;
+    this.prezzo = true;
+  }
+  entraStatoScontrinoVuotoDaAnnullaScontrino(){
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.chiudi = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    //da completare
   }
   entraStatoScontrinoNonVuoto() {
     this.ean = true;
@@ -151,6 +221,6 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   ngOnInit(): void {
   }
 
- 
+
 
 }
