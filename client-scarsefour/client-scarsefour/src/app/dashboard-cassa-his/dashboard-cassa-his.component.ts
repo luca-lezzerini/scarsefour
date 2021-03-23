@@ -147,9 +147,11 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       .subscribe(r => {
         let codiceEan = "";
         if (r.prodotto) {
-          this.rigaScontrino.prodotto = r.prodotto;
+          let rigaScontrino = new RigaScontrino();
+          rigaScontrino.prodotto = r.prodotto;
+          // this.rigaScontrino.prodotto = r.prodotto;
           codiceEan = r.prodotto.ean;
-          this.definisciQuantita(this.rigaScontrino);
+          this.definisciQuantita(rigaScontrino);
           console.log(this.righeScontrino);
         }
         this.generaEanEvent(codiceEan);
@@ -163,15 +165,12 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
 
   definisciQuantita(riga: RigaScontrino) {
-
+    
     if (this.righeScontrino.includes(riga)) {
       riga.quantita++;
     } else {
       riga.quantita = 1;
       this.righeScontrino.push(riga);
-      
     }
-
   }
-
 }
