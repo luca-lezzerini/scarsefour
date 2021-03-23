@@ -10,4 +10,6 @@ import it.sirfin.scarsefour.dto.ProdottoDto;
 public interface DashboardCassaGalService {
 
     ProdottoDto verificaEan(String ean);
+    
+    void demo();
 }

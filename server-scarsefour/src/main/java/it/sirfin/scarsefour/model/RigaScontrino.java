@@ -48,6 +48,38 @@ public class RigaScontrino implements Serializable {
         this.quantita = quantità;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(Integer quantita) {
+        this.quantita = quantita;
+    }
+
+    public Prodotto getProdotto() {
+        return prodotto;
+    }
+
+    public void setProdotto(Prodotto prodotto) {
+        this.prodotto = prodotto;
+    }
+
+    public MovimentiScaffale getMovimentiScaffale() {
+        return movimentiScaffale;
+    }
+
+    public void setMovimentiScaffale(MovimentiScaffale movimentiScaffale) {
+        this.movimentiScaffale = movimentiScaffale;
+    }
+
     public Scontrino getScontrino() {
         return scontrino;
     }
@@ -55,6 +87,8 @@ public class RigaScontrino implements Serializable {
     public void setScontrino(Scontrino scontrino) {
         this.scontrino = scontrino;
     }
+
+  
 
     @Override
     public String toString() {

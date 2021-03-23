@@ -6,8 +6,18 @@
 package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.model.Prodotto;
+import it.sirfin.scarsefour.model.RigaScontrino;
+import it.sirfin.scarsefour.model.Scontrino;
 import it.sirfin.scarsefour.repository.AnagraficaProdottiRepository;
+import it.sirfin.scarsefour.repository.ProdottoRepository;
+import it.sirfin.scarsefour.repository.RigaRepository;
+import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.DashboardCassaGalService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +26,37 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
 
     @Autowired
     AnagraficaProdottiRepository anagraficaProdottiRepository;
+    @Autowired
+    ScontrinoRepository scontrinoRepository;
+    @Autowired
+    ProdottoRepository prodottoRepository;
+    @Autowired
+    RigaRepository rigaRepository;
+
+    public void demo() {
+
+        Scontrino sc = new Scontrino(LocalDateTime.of(5, Month.MARCH, 2018, 19, 50), 2, 100.5);
+        Scontrino sc1 = new Scontrino(LocalDateTime.of(6, Month.JULY, 2015, 13, 35), 3, 15.4);
+        Scontrino sc2 = new Scontrino(LocalDateTime.of(2, Month.MARCH, 2012, 16, 20), 4, 200.6);
+
+        sc = scontrinoRepository.save(sc);
+        sc1 = scontrinoRepository.save(sc1);
+        sc2 = scontrinoRepository.save(sc2);
+
+    }
 
     @Override
     public ProdottoDto verificaEan(String ean) {
         return new ProdottoDto(anagraficaProdottiRepository.findByEan(ean));
     }
 
+    private void associaProdottoARigaScontrino(Prodotto p, RigaScontrino rs) {
+        rs.setProdotto(p);
+        rigaRepository.save(rs);
+
+        List<RigaScontrino> lista = p.getRigheScontrini();
+        lista.add(rs);
+        prodottoRepository.save(p);
+
+    }
 }

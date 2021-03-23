@@ -137,6 +137,15 @@ public class Prodotto implements Serializable {
         this.sconti = sconti;
     }
 
+    public List<RigaScontrino> getRigheScontrini() {
+        return righeScontrini;
+    }
+
+    public void setRigheScontrini(List<RigaScontrino> righeScontrini) {
+        this.righeScontrini = righeScontrini;
+    }
+    
+
     @Override
     public String toString() {
         return "Prodotto{" + "id=" + id + ", ean=" + ean + ", codice=" + codice + ", descrizione=" + descrizione + ", prezzo=" + prezzo + ", scortaMinimaScaf=" + scortaMinimaScaf + ", scortaMinimaMag=" + scortaMinimaMag + ", lottoRiordino=" + lottoRiordino + ", sconti=" + sconti + '}';
