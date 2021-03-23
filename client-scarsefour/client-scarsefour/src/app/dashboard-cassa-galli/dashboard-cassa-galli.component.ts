@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Automa, VediPrezzo } from '../automa-cassa-galli/automa';
 import { AutomabileGalli } from '../automa-cassa-galli/automabile-galli';
-import { VediPrezzoEvent } from '../automa-cassa-galli/eventi-galli';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, StornaEvent, VediPrezzoEvent } from '../automa-cassa-galli/eventi-galli';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoGal } from '../dto/req-ean-dto-gal';
 import { RigaScontrino } from '../entità/riga-scontrino';
@@ -48,12 +48,24 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   ngOnInit(): void {
   }
 
-  vediPrezzo() { }
-  chiudiScontrino() { }
-  stornaUltimo() { }
-  annullaScontrino() { }
-  annulla() { }
-  conferma() { }
+  vediPrezzo() {
+    this.automa.next(new VediPrezzoEvent, this.automa);
+  }
+  chiudiScontrino() {
+    this.automa.next(new ChiudiEvent, this.automa);
+  }
+  stornaUltimo() {
+    this.automa.next(new StornaEvent, this.automa);
+  }
+  annullaScontrino() {
+    this.automa.next(new AnnullaScontrinoEvent, this.automa);
+  }
+  annulla() {
+    this.automa.next(new AnnullaEvent, this.automa);
+  }
+  conferma() {
+    this.automa.next(new ConfermaEvent, this.automa);
+  }
 
   entraStatoScontrinoVuoto() {
     this.ean = true;

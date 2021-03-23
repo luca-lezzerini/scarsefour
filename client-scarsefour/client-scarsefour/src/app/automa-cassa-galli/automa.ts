@@ -1,6 +1,7 @@
 import { AutomabileGalli } from "./automabile-galli";
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEventGalli, StornaEvent, VediPrezzoEvent } from "./eventi-galli";
 import { State } from "./state-galli";
+import {Event } from "./eventi-galli";
 
 export class Automa implements State {
 
