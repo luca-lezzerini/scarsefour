@@ -26,6 +26,8 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   prodotti: Prodotto[] = [];
   righeScontrino: RigaScontrino[] = [];
   rigaScontrino = new RigaScontrino();
+  scontrino = new Scontrino();
+
 
   ean: boolean;
   vediPrezzoVis: boolean;
@@ -40,7 +42,6 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   chiudi: boolean;
   chiudiEnabled: boolean;
   prezzo: boolean;
-  scontrino = new Scontrino();
 
   automaCassa: AutomaCassa;
   constructor(private http: HttpClient) {
@@ -142,70 +143,26 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
 
   leggiEan() {
-    this.creaScontrino();
     let eanDtoHis = new EanDtoHis();
     eanDtoHis.barcode = this.barcode;
     this.http.post<ProdottoDto>("http://localhost:8080/verifica-ean", eanDtoHis)
       .subscribe(r => {
-        let codiceEan = "";
-        if (r.prodotto) {
-          let rigaScontrino = new RigaScontrino();
-          rigaScontrino.prodotto = r.prodotto;
-          codiceEan = r.prodotto.ean;
-          this.creaRiga(rigaScontrino);
-          this.definisciQuantita(rigaScontrino);
-          this.calcolaTotale(r.prodotto.prezzo);
-          this.ultimoProdotto = r.prodotto;
-          console.log(this.righeScontrino);
-        }
-        this.generaEanEvent(codiceEan);
-
+        //da definire valori di ritorno
       });
   }
 
   eliminaUltimoElemento() {
-    this.righeScontrino.pop();
-    console.log(this.righeScontrino);
+
   }
 
   calcolaTotale(prezzo: number) {
-    this.prezzoTot = this.prezzoTot + prezzo;
+
   }
 
   definisciQuantita(riga: RigaScontrino) {
-    let trovato: boolean;
-    for (let r of this.righeScontrino) {
-      if (r.prodotto.id == riga.prodotto.id) {
-        r.quantita++;
-        console.log("trovato prodotto uguale");
-        trovato = true;
-        break;
-      }
-    }
-    if (!trovato) {
-      console.log("prodotto uguale non trovato")
-      riga.quantita = 1;
-      this.righeScontrino.push(riga);
-    }
+
   }
 
-  creaScontrino() {
-    let dto = new CreaScontrinoDto();
-    dto.scontrino = this.scontrino;
-    this.http.post<CreaScontrinoDto>("http:localhost:8080/salva-scontrino", dto)
-      .subscribe(r => {
-        this.scontrino = r.scontrino;
-      });
-  }
-
-  creaRiga(riga: RigaScontrino) {
-    let dto = new CreaRigaDto();
-    dto.riga = riga;
-    this.http.post<CreaRigaDto>("http:localhost:8080/salva-riga", dto)
-      .subscribe(r => {
-        this.rigaScontrino = r.riga;
-      });
-  }
 
 }
 

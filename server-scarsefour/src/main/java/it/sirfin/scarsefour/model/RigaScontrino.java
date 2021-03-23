@@ -55,6 +55,11 @@ public class RigaScontrino implements Serializable {
     public void setScontrino(Scontrino scontrino) {
         this.scontrino = scontrino;
     }
+
+    @Override
+    public String toString() {
+        return "RigaScontrino{" + "id=" + id + ", quantita=" + quantita + ", prodotto=" + prodotto.getId() + ", movimentiScaffale=" + movimentiScaffale + ", scontrino=" + scontrino + '}';
+    }
     
     
 

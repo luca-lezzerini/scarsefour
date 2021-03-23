@@ -3,6 +3,7 @@ package it.sirfin.scarsefour.service.impl;
 import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
 import it.sirfin.scarsefour.repository.AnagraficaProdottiRepository;
@@ -26,7 +27,17 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     @Override
     public ProdottoDto verificaEan(String barcode) {
-        return new ProdottoDto(anagraficaProdottiRepository.findByEan(barcode));
+        //il server crea un nuovo scontrino se già nn ce n'è uno, e ne imposta la data, il numero
+        
+        //controlla se c'è una riga che già continene il prodotto scannerizzato:
+	//Se la trova ne aggiorna la quantità.
+	//se non la trova crea una riga, le associa il prodotto scannerizzato e associa la riga allo scontrino 
+        
+        //aggiornare totale scontrino
+        
+        //il server restituisce lo scontrino e la riga creata e associata in precedenza
+        Prodotto prodotto = anagraficaProdottiRepository.findByEan(barcode);
+        return new ProdottoDto(prodotto);
     }
 
     @Override
@@ -37,6 +48,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     @Override
     public CreaRigaDto salvaRiga(RigaScontrino riga) {
+        System.out.println(riga);
         riga = rigaRepository.save(riga);
         return new CreaRigaDto(riga);
     }
