@@ -6,6 +6,7 @@ import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEve
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoIll } from '../dto/req-ean-dto-ill';
 import { Prodotto } from '../entità/prodotto';
+import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 
 @Component({
@@ -20,6 +21,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
+
 
   ean: boolean;
   vediPrezzoV: boolean;
@@ -38,6 +40,8 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
 
   scontrino = new Scontrino();
   prodotti: Prodotto[] = [];
+  rigaScontrino = new RigaScontrino();
+  righeScontrino: RigaScontrino[] = [];
 
 
   ngOnInit(): void {
@@ -150,11 +154,9 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
       .subscribe(ris => {
         let codiceEan = "";
         if (ris.prodotto) {
-          this.prodotti.push(ris.prodotto);
+          let rigaScontrino = new RigaScontrino();
+          rigaScontrino.prodotto = ris.prodotto;
           codiceEan = ris.prodotto.ean;
-          this.prezzoTot = this.prezzoTot + ris.prodotto.prezzo;
-          this.descrizioneE = ris.prodotto.descrizione;
-          this.prezzoE = ris.prodotto.prezzo;
         }
         this.generaEventoEan(codiceEan);
       });
