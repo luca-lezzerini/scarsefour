@@ -19,7 +19,7 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
 
     @Override
     public ProdottoDto trovaEan(String ean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ProdottoDto(anagraficaProdottiRepository.findByEan(ean));
     }
 
 }
