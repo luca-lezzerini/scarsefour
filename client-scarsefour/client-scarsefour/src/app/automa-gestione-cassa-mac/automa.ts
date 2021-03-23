@@ -7,6 +7,10 @@ import { AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEv
 import { StateCassa } from "./stati";
 
 export class AutomaCassa implements StateCassa {
+
+    stato: StateCassa;
+    ui: AutomabileDashboardMac;
+
     constructor(ui: AutomabileDashboardMac) {
         this.ui = ui;
         this.stato = new ScontrinoVuoto();
@@ -20,8 +24,7 @@ export class AutomaCassa implements StateCassa {
         this.stato.next(e, a);
         console.log("Siamo arrivati nello stato: ", this.stato);
     }
-    stato: StateCassa;
-    ui: AutomabileDashboardMac;
+    
 
 }
 
@@ -30,7 +33,7 @@ export class ScontrinoVuoto implements StateCassa {
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
         } else if (e instanceof EanEvent) {
-            a.ui.ricercaEanEvent();
+            a.ui.ricercaEan();
             if (e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
             } else {

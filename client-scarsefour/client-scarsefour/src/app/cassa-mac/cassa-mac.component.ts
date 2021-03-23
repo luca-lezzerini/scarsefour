@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AutomaCassa } from '../automa-gestione-cassa-mac/automa';
-import { EanEvent } from '../automa-gestione-cassa-mac/eventi';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-mac/eventi';
 import { AutomabileDashboardMac } from '../automa-gestione-cassa-mac/automabile-dashboard-mac';
 import { ListaProdottiDto } from '../dto/lista-prodotti-dto';
 import { RicercaProdottoDto } from '../dto/ricerca-prodotto-dto';
 import { Scontrino } from '../entità/scontrino';
 import { Prodotto } from '../prodotto';
+import { RigaScontrino } from '../entità/riga-scontrino';
 
 @Component({
   selector: 'app-cassa-mac',
@@ -20,6 +21,8 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   prezzoP = 0;
   totale = 0;
   prodotti: Prodotto[] = [];
+  righeScontrino: RigaScontrino[] = [];
+  rigaScontrino = new RigaScontrino();
 
 
   ean: boolean;
@@ -41,6 +44,35 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   automaCassa: AutomaCassa;
   constructor(private http: HttpClient) {
     this.automaCassa = new AutomaCassa(this);
+  }
+  ricercaEan() {
+    throw new Error('Method not implemented.');
+  }
+
+  vediPrezzo() {
+    this.automaCassa.next(new VediPrezzoEvent, this.automaCassa);
+  }
+
+  generaEanEvent(barcode: string) {
+    this.automaCassa.next(new EanEvent(barcode), this.automaCassa);
+  }
+
+  chiudiScontrino() {
+    this.automaCassa.next(new ChiudiEvent, this.automaCassa);
+  }
+  annullaScontrino() {
+    this.automaCassa.next(new AnnullaScontrinoEvent, this.automaCassa);
+  }
+  stornaUltimo() {
+    this.automaCassa.next(new StornaEvent(this.righeScontrino.length), this.automaCassa);
+  }
+
+  conferma() {
+    this.automaCassa.next(new ConfermaEvent, this.automaCassa);
+  }
+
+  annulla() {
+    this.automaCassa.next(new AnnullaEvent, this.automaCassa);
   }
 
 
@@ -109,9 +141,7 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   ngOnInit(): void {
   }
 
-  generaEanEvent() {
-    this.automaCassa.next(new EanEvent(this.barcode), this.automaCassa);
-  }
+ 
 
 
   ricercaEanEvent() {
@@ -127,17 +157,4 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
         });
     }
   }
-
-
-  VediPrezzo() { }
-
-  ChiudiScontrino() { }
-
-  StornaUltimo() { }
-
-  AnnullaScontrino() { }
-
-  Annulla() { }
-
-  Conferma() { }
 }
