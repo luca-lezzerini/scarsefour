@@ -65,13 +65,13 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     this.vediPrezzoVis=true; 
     this.chiudi=false;
     this.annullaScontrinoEnabled=true; 
-    this.annullaScontrinoVis=false;
+    this.annullaScontrinoVis=false; //true
     this.storna=false;
     this.confermaEnabled=false;
     this.annullaEnabled=false;
     this.table=false;
     this.prezzo=false;
-    this.confermaVis=false;
+    this.confermaVis=false; //true
     this.annullaVis=false;
     this.chiudiEnabled=false;
   }
@@ -79,7 +79,19 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     throw new Error('Method not implemented.');
   }
   entraStatoAnnullamentoScontrino() {
-    throw new Error('Method not implemented.');
+    this.ean=false; 
+    this.vediPrezzoVis=false; 
+    this.chiudi=false;
+    this.annullaScontrinoEnabled=false; 
+    this.annullaScontrinoVis=true; 
+    this.storna=false;
+    this.confermaEnabled=false;
+    this.annullaEnabled=false;
+    this.table=false;
+    this.prezzo=false;
+    this.confermaVis=true; 
+    this.annullaVis=false;
+    this.chiudiEnabled=false;
   }
 
   ngOnInit(): void {
