@@ -81,7 +81,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   }
 
 
-  entraStatoScontrinoVuoto() {
+  entraStatoScontrinoVuotoIniziale() {
     this.ean = true;
     this.eanE = false;
     this.vediPrezzoV = true;
@@ -91,11 +91,17 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     this.confermaV = true;
     this.annullaV = true;
     this.chiudi = true;
-    this.prezzo = true;
-    this.annullaScontrinoE = false;
-    this.confermaE = false;
-    this.annullaE = false;
-    this.chiudiE = false;
+    this.prezzo = false;
+    this.annullaScontrinoE = true;
+    this.confermaE = true;
+    this.annullaE = true;
+    this.chiudiE = true;
+  }
+  entraStatoScontrinoVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoVuotoQuandoVuoto() {
+    throw new Error('Method not implemented.');
   }
   entraStatoVediPrezzo() {
     this.ean = true;

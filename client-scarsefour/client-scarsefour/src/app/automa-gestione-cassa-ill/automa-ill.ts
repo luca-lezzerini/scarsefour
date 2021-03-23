@@ -8,7 +8,7 @@ export class AutomaCassa implements State {
         this.ui = ui;
         this.stato = new ScontrinoVuoto();
         console.log("Siamo nello stato: ", this.stato);
-        ui.entraStatoScontrinoVuoto();
+        ui.entraStatoScontrinoVuotoIniziale();
     }
 
     stato: State;
@@ -34,7 +34,7 @@ export class ScontrinoVuoto implements State {
                 a.ui.entraStatoScontrinoNonVuoto();
             } else {
                 a.stato = new ScontrinoVuoto();
-                a.ui.entraStatoScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuotoQuandoVuoto();
             }
         } else {
             console.log("Evento inaspettato");
@@ -106,7 +106,7 @@ export class AnnullamentoScontrino implements State {
             a.ui.entraStatoScontrinoNonVuoto();
         } else if (e instanceof ConfermaEvent) {
             a.stato = new ScontrinoVuoto();
-            a.ui.entraStatoScontrinoVuoto();
+            a.ui.entraStatoScontrinoVuotoQuandoVuoto();
         } else {
             console.log("Evento inatteso");
         }

@@ -1,8 +1,10 @@
 export interface AutomabileIll {
-    entraStatoScontrinoVuoto();
+    entraStatoScontrinoVuotoIniziale();
     entraStatoVediPrezzo();
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
     trovaEan();
     cancellaUltimo();
+    entraStatoScontrinoVuoto();
+    entraStatoScontrinoVuotoQuandoVuoto();
 }
