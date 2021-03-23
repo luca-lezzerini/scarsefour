@@ -13,15 +13,15 @@
     <button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>&nbsp;
     <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="annullaScontrinoEnabled">Annulla
         Scontrino</button>&nbsp;
-        <br>
-        <br>
+    <br>
+    <br>
     <div>
         <button (click)="annulla()" *ngIf="confermaVis" [disabled]="confermaEnabled">Annulla</button>&nbsp;
         <button (click)="conferma()" *ngIf="annullaVis" [disabled]="annullaEnabled">Conferma</button>&nbsp;
     </div>
-    <p *ngIf="prezzo"> Prezzo : {{prezzoTot}}</p>
+    <p *ngIf="prezzo"> Prezzo : {{prezzoTot}} &euro;</p>
 
-    Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
+    Ultimo elemento : {{descrizioneE}}, {{prezzoE}} &euro;
     <br>
     <br>
     <br>
@@ -32,10 +32,10 @@
                 <th>Descrizione</th>
                 <th>Prezzo</th>
             </tr>
-            <tr *ngFor="let p of prodotti">
-                <td></td>
-                <td>{{p.descrizione}}</td>
-                <td>{{p.prezzo}}</td>
+            <tr *ngFor="let r of righeScontrino">
+                <td>{{r.quantita}}</td>
+                <td>{{r.prodotto.descrizione}}</td>
+                <td>{{r.prodotto.prezzo}} &euro;</td>
             </tr>
         </table>
     </div>

@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Automa, VediPrezzo } from '../automa-cassa-galli/automa';
 import { AutomabileGalli } from '../automa-cassa-galli/automabile-galli';
-import { VediPrezzoEvent } from '../automa-cassa-galli/eventi-galli';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, StornaEvent, VediPrezzoEvent } from '../automa-cassa-galli/eventi-galli';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoGal } from '../dto/req-ean-dto-gal';
+import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { Prodotto } from '../prodotto';
 
@@ -14,9 +15,11 @@ import { Prodotto } from '../prodotto';
   styleUrls: ['./dashboard-cassa-galli.component.css', '../theme.css']
 })
 export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
-  prodotto: Prodotto;
+  prodotto = new Prodotto();
+  rigaScontrino = new RigaScontrino();
   barcode = "";
   prodotti: Prodotto[] = [];
+  righescontrino: RigaScontrino[] = [];
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
@@ -45,12 +48,24 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   ngOnInit(): void {
   }
 
-  vediPrezzo() { }
-  chiudiScontrino() { }
-  stornaUltimo() { }
-  annullaScontrino() { }
-  annulla() { }
-  conferma() { }
+  vediPrezzo() {
+    this.automa.next(new VediPrezzoEvent, this.automa);
+  }
+  chiudiScontrino() {
+    this.automa.next(new ChiudiEvent, this.automa);
+  }
+  stornaUltimo() {
+    this.automa.next(new StornaEvent, this.automa);
+  }
+  annullaScontrino() {
+    this.automa.next(new AnnullaScontrinoEvent, this.automa);
+  }
+  annulla() {
+    this.automa.next(new AnnullaEvent, this.automa);
+  }
+  conferma() {
+    this.automa.next(new ConfermaEvent, this.automa);
+  }
 
   entraStatoScontrinoVuoto() {
     this.ean = true;
@@ -120,7 +135,19 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     reqDtoEanGal.barcode = this.barcode;
     this.http.post<ProdottoDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
       .subscribe(r => {
-        this.prodotti.push(r.prodotto);
+        if (r.prodotto) {
+          this.rigaScontrino.prodotto = r.prodotto;
+          this.barcode = r.prodotto.ean;
+          for (let r of this.righescontrino) {
+            if (this.rigaScontrino.prodotto.id == r.prodotto.id) {
+              this.rigaScontrino.quantita++;
+              break;
+            }
+          }
+          this.descrizioneE = r.prodotto.descrizione;
+          this.prezzoE = r.prodotto.prezzo;
+          this.prezzoTot += r.prodotto.prezzo;
+        }
       });
   }
 }
