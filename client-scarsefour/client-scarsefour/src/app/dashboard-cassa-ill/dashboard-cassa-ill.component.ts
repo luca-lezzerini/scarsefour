@@ -11,7 +11,7 @@ import { Scontrino } from '../entità/scontrino';
 @Component({
   selector: 'app-dashboard-cassa-ill',
   templateUrl: './dashboard-cassa-ill.component.html',
-  styleUrls: ['./dashboard-cassa-ill.component.css']
+  styleUrls: ['./dashboard-cassa-ill.component.css', '../theme.css']
 })
 export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
 

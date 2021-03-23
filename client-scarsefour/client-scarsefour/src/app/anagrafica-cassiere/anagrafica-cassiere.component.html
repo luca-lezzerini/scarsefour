@@ -12,6 +12,8 @@
         <input type="text" placeholder="Codice Fiscale" [(ngModel)]="cassiera.codiceFiscale" [disabled]="codiceC">
 
         <br>
+        <br>
+        <br>
         <button (click)="modifica()" *ngIf="edit">Modifica</button>
         <button (click)="annulla()" *ngIf="annull">Annulla</button>
         <button (click)="conferma()" *ngIf="conf">Conferma</button>
@@ -19,6 +21,8 @@
 
 
     </div>
+    <br>
+    <br>
     <button (click)="nuova()" *ngIf="aggiungi">Nuova</button>
     <br>
     <br>

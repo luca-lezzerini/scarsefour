@@ -11,7 +11,7 @@ import { Prodotto } from '../prodotto';
 @Component({
   selector: 'app-cassa-mac',
   templateUrl: './cassa-mac.component.html',
-  styleUrls: ['./cassa-mac.component.css']
+  styleUrls: ['./cassa-mac.component.css', '../theme.css']
 })
 export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
 

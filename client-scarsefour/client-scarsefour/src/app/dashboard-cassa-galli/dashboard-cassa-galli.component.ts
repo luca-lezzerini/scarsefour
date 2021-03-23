@@ -11,7 +11,7 @@ import { Prodotto } from '../prodotto';
 @Component({
   selector: 'app-dashboard-cassa-galli',
   templateUrl: './dashboard-cassa-galli.component.html',
-  styleUrls: ['./dashboard-cassa-galli.component.css']
+  styleUrls: ['./dashboard-cassa-galli.component.css', '../theme.css']
 })
 export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   prodotto: Prodotto;

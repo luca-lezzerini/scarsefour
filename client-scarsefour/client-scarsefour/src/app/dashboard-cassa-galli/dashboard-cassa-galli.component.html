@@ -13,6 +13,8 @@
     <button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>&nbsp;
     <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="annullaScontrinoEnabled">Annulla
         Scontrino</button>&nbsp;
+        <br>
+        <br>
     <div>
         <button (click)="annulla()" *ngIf="confermaVis" [disabled]="confermaEnabled">Annulla</button>&nbsp;
         <button (click)="conferma()" *ngIf="annullaVis" [disabled]="annullaEnabled">Conferma</button>&nbsp;

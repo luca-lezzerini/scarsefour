@@ -1,3 +1,12 @@
+<body>
+    <div class="barranav">
+        <a href="app-home-page1">Home page</a>
+    </div>
+    
+    <div class="titolo">
+        <h2>Dashboard Illirici</h2>
+    </div>
+    
 <input type="text" [(ngModel)]="barcode" placeholder="barcode" [disabled]="eanE" *ngIf="ean">
 <br>
 <br>
@@ -15,6 +24,7 @@ Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
 <br>
 <br>
 <br>
+<div class="tabella">
 <table *ngIf="table">
     <tr>
         <th>Quantità</th>
@@ -27,3 +37,5 @@ Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
         <td></td>
     </tr>
 </table>
+</div>
+</body>
