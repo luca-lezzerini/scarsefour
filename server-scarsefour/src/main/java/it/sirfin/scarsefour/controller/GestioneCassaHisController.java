@@ -5,6 +5,7 @@
  */
 package it.sirfin.scarsefour.controller;
 
+import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.EanDtoHis;
 import it.sirfin.scarsefour.dto.ProdottoDto;
@@ -33,5 +34,11 @@ public class GestioneCassaHisController {
     @ResponseBody
     public CreaScontrinoDto salvaScontrino(@RequestBody CreaScontrinoDto dto) {
         return gestioneCassaHisService.salvaScontrino(dto.getScontrino());
+    }
+    
+    @RequestMapping("salva-riga")
+    @ResponseBody
+    public CreaRigaDto salvaRiga(@RequestBody CreaRigaDto dto) {
+       return gestioneCassaHisService.salvaRiga(dto.getRiga());
     }
 }

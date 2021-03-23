@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { AutomaCassa, VediPrezzo } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-his/eventi';
+import { CreaRigaDto } from '../dto/crea-riga-dto';
 import { CreaScontrinoDto } from '../dto/crea-scontrino-dto';
 import { EanDtoHis } from '../dto/ean-dto-his';
 import { ProdottoDto } from '../dto/prodotto-dto';
@@ -141,6 +142,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
 
   leggiEan() {
+    this.creaScontrino();
     let eanDtoHis = new EanDtoHis();
     eanDtoHis.barcode = this.barcode;
     this.http.post<ProdottoDto>("http://localhost:8080/verifica-ean", eanDtoHis)
@@ -149,8 +151,8 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
         if (r.prodotto) {
           let rigaScontrino = new RigaScontrino();
           rigaScontrino.prodotto = r.prodotto;
-          // this.rigaScontrino.prodotto = r.prodotto;
           codiceEan = r.prodotto.ean;
+          this.creaRiga(rigaScontrino);
           this.definisciQuantita(rigaScontrino);
           this.calcolaTotale(r.prodotto.prezzo);
           this.ultimoProdotto = r.prodotto;
@@ -193,6 +195,15 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.http.post<CreaScontrinoDto>("http:localhost:8080/salva-scontrino", dto)
       .subscribe(r => {
         this.scontrino = r.scontrino;
+      });
+  }
+
+  creaRiga(riga: RigaScontrino) {
+    let dto = new CreaRigaDto();
+    dto.riga = riga;
+    this.http.post<CreaRigaDto>("http:localhost:8080/salva-riga", dto)
+      .subscribe(r => {
+        this.rigaScontrino = r.riga;
       });
   }
 

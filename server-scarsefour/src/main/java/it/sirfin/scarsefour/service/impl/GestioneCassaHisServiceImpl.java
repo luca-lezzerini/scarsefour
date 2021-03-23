@@ -1,9 +1,12 @@
 package it.sirfin.scarsefour.service.impl;
 
+import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
 import it.sirfin.scarsefour.repository.AnagraficaProdottiRepository;
+import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
 import javax.transaction.Transactional;
@@ -18,6 +21,8 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     AnagraficaProdottiRepository anagraficaProdottiRepository;
     @Autowired
     ScontrinoRepository scontrinoRepository;
+    @Autowired
+    RigaRepository rigaRepository;
 
     @Override
     public ProdottoDto verificaEan(String barcode) {
@@ -28,6 +33,12 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     public CreaScontrinoDto salvaScontrino(Scontrino scontrino) {
         scontrino = scontrinoRepository.save(scontrino);
         return new CreaScontrinoDto(scontrino);
+    }
+
+    @Override
+    public CreaRigaDto salvaRiga(RigaScontrino riga) {
+        riga = rigaRepository.save(riga);
+        return new CreaRigaDto(riga);
     }
 
 }
