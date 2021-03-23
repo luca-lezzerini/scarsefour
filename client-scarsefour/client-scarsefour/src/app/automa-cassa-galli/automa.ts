@@ -12,7 +12,7 @@ export class Automa implements State {
         this.ui = ui;
         this.stato = new ScontrinoVuoto();
         console.log("Siamo nello stato: ", this.stato);
-        ui.entraStatoScontrinoVuoto();
+        ui.entraStatoScontrinoVuotoEanDaInitial();
     }
 
     next(e: Event, a?: Automa) {
@@ -27,15 +27,12 @@ export class ScontrinoVuoto implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
-            a.ui.entraStatoVediPrezzo();
+            a.ui.entraStatoVediPrezzoVediPrezzoDaScontrinoVuoto();
         } else if (e instanceof EanEventGalli) {
-            a.ui.verificaEan();
+            a.ui.entraStatoScontrinoVuotoEanSconosciutoDaScontrinoVuoto();
             if (e.ean) {
                 a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
-            } else {
-                a.stato = new ScontrinoVuoto();
-                a.ui.entraStatoScontrinoVuoto();
+                a.ui.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();
             }
         } else {
             console.log("Evento inaspettato");
@@ -47,29 +44,29 @@ export class ScontrinoNonVuoto implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof ChiudiEvent) {
             a.stato = new ScontrinoVuoto();
-            a.ui.entraStatoScontrinoVuoto();
+            a.ui.entraStatoScontrinoVuotoChiudiDaScontrinoNonVuoto();
         } else if (e instanceof StornaEvent) {
             if (e.numeroElementi == 1) {
                 a.stato = new ScontrinoVuoto();
-                a.ui.entraStatoScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuotoStornaDaScontrinoNonVuoto();
             } else if (e.numeroElementi > 1) {
                 a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuotoStornaDaScontrinoNonVuoto();
             }
         } else if (e instanceof EanEventGalli) {
             if (!e.ean) {
                 a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuotoEanDaScontrinoNonVuoto();
             } else if (e.ean) {
                 a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuotoEanDaScontrinoNonVuoto();
             }
         } else if (e instanceof AnnullaScontrinoEvent) {
             a.stato = new AnnullamentoScontrino();
-            a.ui.entraStatoAnnullamentoScontrino();
+            a.ui.entraStatoScontrinoNonVuotoAnnullaDaAnnulamentoScontrino();
         } else if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
-            a.ui.entraStatoVediPrezzo();
+            a.ui.entraStatoVediPrezzoVediPrezzoDaScontrinoNonVuoto();
         } else {
             console.log("Evento inaspettato");
         }
@@ -81,16 +78,16 @@ export class VediPrezzo implements State {
         if (e instanceof EanEventGalli) {
             if (e.scontrino && e.ean) {
                 a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuotoEanDaVediPrezzo();
             } else if (!e.ean && e.scontrino) {
                 a.stato = new ScontrinoNonVuoto();
-                a.ui.entraStatoScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuotoEanSconosciutoDaVediPrezzo();
             } else if (!e.ean && !e.scontrino) {
                 a.stato = new ScontrinoVuoto();
-                a.ui.entraStatoScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuotoEanSconosciutoDaVediPrezzo();
             } else if (e.ean && !e.scontrino) {
                 a.stato = new ScontrinoVuoto();
-                a.ui.entraStatoScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuotoEanDaVediPrezzo();
             }
         } else {
             console.log("Evento inaspettato");
@@ -102,10 +99,10 @@ export class AnnullamentoScontrino implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof AnnullaEvent) {
             a.stato = new ScontrinoNonVuoto();
-            a.ui.entraStatoScontrinoNonVuoto();
+            a.ui.entraStatoScontrinoNonVuotoAnnullaDaAnnulamentoScontrino();
         } else if (e instanceof ConfermaEvent) {
             a.stato = new ScontrinoVuoto();
-            a.ui.entraStatoScontrinoVuoto();
+            a.ui.entraStatoScontrinoVuotoConfermaDaAnnulamentoScontrino();
         } else {
             console.log("Evento inatteso");
         }
