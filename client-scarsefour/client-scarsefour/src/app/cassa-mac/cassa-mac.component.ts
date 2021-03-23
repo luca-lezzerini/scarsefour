@@ -45,10 +45,10 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
 
 
   entraStatoVediPrezzo() {
-    this.ean=true;
-    this.vediPrezzoVis=false;
+    this.ean=true; //true
+    this.vediPrezzoVis=false; //true
     this.chiudi=false;
-    this.annullaScontrinoEnabled=false;
+    this.annullaScontrinoEnabled=false; //true
     this.annullaScontrinoVis=false;
     this.storna=false;
     this.confermaEnabled=false;
@@ -61,14 +61,37 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
 
   }
   entraStatoScontrinoVuoto() {
-    throw new Error('Method not implemented.');
-
+    this.ean=true; 
+    this.vediPrezzoVis=true; 
+    this.chiudi=false;
+    this.annullaScontrinoEnabled=true; 
+    this.annullaScontrinoVis=false; //true
+    this.storna=false;
+    this.confermaEnabled=false;
+    this.annullaEnabled=false;
+    this.table=false;
+    this.prezzo=false;
+    this.confermaVis=false; //true
+    this.annullaVis=false;
+    this.chiudiEnabled=false;
   }
   entraStatoScontrinoNonVuoto() {
     throw new Error('Method not implemented.');
   }
   entraStatoAnnullamentoScontrino() {
-    throw new Error('Method not implemented.');
+    this.ean=false; 
+    this.vediPrezzoVis=false; 
+    this.chiudi=false;
+    this.annullaScontrinoEnabled=false; 
+    this.annullaScontrinoVis=true; 
+    this.storna=false;
+    this.confermaEnabled=false;
+    this.annullaEnabled=false;
+    this.table=false;
+    this.prezzo=false;
+    this.confermaVis=true; 
+    this.annullaVis=false;
+    this.chiudiEnabled=false;
   }
 
   ngOnInit(): void {
