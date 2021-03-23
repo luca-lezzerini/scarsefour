@@ -27,11 +27,15 @@ export class ScontrinoVuoto implements StateCassa {
     next(e: Event, a?: AutomaCassa) {
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
+            a.ui.entraStatoVediPrezzo();
         } else if (e instanceof EanEvent) {
             if (e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuoto();
+                
             } else {
                 a.stato = new ScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuoto();
             }
         } else {
             console.log("ricevuto evento ", e, " inatteso");
@@ -44,12 +48,17 @@ export class VediPrezzo implements StateCassa {
         if (e instanceof EanEvent) {
             if (e.codiceEan && e.scontrino) {
                 a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuoto();
             } else if (!e.codiceEan && e.scontrino) {
                 a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuoto();
             } else if (!e.codiceEan && !e.scontrino) {
                 a.stato = new ScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuoto();
             } else if (e.codiceEan && !e.scontrino) {
                 a.stato = new ScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuoto();
+
             } else {
                 console.log("errore inatteso");
             }
@@ -74,13 +83,17 @@ export class ScontrinoNonVuoto implements StateCassa {
         } else if (e instanceof EanEvent) {
             if (!e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuoto
             } else if (e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoNonVuoto();
             }
         } else if (e instanceof AnnullaScontrinoEvent) {
             a.stato = new AnnullamentoScontrino();
+            a.ui.entraStatoAnnullamentoScontrino();
         } else if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
+            a.ui.entraStatoVediPrezzo();
         } else {
             console.log("ricevuto evento ", e, " inatteso");
         }
@@ -91,8 +104,10 @@ export class AnnullamentoScontrino implements StateCassa {
     next(e: Event, a?: AutomaCassa) {
         if (e instanceof AnnullaEvent) {
             a.stato = new ScontrinoNonVuoto();
+            a.ui.entraStatoScontrinoNonVuoto();
         } else if (e instanceof ConfermaEvent) {
             a.stato = new ScontrinoVuoto();
+            a.ui.entraStatoScontrinoVuoto();
         } else {
             console.log("ricevuto evento ", e, " inatteso");
         }
