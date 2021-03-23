@@ -4,4 +4,5 @@ export interface AutomabileDashboardHis {
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
     leggiEan();
+    eliminaUltimoElemento();
 }

@@ -8,12 +8,14 @@ package it.sirfin.scarsefour.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Scontrino implements Serializable {
@@ -36,6 +38,10 @@ public class Scontrino implements Serializable {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Cassa cassa;
+
+    @JsonIgnoreProperties(value = "scontrino")
+    @OneToMany(mappedBy = "scontrino")
+    private Set<RigaScontrino> righeScontrino;
 
     public Scontrino() {
     }
@@ -85,6 +91,23 @@ public class Scontrino implements Serializable {
     public void setCassiera(Cassiera cassiera) {
         this.cassiera = cassiera;
     }
+
+    public Cassa getCassa() {
+        return cassa;
+    }
+
+    public void setCassa(Cassa cassa) {
+        this.cassa = cassa;
+    }
+
+    public Set<RigaScontrino> getRigheScontrino() {
+        return righeScontrino;
+    }
+
+    public void setRigheScontrino(Set<RigaScontrino> righeScontrino) {
+        this.righeScontrino = righeScontrino;
+    }
+    
 
     @Override
     public String toString() {
