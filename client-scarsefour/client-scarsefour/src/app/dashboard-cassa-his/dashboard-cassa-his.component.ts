@@ -165,12 +165,26 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
 
   definisciQuantita(riga: RigaScontrino) {
-    
-    if (this.righeScontrino.includes(riga)) {
-      riga.quantita++;
-    } else {
+    let trovato: boolean;
+    for (let r of this.righeScontrino) {
+      if (r.prodotto.id == riga.prodotto.id) {
+        r.quantita++;
+        console.log("trovato prodotto uguale");
+        trovato = true;
+        break;
+      }
+    }
+    if (!trovato) {
+      console.log("prodotto uguale non trovato")
       riga.quantita = 1;
       this.righeScontrino.push(riga);
     }
+
+    // if (this.righeScontrino.includes(riga)) {
+    //   riga.quantita++;
+    // } else {
+    //   riga.quantita = 1;
+    //   this.righeScontrino.push(riga);
+    // }
   }
 }
