@@ -23,7 +23,8 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
-
+  mostraPrezzo = 0;
+  ultimoElemento = new Prodotto();
 
   ean: boolean;
   vediPrezzoV: boolean;
@@ -185,18 +186,19 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
           codiceEan = ris.prodotto.ean;
           this.creaRigaScontrino(rigaScontrino);
           let flag: boolean;
-          for (let g of this.righeScontrino){
-            if (g.prodotto.id == rigaScontrino.prodotto.id){
+          for (let g of this.righeScontrino) {
+            if (g.prodotto.id == rigaScontrino.prodotto.id) {
               g.quantita++;
-              flag=true;
+              flag = true;
               break;
             }
           }
-          if (!flag){
-            rigaScontrino.quantita=1;
+          if (!flag) {
+            rigaScontrino.quantita = 1;
             this.righeScontrino.push(rigaScontrino);
           }
-          
+          this.prezzoTot+= ris.prodotto.prezzo;
+          this.ultimoElemento = ris.prodotto;
         }
         this.generaEventoEan(codiceEan);
       });
@@ -204,6 +206,9 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
 
   cancellaUltimo() {
     this.righeScontrino.pop();
+    if (this.righeScontrino.length==0){
+      this.prezzoTot=0;
+    }
   }
 
   creaScontrino() {
@@ -223,4 +228,5 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
         this.rigaScontrino = r.riga;
       })
   }
+
 }

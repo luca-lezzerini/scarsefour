@@ -20,9 +20,9 @@
     <button (click)="annulla()" *ngIf="annullaV" [disabled]="annullaE">Annulla</button>
     <button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>
 
-    <p *ngIf="prezzo"> Prezzo : {{prezzoTot}}</p>
+    <p *ngIf="prezzo"> Prezzo : {{mostraPrezzo}}</p>
     <br>
-    Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
+    Ultimo elemento : {{ultimoElemento.descrizione}}, {{ultimoElemento.prezzo}}
     <br>
     <br>
     <br>
@@ -38,6 +38,7 @@
                 <td>{{p.prodotto.descrizione}}</td>
                 <td>{{p.prodotto.prezzo}}</td>
             </tr>
+         Totale: {{prezzoTot}}
         </table>
     </div>
 </body>
