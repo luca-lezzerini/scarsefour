@@ -11,12 +11,12 @@
     <br>
     <br>
     <br>
-    <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>
+    <button (click)="vediPrezzo()" *ngIf="vediPrezzoV">Vedi Prezzo</button>
     <button (click)="chiudiScontrino()" *ngIf="chiudi" [disabled]="chiudiEnabled">Chiudi Scontrino</button>
-    <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="annullaScontrinoEnabled">Annulla
+    <button (click)="annullaScontrino()" *ngIf="annullaScontrinoV" [disabled]="annullaScontrinoButton">Annulla
         Scontrino</button>
-    <button (click)="conferma()" *ngIf="confermaVis" [disabled]="confermaEnabled">Conferma</button>
-    <button (click)="annulla()" *ngIf="annullaVis" [disabled]="annullaEnabled">Annulla</button>
+    <button (click)="conferma()" *ngIf="confermaV" [disabled]="confermaEnabled">Conferma</button>
+    <button (click)="annulla()" *ngIf="annullaV" [disabled]="annullaEnabled">Annulla</button>
     <button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>
 
     <p *ngIf="prezzo"> Prezzo : {{prezzoTot}} €</p>
@@ -28,7 +28,7 @@
     <div class="tabella">
         <!--*ngIf="table"-->
         <!--da reinserire appena pronte le variazioni grafiche per gli stati-->
-        <table *ngIf="table">
+        <table *ngIf="listaScontrino">
             <tr>
                 <th>Quantità</th>
                 <th>Descrizione</th>
