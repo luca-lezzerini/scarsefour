@@ -5,6 +5,7 @@ import { AutomabileGalli } from '../automa-cassa-galli/automabile-galli';
 import { VediPrezzoEvent } from '../automa-cassa-galli/eventi-galli';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoGal } from '../dto/req-ean-dto-gal';
+import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { Prodotto } from '../prodotto';
 
@@ -14,9 +15,11 @@ import { Prodotto } from '../prodotto';
   styleUrls: ['./dashboard-cassa-galli.component.css', '../theme.css']
 })
 export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
-  prodotto: Prodotto;
+  prodotto = new Prodotto();
+  rigaScontrino = new RigaScontrino();
   barcode = "";
   prodotti: Prodotto[] = [];
+  righescontrino: RigaScontrino[] = [];
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
@@ -120,7 +123,19 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     reqDtoEanGal.barcode = this.barcode;
     this.http.post<ProdottoDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
       .subscribe(r => {
-        this.prodotti.push(r.prodotto);
+        if (r.prodotto) {
+          this.rigaScontrino.prodotto = r.prodotto;
+          this.barcode = r.prodotto.ean;
+          for (let r of this.righescontrino) {
+            if (this.rigaScontrino.prodotto.id == r.prodotto.id) {
+              this.rigaScontrino.quantita++;
+              break;
+            }
+          }
+          this.descrizioneE = r.prodotto.descrizione;
+          this.prezzoE = r.prodotto.prezzo;
+          this.prezzoTot += r.prodotto.prezzo;
+        }
       });
   }
 }
