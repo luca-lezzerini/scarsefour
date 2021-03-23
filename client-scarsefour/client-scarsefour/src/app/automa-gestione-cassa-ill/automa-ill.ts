@@ -49,9 +49,11 @@ export class ScontrinoNonVuoto implements State {
             a.ui.entraStatoScontrinoVuoto();
         } else if (e instanceof StornaEvent) {
             if (e.numeroElementi == 1) {
+                a.ui.cancellaUltimo();
                 a.stato = new ScontrinoVuoto();
                 a.ui.entraStatoScontrinoVuoto();
             } else if (e.numeroElementi > 1) {
+                a.ui.cancellaUltimo();
                 a.stato = new ScontrinoNonVuoto();
                 a.ui.entraStatoScontrinoNonVuoto();
             }

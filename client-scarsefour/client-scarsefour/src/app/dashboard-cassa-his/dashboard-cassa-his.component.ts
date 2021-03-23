@@ -98,12 +98,12 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.ean = true;
     this.vediPrezzoVis = true;
     this.table = false;
-    this.storna = true;
+    this.storna = false;
     this.annullaScontrinoVis = true;
-    this.confermaVis = false;
-    this.annullaVis = false;
+    this.confermaVis = true;
+    this.annullaVis = true;
     this.chiudi = true;
-    this.prezzo = true;
+    this.prezzo = false;
     this.annullaScontrinoEnabled = true;
     this.confermaEnabled = true;
     this.annullaEnabled = true;
@@ -111,9 +111,9 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
   entraStatoScontrinoNonVuoto() {
     this.ean = true;
-    this.vediPrezzoVis = false;
+    this.vediPrezzoVis = true;
     this.table = true;
-    this.storna = false;
+    this.storna = true;
     this.annullaScontrinoVis = true;
     this.confermaVis = false;
     this.annullaVis = false;

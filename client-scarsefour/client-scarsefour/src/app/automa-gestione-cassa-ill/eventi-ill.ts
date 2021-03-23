@@ -11,6 +11,9 @@ export class EanEvent implements Event {
 }
 export class ConfermaEvent implements Event { }
 export class StornaEvent implements Event {
+    constructor(numeroElementi: number){
+        this.numeroElementi= numeroElementi;
+    }
     numeroElementi: number;
 }
 export class ChiudiEvent implements Event { }

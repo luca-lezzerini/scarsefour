@@ -45,50 +45,85 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
 
 
   entraStatoVediPrezzo() {
-    this.ean=true;
-    this.vediPrezzoVis=false;
-    this.chiudi=false;
-    this.annullaScontrinoEnabled=false;
-    this.annullaScontrinoVis=false;
-    this.storna=false;
-    this.confermaEnabled=false;
-    this.annullaEnabled=false;
-    this.table=false;
-    this.prezzo=false;
-    this.confermaVis=false;
-    this.annullaVis=false;
-    this.chiudiEnabled=false;
+    this.ean = true;
+    this.vediPrezzoVis = false;
+    this.chiudi = false;
+    this.annullaScontrinoEnabled = false;
+    this.annullaScontrinoVis = false;
+    this.storna = false;
+    this.confermaEnabled = false;
+    this.annullaEnabled = false;
+    this.table = false;
+    this.prezzo = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudiEnabled = false;
 
   }
   entraStatoScontrinoVuoto() {
-    throw new Error('Method not implemented.');
-
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = false;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = false;
+    this.table = true;
+    this.storna = false;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = false;
+    this.confermaEnabled = false;
+    this.annullaEnabled = false;
+    this.chiudiEnabled = false;
   }
   entraStatoAnnullamentoScontrino() {
-    throw new Error('Method not implemented.');
+    this.ean = false;
+    this.vediPrezzoVis = false;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = true;
+    this.annullaVis = true;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = false;
+    this.confermaEnabled = false;
+    this.annullaEnabled = false;
+    this.chiudiEnabled = false;
   }
 
   ngOnInit(): void {
   }
 
-  generaEanEvent(){
+  generaEanEvent() {
     this.automaCassa.next(new EanEvent(this.barcode), this.automaCassa);
   }
 
 
-  ricercaEanEvent(){
+  ricercaEanEvent() {
     let dto = new RicercaProdottoDto();
     dto.ricercaPerCodice = this.barcode;
     if (this.barcode == null) {
-    console.log("prodotto non trovato!");
-     } else {
+      console.log("prodotto non trovato!");
+    } else {
       this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
         .subscribe(k => {
           this.prodotti = k.listaProdotti;
-          this.barcode= "";
+          this.barcode = "";
         });
     }
   }
