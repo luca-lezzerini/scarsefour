@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AutomaCassa } from '../automa-gestione-cassa-ill/automa-ill';
 import { AutomabileIll } from '../automa-gestione-cassa-ill/automabile-ill';
-import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-ill/eventi-ill';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-ill/eventi-ill';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoIll } from '../dto/req-ean-dto-ill';
 import { Prodotto } from '../entità/prodotto';
@@ -15,7 +15,7 @@ import { Scontrino } from '../entità/scontrino';
 })
 export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
 
-  automa: AutomaCassa;
+  automaIll: AutomaCassa;
   barcode = "";
   descrizioneE = "";
   prezzoE = 0;
@@ -44,38 +44,38 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   }
 
   constructor(private http: HttpClient) {
-    this.automa = new AutomaCassa(this);
+    this.automaIll = new AutomaCassa(this);
   }
 
-  trovaEan() {
-    let dto = new ReqEanDtoIll();
-    dto.codiceABarre = this.barcode;
-    this.http.post<ProdottoDto>("http://localhost:8080/trova-ean", dto)
-      .subscribe(r => this.prodotti.push(r.prodotto));
-  }
 
   vediPrezzo() {
-    this.automa.next(new VediPrezzoEvent(), this.automa);
+    this.automaIll.next(new VediPrezzoEvent(), this.automaIll);
   }
   chiudiScontrino() {
-    this.automa.next(new ChiudiEvent(), this.automa);
+    this.automaIll.next(new ChiudiEvent(), this.automaIll);
   }
   annullaScontrino() {
-    this.automa.next(new AnnullaScontrinoEvent(), this.automa);
+    this.automaIll.next(new AnnullaScontrinoEvent(), this.automaIll);
   }
   stornaUltimo() {
-    this.automa.next(new StornaEvent(), this.automa);
+    this.automaIll.next(new StornaEvent(), this.automaIll);
   }
 
   conferma() {
-    this.automa.next(new ConfermaEvent(), this.automa);
+    this.automaIll.next(new ConfermaEvent(), this.automaIll);
 
   }
 
   annulla() {
-    this.automa.next(new AnnullaEvent(), this.automa);
+    this.automaIll.next(new AnnullaEvent(), this.automaIll);
 
   }
+
+  generaEventoEan(barcode: string) {
+    this.automaIll.next(new EanEvent(barcode), this.automaIll);
+
+  }
+
 
   entraStatoScontrinoVuoto() {
     this.ean = true;
@@ -143,5 +143,21 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     this.chiudiE = false;
   }
 
+  trovaEan() {
+    let dto = new ReqEanDtoIll();
+    dto.codiceABarre = this.barcode;
+    this.http.post<ProdottoDto>("http://localhost:8080/trova-ean", dto)
+      .subscribe(ris => {
+        let codiceEan = "";
+        if (ris.prodotto) {
+          this.prodotti.push(ris.prodotto);
+          codiceEan = ris.prodotto.ean;
+          this.prezzoTot = this.prezzoTot + ris.prodotto.prezzo;
+          this.descrizioneE = ris.prodotto.descrizione;
+          this.prezzoE = ris.prodotto.prezzo;
+        }
+        this.generaEventoEan(codiceEan);
+      });
+  }
 
 }
