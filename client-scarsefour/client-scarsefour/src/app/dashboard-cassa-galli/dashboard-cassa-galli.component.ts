@@ -337,7 +337,7 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     this.annullaEnabled = true;
     this.chiudiEnabled = true;
   }
-  
+
 
   entraStatoVediPrezzo() {
     this.ean = true;
@@ -404,5 +404,6 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
           this.prezzoTot += r.prodotto.prezzo;
         }
       });
+    this.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();
   }
 }
