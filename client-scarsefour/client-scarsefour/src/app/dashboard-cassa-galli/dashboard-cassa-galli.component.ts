@@ -44,6 +44,57 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
   }
+  entraStatoScontrinoVuotoEanDaInitial() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoVuotoEanSconosciutoDaScontrinoVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoVuotoEanDaVediPrezzo() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoVuotoEanSconosciutoDaVediPrezzo() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoVuotoStornaDaScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoVuotoChiudiDaScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoVuotoConfermaDaAnnulamentoScontrino() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuotoStornaDaScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuotoEanSconosciutoDaScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuotoEanDaScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuotoAnnullaDaAnnulamentoScontrino() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuotoEanDaVediPrezzo() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuotoEanSconosciutoDaVediPrezzo() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoScontrinoNonVuotoEanDaScontrinoVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoAnnulamentoScontrinoDaScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoVediPrezzoVediPrezzoDaScontrinoNonVuoto() {
+    throw new Error('Method not implemented.');
+  }
+  entraStatoVediPrezzoVediPrezzoDaScontrinoVuoto() {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
   }
@@ -67,7 +118,7 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     this.automa.next(new ConfermaEvent, this.automa);
   }
 
-  entraStatoScontrinoVuoto() {
+  entraStatoScontrinoVuotoDaInitial() {
     this.ean = true;
     this.vediPrezzoVis = true;
     this.table = false;
@@ -76,14 +127,14 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     this.confermaVis = true;
     this.annullaVis = true;
     this.chiudi = true;
-    this.prezzo = true;
-    this.annullaScontrinoEnabled = false;
-    this.confermaEnabled = false;
-    this.annullaEnabled = false;
-    this.chiudiEnabled = false;
-
-
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
+  
+
   entraStatoVediPrezzo() {
     this.ean = true;
     this.vediPrezzoVis = false;
