@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AutomaCassa } from '../automa-gestione-cassa-ill/automa-ill';
 import { AutomabileIll } from '../automa-gestione-cassa-ill/automabile-ill';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-ill/eventi-ill';
+import { CreaRigaDto } from '../dto/crea-riga-dto';
+import { CreaScontrinoDto } from '../dto/crea-scontrino-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoIll } from '../dto/req-ean-dto-ill';
 import { Prodotto } from '../entità/prodotto';
@@ -196,5 +198,23 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   }
   cancellaUltimo() {
     this.righeScontrino.pop();
+  }
+
+  creaScontrino() {
+    let dto = new CreaScontrinoDto();
+    dto.scontrino = this.scontrino;
+    this.http.post<CreaScontrinoDto>("http://localhost:8080/crea-scontrino", dto)
+      .subscribe(r => {
+        this.scontrino = r.scontrino;
+      })
+  }
+
+  creaRigaScontrino(rigaScontrino: RigaScontrino) {
+    let dto = new CreaRigaDto();
+    dto.riga = rigaScontrino;
+    this.http.post<CreaRigaDto>("http://localhost:8080/crea-riga-scontrino", dto)
+      .subscribe(r => {
+        this.rigaScontrino = r.riga;
+      })
   }
 }

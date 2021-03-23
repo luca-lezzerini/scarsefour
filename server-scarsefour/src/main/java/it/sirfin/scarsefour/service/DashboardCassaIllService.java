@@ -5,7 +5,11 @@
  */
 package it.sirfin.scarsefour.service;
 
+import it.sirfin.scarsefour.dto.CreaRigaDto;
+import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.model.RigaScontrino;
+import it.sirfin.scarsefour.model.Scontrino;
 
 /**
  *
@@ -14,4 +18,8 @@ import it.sirfin.scarsefour.dto.ProdottoDto;
 public interface DashboardCassaIllService {
 
     ProdottoDto trovaEan(String ean);
+
+    CreaScontrinoDto creaScont(Scontrino sc);
+
+    CreaRigaDto creaRiga(RigaScontrino rs);
 }
