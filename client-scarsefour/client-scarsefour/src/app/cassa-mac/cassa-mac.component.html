@@ -1,28 +1,31 @@
 <body>
-<div class="barranav">
-    <a href="app-home-page1">Home page</a>
-</div>
+    <div class="barranav">
+        <a href="app-home-page1">Home page</a>
+    </div>
 
-<div class="titolo">
-    <h2>Dashboard Macedoni</h2>
-</div>
-<input type="text" [(ngModel)]="barcode" placeholder="barcode" *ngIf="ean"  (keydown.tab)="generaEanEvent()" autofocus>&nbsp;
-<button (click)="VediPrezzo()">Vedi prezzo</button>&nbsp;
-<button (click)="ChiudiScontrino()">Chiudi scontrino</button>&nbsp;
-<button (click)="StornaUltimo()">Storna ultimo</button>&nbsp;
-<button (click)="AnnullaScontrino()">Annulla scontrino</button>&nbsp;
-Prezzo : {{totale}}
-<button (click)="Annulla()">Annulla</button>&nbsp;
-<button (click)="Conferma()">Conferma</button>&nbsp;
-<br><br>
-Ultimo elemento : {{descrizioneP}}, {{prezzoP}}
-<br><br>
-<div class="tabella">
-<table>
-    <th>Quantita'</th>
-    <th>Descrizione</th>
-    <th>Prezzo</th>
+    <div class="titolo">
+        <h2>Dashboard Macedoni</h2>
+    </div>
+    <input type="text" [(ngModel)]="barcode" placeholder="barcode" *ngIf="ean" (keydown.tab)="generaEanEvent()"
+        autofocus>&nbsp;
+    <button (click)="VediPrezzo()">Vedi prezzo</button>&nbsp;
+    <button (click)="ChiudiScontrino()">Chiudi scontrino</button>&nbsp;
+    <button (click)="StornaUltimo()">Storna ultimo</button>&nbsp;
+    <button (click)="AnnullaScontrino()">Annulla scontrino</button>&nbsp;
+    Prezzo : {{totale}}
+    <button (click)="Annulla()">Annulla</button>&nbsp;
+    <button (click)="Conferma()">Conferma</button>&nbsp;
     <br><br>
-</table>
-</div>
+    Ultimo elemento : {{descrizioneP}}
+    <br> <br>
+    Prezzo: {{prezzoP}}
+    <br><br>
+    <div class="tabella">
+        <table>
+            <th>Quantita'</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <br><br>
+        </table>
+    </div>
 </body>
