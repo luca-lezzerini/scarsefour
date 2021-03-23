@@ -45,16 +45,64 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     this.automa = new Automa(this);
   }
   entraStatoScontrinoVuotoEanDaInitial() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = true;
+    this.annullaVis = true;
+    this.chiudi = true;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoVuotoEanSconosciutoDaScontrinoVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = false;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoVuotoEanDaVediPrezzo() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = false;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoVuotoEanSconosciutoDaVediPrezzo() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoVuotoStornaDaScontrinoNonVuoto() {
     throw new Error('Method not implemented.');
