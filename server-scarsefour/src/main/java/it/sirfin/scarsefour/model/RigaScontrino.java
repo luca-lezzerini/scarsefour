@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -29,20 +28,34 @@ public class RigaScontrino implements Serializable {
     private Long id;
 
     @Column
-    private Integer quantità;
+    private Integer quantita;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Prodotto prodotto;
-    
-    @OneToOne(mappedBy = "rigascontrino")  
+
+    @OneToOne(mappedBy = "rigascontrino")
     private MovimentiScaffale movimentiScaffale;
-    
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Scontrino scontrino;
+
     public RigaScontrino() {
     }
 
     public RigaScontrino(Integer quantità) {
-        this.quantità = quantità;
+        this.quantita = quantità;
     }
+
+    public Scontrino getScontrino() {
+        return scontrino;
+    }
+
+    public void setScontrino(Scontrino scontrino) {
+        this.scontrino = scontrino;
+    }
+    
+    
 
 }

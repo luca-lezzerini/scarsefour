@@ -1,4 +1,7 @@
+import { Prodotto } from "../prodotto";
+
 export class RigaScontrino {
     id: bigint;
-    quantità = 0;
+    quantita = 0;
+    prodotto = new Prodotto();
 }

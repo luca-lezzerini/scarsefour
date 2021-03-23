@@ -65,8 +65,10 @@ export class ScontrinoNonVuoto implements StateCassa {
             a.stato = new ScontrinoVuoto();
         } else if (e instanceof StornaEvent) {
             if (e.numeroElementi == 1) {
+                a.ui.eliminaUltimoElemento();
                 a.stato = new ScontrinoVuoto();
             } else if (e.numeroElementi > 1) {
+                a.ui.eliminaUltimoElemento();
                 a.stato = new ScontrinoNonVuoto();
             }
         } else if (e instanceof EanEvent) {
