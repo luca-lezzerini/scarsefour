@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { AutomaCassa, VediPrezzo } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-his/eventi';
+import { CreaScontrinoDto } from '../dto/crea-scontrino-dto';
 import { EanDtoHis } from '../dto/ean-dto-his';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
@@ -165,7 +166,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     console.log(this.righeScontrino);
   }
 
-  calcolaTotale(prezzo: number){
+  calcolaTotale(prezzo: number) {
     this.prezzoTot = this.prezzoTot + prezzo;
   }
 
@@ -185,4 +186,16 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       this.righeScontrino.push(riga);
     }
   }
+
+  creaScontrino() {
+    let dto = new CreaScontrinoDto();
+    dto.scontrino = this.scontrino;
+    this.http.post<CreaScontrinoDto>("http:localhost:8080/salva-scontrino", dto)
+      .subscribe(r => {
+        this.scontrino = r.scontrino;
+      });
+  }
+
 }
+
+
