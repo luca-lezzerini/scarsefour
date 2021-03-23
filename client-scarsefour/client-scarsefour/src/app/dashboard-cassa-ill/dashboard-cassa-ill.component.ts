@@ -98,10 +98,36 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     this.chiudiE = true;
   }
   entraStatoScontrinoVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.eanE = false;
+    this.vediPrezzoV = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoV = true;
+    this.confermaV = false;
+    this.annullaV = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoE = false;
+    this.confermaE = false;
+    this.annullaE = false;
+    this.chiudiE = false;
   }
   entraStatoScontrinoVuotoQuandoVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.eanE = false;
+    this.vediPrezzoV = true;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoV = false;
+    this.confermaV = false;
+    this.annullaV = false;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoE = false;
+    this.confermaE = false;
+    this.annullaE = false;
+    this.chiudiE = false;
   }
   entraStatoVediPrezzo() {
     this.ean = true;
