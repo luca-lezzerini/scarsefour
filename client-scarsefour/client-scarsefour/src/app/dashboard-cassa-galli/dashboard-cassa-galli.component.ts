@@ -76,7 +76,7 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   }
   entraStatoScontrinoVuotoEanDaVediPrezzo() {
     this.ean = true;
-    this.vediPrezzoVis = false;
+    this.vediPrezzoVis = true;
     this.table = false;
     this.storna = false;
     this.annullaScontrinoVis = false;
@@ -105,43 +105,199 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     this.chiudiEnabled = true;
   }
   entraStatoScontrinoVuotoStornaDaScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoVuotoChiudiDaScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoVuotoConfermaDaAnnulamentoScontrino() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = false;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuotoStornaDaScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuotoEanSconosciutoDaScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuotoEanDaScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuotoAnnullaDaAnnulamentoScontrino() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuotoEanDaVediPrezzo() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuotoEanSconosciutoDaVediPrezzo() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoScontrinoNonVuotoEanDaScontrinoVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = true;
+    this.table = true;
+    this.storna = true;
+    this.annullaScontrinoVis = true;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = true;
+    this.prezzo = true;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoAnnulamentoScontrinoDaScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = false;
+    this.vediPrezzoVis = false;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = true;
+    this.annullaVis = true;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoVediPrezzoVediPrezzoDaScontrinoNonVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = false;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
   entraStatoVediPrezzoVediPrezzoDaScontrinoVuoto() {
-    throw new Error('Method not implemented.');
+    this.ean = true;
+    this.vediPrezzoVis = false;
+    this.table = false;
+    this.storna = false;
+    this.annullaScontrinoVis = false;
+    this.confermaVis = false;
+    this.annullaVis = false;
+    this.chiudi = false;
+    this.prezzo = false;
+    this.annullaScontrinoEnabled = true;
+    this.confermaEnabled = true;
+    this.annullaEnabled = true;
+    this.chiudiEnabled = true;
   }
 
   ngOnInit(): void {

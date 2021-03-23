@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AnagraficaProdottiServiceImpl implements AnagraficaProdottiService {
-
+ 
     @Autowired
     AnagraficaProdottiRepository anagraficaProdottiRepository;
 

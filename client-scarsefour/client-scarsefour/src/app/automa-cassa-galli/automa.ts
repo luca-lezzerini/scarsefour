@@ -27,13 +27,18 @@ export class ScontrinoVuoto implements State {
     next(e: Event, a?: Automa) {
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
-            a.ui.entraStatoVediPrezzoVediPrezzoDaScontrinoVuoto();
+            a.ui.verificaEan();
         } else if (e instanceof EanEventGalli) {
             a.ui.entraStatoScontrinoVuotoEanSconosciutoDaScontrinoVuoto();
             if (e.ean) {
                 a.stato = new ScontrinoNonVuoto();
                 a.ui.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();
             }
+            else{
+                a.stato = new ScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuotoEanSconosciutoDaScontrinoVuoto();
+            }
+
         } else {
             console.log("Evento inaspettato");
         }

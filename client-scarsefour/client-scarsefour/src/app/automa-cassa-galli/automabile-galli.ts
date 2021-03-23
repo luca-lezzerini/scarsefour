@@ -36,4 +36,7 @@ export interface AutomabileGalli {
         entraStatoVediPrezzoVediPrezzoDaScontrinoNonVuoto();
         //Da Scontrino Vuoto
         entraStatoVediPrezzoVediPrezzoDaScontrinoVuoto();
+//--------------
+
+        verificaEan();
 }
