@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { AutomaCassa, VediPrezzo } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
-import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent } from '../automa-gestione-cassa-his/eventi';
+import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-his/eventi';
 import { EanDtoHis } from '../dto/ean-dto-his';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
@@ -50,7 +50,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   ngOnInit(): void {
   }
   vediPrezzo() {
-    this.automaCassa.next(new VediPrezzo, this.automaCassa);
+    this.automaCassa.next(new VediPrezzoEvent, this.automaCassa);
   }
 
   generaEanEvent(barcode: string) {
