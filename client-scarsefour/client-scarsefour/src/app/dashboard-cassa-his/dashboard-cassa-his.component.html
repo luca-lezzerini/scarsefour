@@ -18,9 +18,9 @@
     <button (click)="annulla()" *ngIf="annullaVis" [disabled]="annullaEnabled">Annulla</button>
     <button (click)="stornaUltimo()" *ngIf="storna">Storna Ultimo</button>
 
-    <p *ngIf="prezzo"> Prezzo : {{prezzoTot}}</p>
+    <p *ngIf="prezzo"> Prezzo : {{prezzoTot}} €</p>
 
-    Ultimo elemento : {{descrizioneE}}, {{prezzoE}}
+    <p *ngIf="ultimoProdotto.id">Ultimo elemento : {{ultimoProdotto.descrizione}}, {{ultimoProdotto.prezzo}} € </p>
     <br>
     <br>
     <br>
@@ -36,7 +36,7 @@
             <tr *ngFor="let r of righeScontrino">
                 <td>{{r.quantita}}</td>
                 <td>{{r.prodotto.descrizione}}</td>
-                <td>{{r.prodotto.prezzo}}</td>
+                <td>{{r.prodotto.prezzo}} €</td>
             </tr>
         </table>
     </div>

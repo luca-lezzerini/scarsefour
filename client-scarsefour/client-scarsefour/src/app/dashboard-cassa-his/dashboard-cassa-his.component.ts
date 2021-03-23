@@ -19,8 +19,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
 
 
   barcode = "";
-  descrizioneE = "";
-  prezzoE = 0;
+  ultimoProdotto = new Prodotto();
   prezzoTot = 0;
   prodotti: Prodotto[] = [];
   righeScontrino: RigaScontrino[] = [];
@@ -152,6 +151,8 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
           // this.rigaScontrino.prodotto = r.prodotto;
           codiceEan = r.prodotto.ean;
           this.definisciQuantita(rigaScontrino);
+          this.calcolaTotale(r.prodotto.prezzo);
+          this.ultimoProdotto = r.prodotto;
           console.log(this.righeScontrino);
         }
         this.generaEanEvent(codiceEan);
@@ -162,6 +163,10 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   eliminaUltimoElemento() {
     this.righeScontrino.pop();
     console.log(this.righeScontrino);
+  }
+
+  calcolaTotale(prezzo: number){
+    this.prezzoTot = this.prezzoTot + prezzo;
   }
 
   definisciQuantita(riga: RigaScontrino) {
@@ -179,12 +184,5 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       riga.quantita = 1;
       this.righeScontrino.push(riga);
     }
-
-    // if (this.righeScontrino.includes(riga)) {
-    //   riga.quantita++;
-    // } else {
-    //   riga.quantita = 1;
-    //   this.righeScontrino.push(riga);
-    // }
   }
 }
