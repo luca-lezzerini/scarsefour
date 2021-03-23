@@ -156,6 +156,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
         if (ris.prodotto) {
           let rigaScontrino = new RigaScontrino();
           rigaScontrino.prodotto = ris.prodotto;
+          this.righeScontrino.push(rigaScontrino);
           codiceEan = ris.prodotto.ean;
         }
         this.generaEventoEan(codiceEan);

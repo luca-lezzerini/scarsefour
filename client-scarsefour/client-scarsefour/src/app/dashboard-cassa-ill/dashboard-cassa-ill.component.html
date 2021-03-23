@@ -33,10 +33,10 @@
                 <th>Descrizione</th>
                 <th>Prezzo</th>
             </tr>
-            <tr *ngFor="let p of prodotti">
-                <td>{{p.scortaMinimaScaf}}</td>
-                <td>{{p.descrizione}}</td>
-                <td>{{p.prezzo}}</td>
+            <tr *ngFor="let p of righeScontrino">
+                <td>{{p.quantita}}</td>
+                <td>{{p.prodotto.descrizione}}</td>
+                <td>{{p.prodotto.prezzo}}</td>
             </tr>
         </table>
     </div>
