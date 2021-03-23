@@ -46,7 +46,17 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     this.automaCassa = new AutomaCassa(this);
   }
   ricercaEan() {
-    throw new Error('Method not implemented.');
+    let dto = new RicercaProdottoDto();
+    dto.ricercaPerCodice = this.barcode;
+    if (this.barcode == null) {
+      console.log("prodotto non trovato!");
+    } else {
+      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
+        .subscribe(k => {
+          this.prodotti = k.listaProdotti;
+          this.barcode = "";
+        });
+    }
   }
 
   vediPrezzo() {
@@ -143,18 +153,4 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
 
  
 
-
-  ricercaEanEvent() {
-    let dto = new RicercaProdottoDto();
-    dto.ricercaPerCodice = this.barcode;
-    if (this.barcode == null) {
-      console.log("prodotto non trovato!");
-    } else {
-      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
-        .subscribe(k => {
-          this.prodotti = k.listaProdotti;
-          this.barcode = "";
-        });
-    }
-  }
 }

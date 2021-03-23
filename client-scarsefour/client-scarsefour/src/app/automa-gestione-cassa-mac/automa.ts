@@ -15,7 +15,7 @@ export class AutomaCassa implements StateCassa {
         this.ui = ui;
         this.stato = new ScontrinoVuoto();
         console.log("Siamo nello stato: ", this.stato);
-        ui.entraStatoVediPrezzo();
+        ui.entraStatoScontrinoVuoto();
     }
 
     next(e: Event, a?: AutomaCassa) {
