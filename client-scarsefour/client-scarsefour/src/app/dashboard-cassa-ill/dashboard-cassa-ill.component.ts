@@ -62,7 +62,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     this.automaIll.next(new AnnullaScontrinoEvent(), this.automaIll);
   }
   stornaUltimo() {
-    this.automaIll.next(new StornaEvent(), this.automaIll);
+    this.automaIll.next(new StornaEvent(this.righeScontrino.length), this.automaIll);
   }
 
   conferma() {
@@ -162,5 +162,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
         this.generaEventoEan(codiceEan);
       });
   }
-
+  cancellaUltimo() {
+    this.righeScontrino.pop();
+  }
 }

@@ -4,4 +4,5 @@ export interface AutomabileIll {
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
     trovaEan();
+    cancellaUltimo();
 }
