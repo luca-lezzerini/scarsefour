@@ -5,6 +5,7 @@
  */
 package it.sirfin.scarsefour.controller;
 
+import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.EanDtoHis;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
@@ -18,14 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("*")
 public class GestioneCassaHisController {
-    
+
     @Autowired
     GestioneCassaHisService gestioneCassaHisService;
-    
+
     @RequestMapping("verifica-ean")
     @ResponseBody
-    public ProdottoDto verificaEan(@RequestBody EanDtoHis dto){
+    public ProdottoDto verificaEan(@RequestBody EanDtoHis dto) {
         return gestioneCassaHisService.verificaEan(dto.getBarcode());
     }
-            
+
+    @RequestMapping("salva-scontrino")
+    @ResponseBody
+    public CreaScontrinoDto salvaScontrino(@RequestBody CreaScontrinoDto dto) {
+        return gestioneCassaHisService.salvaScontrino(dto.getScontrino());
+    }
 }
