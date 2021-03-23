@@ -53,7 +53,6 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     this.automaIll = new AutomaCassa(this);
   }
 
-
   vediPrezzo() {
     this.automaIll.next(new VediPrezzoEvent(), this.automaIll);
   }
@@ -66,22 +65,15 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   stornaUltimo() {
     this.automaIll.next(new StornaEvent(this.righeScontrino.length), this.automaIll);
   }
-
   conferma() {
     this.automaIll.next(new ConfermaEvent(), this.automaIll);
-
   }
-
   annulla() {
     this.automaIll.next(new AnnullaEvent(), this.automaIll);
-
   }
-
   generaEventoEan(barcode: string) {
     this.automaIll.next(new EanEvent(barcode), this.automaIll);
-
   }
-
 
   entraStatoScontrinoVuotoIniziale() {
     this.ean = true;
@@ -162,7 +154,6 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     this.confermaE = false;
     this.annullaE = false;
     this.chiudiE = false;
-
   }
   entraStatoAnnullamentoScontrino() {
     this.ean = false;
@@ -182,6 +173,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   }
 
   trovaEan() {
+    this.creaScontrino();
     let dto = new ReqEanDtoIll();
     dto.codiceABarre = this.barcode;
     this.http.post<ProdottoDto>("http://localhost:8080/trova-ean", dto)
@@ -190,12 +182,26 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
         if (ris.prodotto) {
           let rigaScontrino = new RigaScontrino();
           rigaScontrino.prodotto = ris.prodotto;
-          this.righeScontrino.push(rigaScontrino);
           codiceEan = ris.prodotto.ean;
+          this.creaRigaScontrino(rigaScontrino);
+          let flag: boolean;
+          for (let g of this.righeScontrino){
+            if (g.prodotto.id == rigaScontrino.prodotto.id){
+              g.quantita++;
+              flag=true;
+              break;
+            }
+          }
+          if (!flag){
+            rigaScontrino.quantita=1;
+            this.righeScontrino.push(rigaScontrino);
+          }
+          
         }
         this.generaEventoEan(codiceEan);
       });
   }
+
   cancellaUltimo() {
     this.righeScontrino.pop();
   }
