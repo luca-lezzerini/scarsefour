@@ -1,7 +1,5 @@
 package it.sirfin.scarsefour.service.impl;
 
-import it.sirfin.scarsefour.dto.CreaRigaDto;
-import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.model.Prodotto;
@@ -23,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
-    //crea scontrino
+
     @Autowired
     AnagraficaProdottiRepository anagraficaProdottiRepository;
     @Autowired
@@ -56,10 +54,10 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 //5)aggiorna il totale scontrino su DB
 //
 //6)vengono recuperati tutti i dati necessari al client e inviati tramite dto.
+    /////////////////////////////////////////////////////////////////////////////
     @Override
     public LeggiEanResponseDto leggiEan(LeggiEanRequestDto dto) {
         Prodotto prodotto = anagraficaProdottiRepository.findByEan(dto.getEanProdotto());
-        //stampe di debug
         //leggo se il prodotto è stato trovato o meno su DB
         try {
             System.out.println("prodotto trovato: " + prodotto);
@@ -68,7 +66,6 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
                     + "tentando di stamparlo");
         }
 
-        //////////////////////////////////////////////////////////
         if (prodotto != null) {
             System.out.println("creo un nuovo scontrino se serve");
             Scontrino scontrinoAttuale = creaNuovoScontrino(dto.getScontrino());
@@ -77,7 +74,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
             System.out.println("aggiorno il totale dello scontrino");
             scontrinoAttuale = aggiornaTotScontrino(scontrinoAttuale, prodotto.getPrezzo());
             LeggiEanResponseDto responseDto = new LeggiEanResponseDto(scontrinoAttuale,
-                    scontrinoAttuale.getRigheScontrino(), "", 
+                    scontrinoAttuale.getRigheScontrino(), "",
                     nuovaRigaScontrino.getProdotto().getEan());
             System.out.println("stiamo per spedire al client i seguenti dati: " + responseDto);
             return responseDto;
@@ -86,19 +83,12 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
     }
 
-    @Override
-    public CreaScontrinoDto salvaScontrino(Scontrino scontrino) {
-        scontrino = scontrinoRepository.save(scontrino);
-        return new CreaScontrinoDto(scontrino);
-    }
-
-    @Override
-    public CreaRigaDto salvaRiga(RigaScontrino riga) {
-        System.out.println(riga);
-        riga = rigaRepository.save(riga);
-        return new CreaRigaDto(riga);
-    }
-
+    /**
+     * Questo metodo associa uno Scontrino e una riga scontrino
+     *
+     * @param s
+     * @param rs
+     */
     private void associaScontrinoARigaSco(Scontrino s, RigaScontrino rs) {
         System.out.println("siamo in associa riga e scontrino");
         //associo riga a scontrino
@@ -110,6 +100,12 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         scontrinoRepository.save(s);
     }
 
+    /**
+     * Questo metodo associa una riga scontrino e un prodotto
+     *
+     * @param rs
+     * @param p
+     */
     private void associaRigaScoAProdotto(RigaScontrino rs, Prodotto p) {
         System.out.println("siamo in associa riga con prodotto");
         rs.setProdotto(p);
@@ -119,12 +115,30 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         anagraficaProdottiRepository.save(p);
     }
 
+    /**
+     * Questo metodo aggiorna il totale scontrino
+     *
+     * @param scontrino
+     * @param prezzo
+     * @return
+     */
     private Scontrino aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
         System.out.println("stiamo tentando di aggiornare il totale dello scontrino");
         scontrinoRepository.aggiornaTotScontrino(prezzo, scontrino.getId());
         return scontrinoRepository.findById(scontrino.getId()).get();
     }
 
+    /**
+     * riceve tra i parametri uno scontrino, controlla se il suo id 1) se il
+     * client ha inviato uno scontrino con id null vuol dire che non c'era uno
+     * scontrino aperto, per cui ne creo uno, ne inizializzo le proprietà e lo
+     * salvo su DB e lo ritorno. 2) se il client ha inviato uno scontrino con id
+     * non null, significa che il client sta lavorando su quello scontrino, per
+     * cui lo recupero da DB e lo ritorno.
+     *
+     * @param scontrino
+     * @return
+     */
     private Scontrino creaNuovoScontrino(Scontrino scontrino) {
 
         if (scontrino.getId() == null) {
@@ -151,6 +165,26 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
     }
 
+    /**
+     * Crea uno riga scontrino partendo da uno scontrino e un prodotto; 1) cerco
+     * su DB tutte le righe associate allo scontrino 2) se trovo righe associate
+     * filtro la lista di righe associate per prodotto, poi: A) se la lista
+     * filtrata è vuota vuol dire che quella riga con quel prodotto ancora non
+     * esiste per cui ne creo una ne inizializzo le proprietà, ne definisco le
+     * associazioni (i metodi associa salvano su DB). B) se la lista contiene un
+     * valore vuol dire che c'è una riga con quel prodotto legata allo scontrino
+     * attuale per cui non la creo ma la recupero e ne incremento soltanto la
+     * quantità poi la salvo su DB
+     *
+     * 3) se non trovo righe associate ne creo una ne inizializzo le proprietà,
+     * ne definisco le associazioni (i metodi associa salvano su DB).
+     *
+     * @param Sontrino s
+     * @param Prodotto p
+     *
+     * @return il valore di ritorno è sempre rigaDefinitiva, esso viene
+     * aggiornato in base al ramo di if che si verifica
+     */
     private RigaScontrino creaRiga(Scontrino s, Prodotto p) {
         //cerco su Db tutte le righe associate allo scontrino(param)
         RigaScontrino rigaDefinitiva = new RigaScontrino();
@@ -158,7 +192,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         Set<RigaScontrino> righeScontrino = s.getRigheScontrino();
         System.out.println("numero righeScontrino trovate associate a Scontrino : " + s.getId()
                 + " = " + righeScontrino.size());
-
+        
         if (!righeScontrino.isEmpty()) {
             System.out.println("siamo nel ramo if (righeScontrino.isEmpty()");
             List<RigaScontrino> lista = righeScontrino.stream()
@@ -198,6 +232,10 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
         return rigaDefinitiva;
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////METODI DEMO PER TEST///////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     @Override
     public void demoAssociaScontrinoARigaSco() {
