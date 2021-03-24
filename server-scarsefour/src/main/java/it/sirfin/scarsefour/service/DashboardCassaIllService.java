@@ -22,4 +22,6 @@ public interface DashboardCassaIllService {
     CreaScontrinoDto creaScont(Scontrino sc);
 
     CreaRigaDto creaRiga(RigaScontrino rs);
+    
+    void test();
 }

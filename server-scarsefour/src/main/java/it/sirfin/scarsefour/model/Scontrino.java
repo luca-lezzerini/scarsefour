@@ -8,6 +8,7 @@ package it.sirfin.scarsefour.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -101,6 +102,9 @@ public class Scontrino implements Serializable {
     }
 
     public Set<RigaScontrino> getRigheScontrino() {
+        if (righeScontrino == null){
+        righeScontrino = new HashSet<>();
+        }
         return righeScontrino;
     }
 
@@ -111,7 +115,7 @@ public class Scontrino implements Serializable {
 
     @Override
     public String toString() {
-        return "Scontrino{" + "id=" + id + ", timestamp=" + timestamp + ", numero=" + numero + ", totale=" + totale + ", cassiera=" + cassiera.getId() + ", cassa=" + cassa.getId() + '}';
+        return "Scontrino{" + "id=" + id + ", timestamp=" + timestamp + ", numero=" + numero + ", totale=" + totale + '}';
     }
 
 }

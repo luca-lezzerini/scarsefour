@@ -38,7 +38,7 @@ public class GestioneCassaHisController {
                     + "tentando di stamparlo" );
         }
         System.out.println("Ean prodotto ricevuto da client: " + dto.getEanProdotto());
-        return gestioneCassaHisService.leggiEan(dto.getEanProdotto());
+        return gestioneCassaHisService.leggiEan(dto);
     }
 
     @RequestMapping("salva-scontrino")
