@@ -2,7 +2,8 @@ package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
-import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
@@ -11,7 +12,6 @@ import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
+    //crea scontrino
     @Autowired
     AnagraficaProdottiRepository anagraficaProdottiRepository;
     @Autowired
@@ -54,16 +55,24 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 //
 //6)vengono recuperati tutti i dati necessari al client e inviati tramite dto.
     @Override
-    public ProdottoDto verificaEan(String barcode) {
-        //il server crea un nuovo scontrino se già nn ce n'è uno, e ne imposta la data, il numero
-
-        //controlla se c'è una riga che già continene il prodotto scannerizzato:
-        //Se la trova ne aggiorna la quantità.
-        //se non la trova crea una riga, le associa il prodotto scannerizzato e associa la riga allo scontrino 
-        //aggiornare totale scontrino
-        //il server restituisce lo scontrino e la riga creata e associata in precedenza
-        Prodotto prodotto = anagraficaProdottiRepository.findByEan(barcode);
-        return new ProdottoDto(prodotto);
+    public LeggiEanResponseDto leggiEan(LeggiEanRequestDto dto) {
+        Prodotto prodotto = anagraficaProdottiRepository.findByEan(dto.getEanProdotto());
+        //stampe di debug
+        //leggo se il prodotto è stato trovato o meno su DB
+        try {
+            System.out.println("prodotto trovato: " + prodotto);
+        } catch (Exception e) {
+            System.out.println("prodotto: nullo, genera una nullPointerException "
+                    + "tentando di stamparlo");
+        }
+        //////////////////////////////////////////////////////////
+        if (prodotto != null) {
+            //3)il server controlla se c'è uno scontrino aperto
+            Scontrino scontrinoAttuale = creaNuovoScontrino(dto.getScontrino());
+            return new LeggiEanResponseDto(scontrinoAttuale, null, "");
+        } else {
+            return new LeggiEanResponseDto(null, null, "prodotto non trovato");
+        }
     }
 
     @Override
@@ -79,6 +88,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         return new CreaRigaDto(riga);
     }
 
+
     private void associaScontrinoARigaSco(Scontrino s, RigaScontrino rs) {
         //associo riga a scontrino
         rs.setScontrino(s);
@@ -87,8 +97,8 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         Set<RigaScontrino> rr = s.getRigheScontrino();
         rr.add(rs);
         scontrinoRepository.save(s);
-
     }
+
 
     private void associaRigaScoAProdotto(RigaScontrino rs, Prodotto p) {
         
@@ -103,9 +113,30 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     private void aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
     }
 
-    private Scontrino creaNuovoScontrino() {
-        Scontrino scontrino = new Scontrino();
-        return scontrino;
+    private Scontrino creaNuovoScontrino(Scontrino scontrino) {
+
+        if (scontrino.getId() == null) {
+            //scontrino non presente
+            System.out.println("lo scontrino non è presente, lo salvo su DB");
+            Scontrino s = new Scontrino(
+                    LocalDateTime.now(), 0 + 1, 0.0);
+            try {
+                s.setNumero(scontrinoRepository.trovaUltimoScontrino());
+            } catch (Exception e) {
+                s.setNumero(1);
+            }
+            s = scontrinoRepository.save(s);
+            System.out.println("scontrino salvato: " + s);
+            return s;
+        } else if (scontrino.getId() != null) {
+            //scontrino presente
+            System.out.println("lo scontrino di id: " + scontrino.getId() + "è già presente su DB");
+            scontrino = scontrinoRepository.findById(scontrino.getId()).get();
+            return scontrino;
+        } else {
+            System.out.println("errore scontrino");
+            throw new RuntimeException("id scontrino non valorizzato, non nullo????");
+        }
     }
 
     @Override
@@ -146,6 +177,10 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     @Override
     public void demoCreaNuovoScontrino() {
+        Scontrino s = new Scontrino();
+
+        creaNuovoScontrino(s);
+
     }
 
 }

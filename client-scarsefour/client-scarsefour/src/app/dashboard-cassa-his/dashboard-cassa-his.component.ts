@@ -7,6 +7,8 @@ import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEve
 import { CreaRigaDto } from '../dto/crea-riga-dto';
 import { CreaScontrinoDto } from '../dto/crea-scontrino-dto';
 import { EanDtoHis } from '../dto/ean-dto-his';
+import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
+import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
@@ -27,6 +29,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   righeScontrino: RigaScontrino[] = [];
   rigaScontrino = new RigaScontrino();
   scontrino = new Scontrino();
+  messaggioErrore = "";
 
 
   ean: boolean;
@@ -143,11 +146,13 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
 
   leggiEan() {
-    let eanDtoHis = new EanDtoHis();
-    eanDtoHis.barcode = this.barcode;
-    this.http.post<ProdottoDto>("http://localhost:8080/verifica-ean", eanDtoHis)
+    let leggiEanRequestDto = new LeggiEanRequestDto();
+    leggiEanRequestDto.eanProdotto = this.barcode;
+    leggiEanRequestDto.scontrino = this.scontrino;
+    this.http.post<LeggiEanResponseDto>("http://localhost:8080/verifica-ean", leggiEanRequestDto)
       .subscribe(r => {
-        //da definire valori di ritorno
+        this.messaggioErrore = r.messaggio;
+        this.scontrino = r.scontrino;
       });
   }
 
