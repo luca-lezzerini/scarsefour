@@ -63,7 +63,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
             System.out.println("prodotto: nullo, genera una nullPointerException "
                     + "tentando di stamparlo");
         }
-        
+
         if (prodotto != null) {
             //parte principale del metodo
             return new LeggiEanResponseDto();
@@ -92,6 +92,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     }
 
     private void aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
+        scontrinoRepository.aggiornaTotScontrino(prezzo, scontrino.getId());
     }
 
     private Scontrino creaNuovoScontrino(Scontrino scontrino) {
@@ -126,13 +127,11 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     @Override
     public void demoAggiornaTotScontrino() {
+        
     }
 
     @Override
     public void demoCreaNuovoScontrino() {
-        Scontrino s = new Scontrino();
-
-        creaNuovoScontrino(s);
 
     }
 
