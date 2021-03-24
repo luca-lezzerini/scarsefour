@@ -35,7 +35,7 @@ export class ScontrinoVuoto implements StateCassa {
             if (e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
                 a.ui.entraStatoScontrinoNonVuoto();
-                
+
             } else {
                 a.stato = new ScontrinoVuoto();
                 a.ui.entraStatoScontrinoVuoto();
@@ -78,7 +78,7 @@ export class ScontrinoNonVuoto implements StateCassa {
             a.stato = new ScontrinoVuoto();
         } else if (e instanceof StornaEvent) {
             if (e.numeroElementi == 1) {
-               // a.ui.eliminaUltimoElemento();
+                // a.ui.eliminaUltimoElemento();
                 a.stato = new ScontrinoVuoto();
             } else if (e.numeroElementi > 1) {
                 //a.ui.eliminaUltimoElemento();
@@ -118,3 +118,28 @@ export class AnnullamentoScontrino implements StateCassa {
     }
 }//completato
 
+/*export class AvviaRicercaEan implements StateCassa {
+    next(e: Event, a?: AutomaCassa) {
+        if (e instanceof EanEvent) {
+            if (e.codiceEan && e.scontrino) {
+                a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoVuotoDaVediPrezzo();
+            } else if (!e.codiceEan && e.scontrino) {
+                a.stato = new ScontrinoNonVuoto();
+                a.ui.entraStatoScontrinoVuotoDaVediPrezzoErrore();
+            } else if (!e.codiceEan && !e.scontrino) {
+                a.stato = new ScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuotoDaVediPrezzoErrore();
+            } else if (e.codiceEan && !e.scontrino) {
+                a.stato = new ScontrinoVuoto();
+                a.ui.entraStatoScontrinoVuotoDaVediPrezzoErrore();
+
+            } else {
+                console.log("errore inatteso");
+            }
+        } else {
+            console.log("ricevuto evento ", e, " inatteso");
+        }
+    }
+}
+*/

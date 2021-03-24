@@ -29,9 +29,10 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   errore: boolean;
 
 
+
   ean: boolean;
   vediPrezzoV: boolean;
-  listaScontrino: boolean;
+  listaScontrino: boolean; //tabella
   storna: boolean;
   annullaScontrinoV: boolean;
   annullaScontrinoEnabled: boolean; //si riferisce alla visibilita del bottone
