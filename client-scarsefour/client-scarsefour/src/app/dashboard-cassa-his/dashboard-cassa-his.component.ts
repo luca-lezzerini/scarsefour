@@ -152,6 +152,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.http.post<LeggiEanResponseDto>("http://localhost:8080/verifica-ean", leggiEanRequestDto)
       .subscribe(r => {
         this.messaggioErrore = r.messaggio;
+        this.scontrino = r.scontrino;
       });
   }
 

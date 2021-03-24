@@ -111,7 +111,7 @@ public class Scontrino implements Serializable {
 
     @Override
     public String toString() {
-        return "Scontrino{" + "id=" + id + ", timestamp=" + timestamp + ", numero=" + numero + ", totale=" + totale + ", cassiera=" + cassiera.getId() + ", cassa=" + cassa.getId() + '}';
+        return "Scontrino{" + "id=" + id + ", timestamp=" + timestamp + ", numero=" + numero + ", totale=" + totale + '}';
     }
 
 }
