@@ -15,5 +15,5 @@ public interface ScontrinoRepository extends JpaRepository<Scontrino, Long> {
     
     @Modifying
     @Query("update Scontrino s set s.totale = :totale where s.id = :id")
-    Scontrino aggiornaTotScontrino(@Param("totale") double totale, @Param("id") Long id);
+    void aggiornaTotScontrino(@Param("totale") double totale, @Param("id") Long id);
 }

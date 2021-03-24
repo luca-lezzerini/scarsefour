@@ -70,11 +70,15 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
         //////////////////////////////////////////////////////////
         if (prodotto != null) {
-            //3)il server controlla se c'è uno scontrino aperto
+            System.out.println("creo un nuovo scontrino se serve");
             Scontrino scontrinoAttuale = creaNuovoScontrino(dto.getScontrino());
+            System.out.println("creo una rigaScontrino se serve");
             RigaScontrino NuovaRigaScontrino = creaRiga(scontrinoAttuale, prodotto);
+            System.out.println("aggiorno il totale dello scontrino");
             scontrinoAttuale = aggiornaTotScontrino(scontrinoAttuale, prodotto.getPrezzo());
-            return new LeggiEanResponseDto(scontrinoAttuale, NuovaRigaScontrino, "");
+            LeggiEanResponseDto responseDto = new LeggiEanResponseDto(scontrinoAttuale, NuovaRigaScontrino, "");
+            System.out.println("stiamo per spedire al client i seguenti dati: " + responseDto);
+            return new LeggiEanResponseDto();
         } else {
             return new LeggiEanResponseDto(dto.getScontrino(), null, "prodotto non trovato");
         }
@@ -94,6 +98,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     }
 
     private void associaScontrinoARigaSco(Scontrino s, RigaScontrino rs) {
+        System.out.println("siamo in associa riga e scontrino");
         //associo riga a scontrino
         rs.setScontrino(s);
         rigaRepository.save(rs);
@@ -104,17 +109,18 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     }
 
     private void associaRigaScoAProdotto(RigaScontrino rs, Prodotto p) {
-
+        System.out.println("siamo in associa riga con prodotto");
         rs.setProdotto(p);
         rigaRepository.save(rs);
-        Set<Prodotto> pro = (Set<Prodotto>) rs.getProdotto();
-        pro.add(p);
+        List<RigaScontrino> pro = p.getRigheScontrini();
+        pro.add(rs);
         anagraficaProdottiRepository.save(p);
     }
 
     private Scontrino aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
-       Scontrino s = scontrinoRepository.aggiornaTotScontrino(prezzo, scontrino.getId());
-       return s;
+        System.out.println("stiamo tentando di aggiornare il totale dello scontrino");
+        scontrinoRepository.aggiornaTotScontrino(prezzo, scontrino.getId());
+        return scontrinoRepository.findById(scontrino.getId()).get();
     }
 
     private Scontrino creaNuovoScontrino(Scontrino scontrino) {
@@ -145,34 +151,48 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     private RigaScontrino creaRiga(Scontrino s, Prodotto p) {
         //cerco su Db tutte le righe associate allo scontrino(param)
-        List<RigaScontrino> righeScontrino = rigaRepository.cercaAssociazioneRigaScontrino(s.getId());
+        RigaScontrino rigaDefinitiva = new RigaScontrino();
+        System.out.println("siamo in creaRiga");
+        Set<RigaScontrino> righeScontrino = s.getRigheScontrino();
+        System.out.println("numero righeScontrino trovate associate a Scontrino : " + s.getId()
+                + " = " + righeScontrino.size());
 
-        if (righeScontrino != null) {
+        if (!righeScontrino.isEmpty()) {
+            System.out.println("siamo nel ramo if (righeScontrino.isEmpty()");
             List<RigaScontrino> lista = righeScontrino.stream()
                     .filter(r -> r.getProdotto().getId() == p.getId()).collect(Collectors.toList());
+            System.out.println("Ho filtrato la lista che ora è di elementi: " + lista.size());
             if (lista.isEmpty()) {
-                RigaScontrino riga = new RigaScontrino(1, null, null, null);
-                associaRigaScoAProdotto(riga, p);
+                System.out.println("siamo nel ramo if (lista.isEmpty())");
+                RigaScontrino riga1 = new RigaScontrino();
+                riga1.setQuantita(1);
+                System.out.println("creata nuova riga, quantità: " + riga1.getQuantita());
+                associaRigaScoAProdotto(riga1, p);
                 //le associo lo scontrino
-                associaScontrinoARigaSco(s, riga);
+                associaScontrinoARigaSco(s, riga1);
             } else if (lista.size() == 1) {
                 lista.forEach(r -> {
                     int qta = rigaRepository.leggiQuantita(r.getId());
                     rigaRepository.aggiornaQuantita(qta + 1);
                 });
-            }else{
-                System.out.println("errore: stesso prodotto su più righe");
+            } else {
+                throw new RuntimeException();
             }
 
         } //se non c'è la creo, le associo il prodotto, ne inizializzo la quantità,
-        else if (righeScontrino == null) {
-            RigaScontrino riga = new RigaScontrino(1, null, null, null);
+        else if (righeScontrino.isEmpty()) {
+            System.out.println("siamo nel ramo else if (righeScontrino.isEmpty())");
+            RigaScontrino riga = new RigaScontrino();
+            riga.setQuantita(1);
+            System.out.println("creata nuova riga, quantità: " + riga.getQuantita());
             associaRigaScoAProdotto(riga, p);
-
+            System.out.println("riga e prodotto associati con successo");
             //le associo lo scontrino
             associaScontrinoARigaSco(s, riga);
+            System.out.println("riga e scontrino associati con successo");
+            rigaDefinitiva = riga;
         }
-        return new RigaScontrino();
+        return rigaDefinitiva;
     }
 
     @Override

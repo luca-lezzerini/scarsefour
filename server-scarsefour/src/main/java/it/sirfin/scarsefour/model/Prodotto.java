@@ -43,11 +43,11 @@ public class Prodotto implements Serializable {
     @JsonIgnoreProperties(value = "prodotto", allowSetters = true)
     @ManyToMany
     private Set<Sconto> sconti;
-    
+
+    @JsonIgnoreProperties(value = "prodotto", allowSetters = true)
     @OneToMany(mappedBy = "prodotto")
     private List<RigaScontrino> righeScontrini;
-    
-    
+
     public Prodotto() {
     }
 
@@ -144,7 +144,6 @@ public class Prodotto implements Serializable {
     public void setRigheScontrini(List<RigaScontrino> righeScontrini) {
         this.righeScontrini = righeScontrini;
     }
-    
 
     @Override
     public String toString() {

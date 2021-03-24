@@ -44,7 +44,7 @@ public class LeggiEanResponseDto {
 
     @Override
     public String toString() {
-        return "LeggiEanResponseDto{" + "scontrino=" + scontrino + ", rigaScontrino=" + rigaScontrino + ", messaggio=" + messaggio + '}';
+        return "LeggiEanResponseDto{" + "scontrino=" + scontrino.getId() + ", rigaScontrino=" + rigaScontrino.getId() + ", messaggio=" + messaggio + '}';
     }
     
     
