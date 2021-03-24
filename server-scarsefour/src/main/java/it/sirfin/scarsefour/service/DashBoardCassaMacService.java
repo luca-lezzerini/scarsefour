@@ -14,7 +14,7 @@ import it.sirfin.scarsefour.model.Prodotto;
  */
 public interface DashBoardCassaMacService {
     
-  ListaProdottiDto ricercaProdotto(Prodotto barcode);
+  ListaProdottiDto ricercaProdotto(String barcode);
     
     
 

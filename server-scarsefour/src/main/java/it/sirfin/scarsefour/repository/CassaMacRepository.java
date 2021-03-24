@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
  * @author marco
  */
 @Repository
-public interface CassaMacRepository extends JpaRepository<Prodotto, Long>{
-    
-    List<Prodotto> findByEan(Prodotto barcode);
-    
+public interface CassaMacRepository extends JpaRepository<Prodotto, Long> {
+
+    List<Prodotto> findByEan(String barcode);
+
 }

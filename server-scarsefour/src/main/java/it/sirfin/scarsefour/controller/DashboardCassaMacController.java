@@ -6,7 +6,7 @@
 package it.sirfin.scarsefour.controller;
 
 import it.sirfin.scarsefour.dto.ListaProdottiDto;
-import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.dto.RicercaProdottoDto;
 import it.sirfin.scarsefour.service.DashBoardCassaMacService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,8 +28,8 @@ public class DashboardCassaMacController {
 
     @RequestMapping("ricerca-prodotto-mac")
     @ResponseBody
-    public ListaProdottiDto leggiProdottoMac(@RequestBody ProdottoDto prodotto) {
-        return dashBoardCassaMacService.ricercaProdotto(prodotto.getProdotto());
+    public ListaProdottiDto leggiProdottoMac(@RequestBody RicercaProdottoDto prodotto) {
+        return dashBoardCassaMacService.ricercaProdotto(prodotto.getRicercaPerCodice());
     }
 
 }

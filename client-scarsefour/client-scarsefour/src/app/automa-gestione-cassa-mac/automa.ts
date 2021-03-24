@@ -44,7 +44,7 @@ export class ScontrinoVuoto implements StateCassa {
             console.log("ricevuto evento ", e, " inatteso");
         }
     }
-} //comopletato
+} //completato
 
 export class VediPrezzo implements StateCassa {
     next(e: Event, a?: AutomaCassa) {

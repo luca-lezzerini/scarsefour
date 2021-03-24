@@ -28,7 +28,7 @@ public class DashboardCassaMacServiceImpl implements DashBoardCassaMacService {
     CassaMacRepository cassaMacRepository;
 
     @Override
-    public ListaProdottiDto ricercaProdotto(Prodotto barcode) { //metodo client:  ricercaEan(), riga 249
+    public ListaProdottiDto ricercaProdotto(String barcode) { //metodo client:  ricercaEan(), riga 249
         return new ListaProdottiDto(cassaMacRepository.findByEan(barcode));
     }
 
