@@ -35,10 +35,30 @@ public class GestioneCassaHisController {
     public CreaScontrinoDto salvaScontrino(@RequestBody CreaScontrinoDto dto) {
         return gestioneCassaHisService.salvaScontrino(dto.getScontrino());
     }
-    
+
     @RequestMapping("salva-riga")
     @ResponseBody
     public CreaRigaDto salvaRiga(@RequestBody CreaRigaDto dto) {
-       return gestioneCassaHisService.salvaRiga(dto.getRiga());
+        return gestioneCassaHisService.salvaRiga(dto.getRiga());
+    }
+
+    @RequestMapping("demoAssociaScontrinoARigaSco")
+    private void demoAssociaScontrinoARigaSco() {
+        gestioneCassaHisService.demoAssociaScontrinoARigaSco();
+    }
+
+    @RequestMapping("demoAssociaRigaScoAProdotto")
+    private void demoAssociaRigaScoAProdotto() {
+        gestioneCassaHisService.demoAssociaRigaScoAProdotto();
+    }
+
+    @RequestMapping("demoAggiornaTotScontrino")
+    private void demoAggiornaTotScontrino() {
+        gestioneCassaHisService.demoAggiornaTotScontrino();
+    }
+
+    @RequestMapping("demoCreaNuovoScontrino")
+    private void demoCreaNuovoScontrino() {
+        gestioneCassaHisService.demoCreaNuovoScontrino();
     }
 }
