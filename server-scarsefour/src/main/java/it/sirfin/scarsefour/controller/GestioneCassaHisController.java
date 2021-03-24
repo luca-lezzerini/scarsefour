@@ -41,18 +41,6 @@ public class GestioneCassaHisController {
         return gestioneCassaHisService.leggiEan(dto);
     }
 
-    @RequestMapping("salva-scontrino")
-    @ResponseBody
-    public CreaScontrinoDto salvaScontrino(@RequestBody CreaScontrinoDto dto) {
-        return gestioneCassaHisService.salvaScontrino(dto.getScontrino());
-    }
-
-    @RequestMapping("salva-riga")
-    @ResponseBody
-    public CreaRigaDto salvaRiga(@RequestBody CreaRigaDto dto) {
-        return gestioneCassaHisService.salvaRiga(dto.getRiga());
-    }
-
     @RequestMapping("demoAssociaScontrinoARigaSco")
     private void demoAssociaScontrinoARigaSco() {
         gestioneCassaHisService.demoAssociaScontrinoARigaSco();

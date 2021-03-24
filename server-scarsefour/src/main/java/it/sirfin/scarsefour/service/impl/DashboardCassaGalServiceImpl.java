@@ -53,7 +53,7 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         if (prod != null) {
             return new LeggiEanResponseDto();
         } else {
-            return new LeggiEanResponseDto(null, null, "prodotto non trovato");
+            return new LeggiEanResponseDto(null, null, "prodotto non trovato","");
         }
     }
 
