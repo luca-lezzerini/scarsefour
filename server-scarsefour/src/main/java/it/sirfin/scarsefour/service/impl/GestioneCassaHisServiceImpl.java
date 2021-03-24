@@ -12,7 +12,9 @@ import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -138,14 +140,36 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
             throw new RuntimeException("id scontrino non valorizzato, non nullo????");
         }
     }
-    
-    private RigaScontrino creaRiga(Scontrino s, Prodotto p, int quantita){
-        //cerco su Db se già ho una riga associata allo scontrino(param)
-        
-        //se non c'è la creo, le associo il prodotto, ne inizializzo la quantità, 
-        //le associo lo scontrino
-        
-        //se la trovo, ne aggiorno la quantità
+
+    private RigaScontrino creaRiga(Scontrino s, Prodotto p, int quantita) {
+        //cerco su Db tutte le righe associate allo scontrino(param)
+        List<RigaScontrino> righeScontrino = rigaRepository.cercaAssociazioneRigaScontrino(s.getId());
+
+        if (righeScontrino != null) {
+            List<RigaScontrino> lista = righeScontrino.stream()
+                    .filter(r -> r.getProdotto().getId() == p.getId()).collect(Collectors.toList());
+            if (lista.isEmpty()) {
+                RigaScontrino riga = new RigaScontrino(1, null, null, null);
+                associaRigaScoAProdotto(riga, p);
+                //le associo lo scontrino
+                associaScontrinoARigaSco(s, riga);
+            } else if (lista.size() == 1) {
+                lista.forEach(r -> {
+                    int qta = rigaRepository.leggiQuantita(r.getId());
+                    rigaRepository.aggiornaQuantita(qta + 1);
+                });
+            }else{
+                System.out.println("errore: stesso prodotto su più righe");
+            }
+
+        } //se non c'è la creo, le associo il prodotto, ne inizializzo la quantità,
+        else if (righeScontrino == null) {
+            RigaScontrino riga = new RigaScontrino(1, null, null, null);
+            associaRigaScoAProdotto(riga, p);
+
+            //le associo lo scontrino
+            associaScontrinoARigaSco(s, riga);
+        }
         return new RigaScontrino();
     }
 
@@ -156,9 +180,9 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         s1 = scontrinoRepository.save(s1);
         Scontrino s2 = new Scontrino(LocalDateTime.now(), 5, 10.0);
         s2 = scontrinoRepository.save(s2);
-        RigaScontrino rs1 = new RigaScontrino(100);
+        RigaScontrino rs1 = new RigaScontrino();
         rs1 = rigaRepository.save(rs1);
-        RigaScontrino rs2 = new RigaScontrino(35);
+        RigaScontrino rs2 = new RigaScontrino();
         rs2 = rigaRepository.save(rs2);
         associaScontrinoARigaSco(s1, rs2);
         associaScontrinoARigaSco(s2, rs1);
@@ -168,9 +192,9 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     @Override
     public void demoAssociaRigaScoAProdotto() {
 
-        RigaScontrino rs2 = new RigaScontrino(35);
+        RigaScontrino rs2 = new RigaScontrino();
         rs2 = rigaRepository.save(rs2);
-        RigaScontrino rs1 = new RigaScontrino(100);
+        RigaScontrino rs1 = new RigaScontrino();
         rs1 = rigaRepository.save(rs1);
         Prodotto p1 = new Prodotto();
         p1 = anagraficaProdottiRepository.save(p1);

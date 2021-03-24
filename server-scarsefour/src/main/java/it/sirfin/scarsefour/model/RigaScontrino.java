@@ -44,9 +44,14 @@ public class RigaScontrino implements Serializable {
     public RigaScontrino() {
     }
 
-    public RigaScontrino(Integer quantità) {
-        this.quantita = quantità;
+    public RigaScontrino(Integer quantita, Prodotto prodotto, MovimentiScaffale movimentiScaffale, Scontrino scontrino) {
+        this.quantita = quantita;
+        this.prodotto = prodotto;
+        this.movimentiScaffale = movimentiScaffale;
+        this.scontrino = scontrino;
     }
+
+    
 
     public Long getId() {
         return id;
