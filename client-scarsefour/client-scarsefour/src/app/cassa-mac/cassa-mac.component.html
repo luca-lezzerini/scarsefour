@@ -7,13 +7,13 @@
         <h2>Dashboard Macedoni</h2>
     </div>
     <input type="text" [(ngModel)]="barcode" placeholder="barcode" *ngIf="ean" (keydown.tab)="ricercaEan()" autofocus>
-    <p *ngif = "errore">ean non trovato</p>
+    <p *ngIf = "errore">ean non trovato</p>
     <br>
     <br>
     <br>
     <button (click)="vediPrezzo()" *ngIf="vediPrezzoV">Vedi Prezzo</button>
     <button (click)="chiudiScontrino()" *ngIf="chiudi" [disabled]="chiudiEnabled">Chiudi Scontrino</button>
-    <button (click)="annullaScontrino()" *ngIf="annullaScontrinoV" [disabled]="annullaScontrinoButton">Annulla
+    <button (click)="annullaScontrino()" *ngIf="annullaScontrinoV" [disabled]="annullaScontrinoEnabled">Annulla
         Scontrino</button>
     <button (click)="conferma()" *ngIf="confermaV" [disabled]="confermaEnabled">Conferma</button>
     <button (click)="annulla()" *ngIf="annullaV" [disabled]="annullaEnabled">Annulla</button>
@@ -34,10 +34,10 @@
                 <th>Descrizione</th>
                 <th>Prezzo</th>
             </tr>
-            <tr *ngFor="let r of righeScontrino">
-                <td>{{r.quantita}}</td>
-                <td>{{r.prodotto.descrizione}}</td>
-                <td>{{r.prodotto.prezzo}} €</td>
+            <tr *ngFor="let k of listaProdotti">
+                <td>{{k.quantita}}</td>
+                <td>{{k.prodotto.descrizione}}</td>
+                <td>{{k.prodotto.prezzo}} €</td>
             </tr>
         </table>
     </div>

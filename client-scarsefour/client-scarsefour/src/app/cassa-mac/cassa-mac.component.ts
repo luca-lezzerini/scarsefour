@@ -46,19 +46,10 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   constructor(private http: HttpClient) {
     this.automaCassa = new AutomaCassa(this);
   }
-  ricercaEan() {
-    let dto = new RicercaProdottoDto();
-    dto.ricercaPerCodice = this.barcode;
-    if (this.barcode == null) {
-      console.log("prodotto non trovato!");
-    } else {
-      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
-        .subscribe(k => {
-          this.prodotti = k.listaProdotti;
-          this.barcode = "";
-        });
-    }
+
+  ngOnInit(): void {
   }
+
 
   vediPrezzo() {
     this.automaCassa.next(new VediPrezzoEvent, this.automaCassa);
@@ -178,10 +169,10 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     this.chiudiEnabled = true;
     this.errore = false;
 
-    //revisionato (èuguale per storna un elemento)
+    //revisionato (è uguale per storna un elemento)
   }
-  
-  entraStatoScontrinoVuotoDaAnnullaScontrino(){
+
+  entraStatoScontrinoVuotoDaAnnullaScontrino() {
     this.ean = true;
     this.vediPrezzoV = true;
     this.listaScontrino = false;
@@ -247,13 +238,24 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     this.confermaEnabled = false;
     this.annullaEnabled = false;
     this.chiudiEnabled = false;
-    this.errore= false;
+    this.errore = false;
     //completo
   }
 
-  ngOnInit(): void {
-  }
 
+  ricercaEan() {
+    let dto = new RicercaProdottoDto();
+    dto.ricercaPerCodice = this.barcode;
+    if (this.barcode == null) {
+      console.log("prodotto non trovato!");
+    } else {
+      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
+        .subscribe(k => {
+          this.prodotti = k.listaProdotti;
+          this.barcode = "";
+        });
+    }
+  }
 
 
 }
