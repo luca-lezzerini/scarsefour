@@ -154,6 +154,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
         this.messaggioErrore = r.messaggio;
         this.scontrino = r.scontrino;
         this.righeScontrino.push(r.rigaScontrino);
+        console.log(r);
       });
   }
 

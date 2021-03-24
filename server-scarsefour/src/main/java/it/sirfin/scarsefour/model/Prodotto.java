@@ -5,10 +5,10 @@
  */
 package it.sirfin.scarsefour.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -44,7 +44,7 @@ public class Prodotto implements Serializable {
     @ManyToMany
     private Set<Sconto> sconti;
 
-    @JsonIgnoreProperties(value = "prodotto", allowSetters = true)
+    @JsonIgnore
     @OneToMany(mappedBy = "prodotto")
     private List<RigaScontrino> righeScontrini;
 

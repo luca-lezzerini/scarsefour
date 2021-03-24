@@ -78,7 +78,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
             scontrinoAttuale = aggiornaTotScontrino(scontrinoAttuale, prodotto.getPrezzo());
             LeggiEanResponseDto responseDto = new LeggiEanResponseDto(scontrinoAttuale, NuovaRigaScontrino, "");
             System.out.println("stiamo per spedire al client i seguenti dati: " + responseDto);
-            return new LeggiEanResponseDto();
+            return responseDto;
         } else {
             return new LeggiEanResponseDto(dto.getScontrino(), null, "prodotto non trovato");
         }
