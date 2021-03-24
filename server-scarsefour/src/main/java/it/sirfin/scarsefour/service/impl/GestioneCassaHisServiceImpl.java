@@ -10,6 +10,9 @@ import it.sirfin.scarsefour.repository.AnagraficaProdottiRepository;
 import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,11 +79,25 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         return new CreaRigaDto(riga);
     }
 
-    //
-    private void associaScontrinoARigaSco(Scontrino scontrino, RigaScontrino rigaScontrino) {
+    private void associaScontrinoARigaSco(Scontrino s, RigaScontrino rs) {
+        //associo riga a scontrino
+        rs.setScontrino(s);
+        rigaRepository.save(rs);
+        //associo scontrino a riga
+        Set<RigaScontrino> rr = s.getRigheScontrino();
+        rr.add(rs);
+        scontrinoRepository.save(s);
+
     }
 
-    private void associaRigaScoAProdotto(RigaScontrino rigaScontrino, Prodotto prodotto) {
+    private void associaRigaScoAProdotto(RigaScontrino rs, Prodotto p) {
+        
+
+        rs.setProdotto(p);
+        rigaRepository.save(rs);
+        Set<Prodotto> pro = (Set<Prodotto>) rs.getProdotto();
+        pro.add(p);
+        anagraficaProdottiRepository.save(p);
     }
 
     private void aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
@@ -93,10 +110,34 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     @Override
     public void demoAssociaScontrinoARigaSco() {
+
+        Scontrino s1 = new Scontrino(LocalDateTime.now(), 2, 7.5);
+        s1 = scontrinoRepository.save(s1);
+        Scontrino s2 = new Scontrino(LocalDateTime.now(), 5, 10.0);
+        s2 = scontrinoRepository.save(s2);
+        RigaScontrino rs1 = new RigaScontrino(100);
+        rs1 = rigaRepository.save(rs1);
+        RigaScontrino rs2 = new RigaScontrino(35);
+        rs2 = rigaRepository.save(rs2);
+        associaScontrinoARigaSco(s1, rs2);
+        associaScontrinoARigaSco(s2, rs1);
+
     }
 
     @Override
     public void demoAssociaRigaScoAProdotto() {
+        
+        RigaScontrino rs2 = new RigaScontrino(35);
+        rs2 = rigaRepository.save(rs2);
+        RigaScontrino rs1 = new RigaScontrino(100);
+        rs1 = rigaRepository.save(rs1);
+        Prodotto p1 = new Prodotto();
+        p1 = anagraficaProdottiRepository.save(p1);
+        Prodotto p2 = new Prodotto();
+        p2 = anagraficaProdottiRepository.save(p2);
+        associaRigaScoAProdotto(rs1, p2);
+        associaRigaScoAProdotto(rs2, p1);
+        
     }
 
     @Override
@@ -106,4 +147,5 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     @Override
     public void demoCreaNuovoScontrino() {
     }
+
 }
