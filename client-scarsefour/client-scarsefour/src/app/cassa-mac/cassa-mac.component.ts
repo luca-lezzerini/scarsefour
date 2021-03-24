@@ -8,6 +8,7 @@ import { RicercaProdottoDto } from '../dto/ricerca-prodotto-dto';
 import { Scontrino } from '../entità/scontrino';
 import { Prodotto } from '../prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
+import { ProdottoDto } from '../dto/prodotto-dto';
 
 @Component({
   selector: 'app-cassa-mac',
@@ -21,10 +22,12 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
   prezzoP = 0;
   totale = 0;
   prodotti: Prodotto[] = [];
+  prodotto = new Prodotto();
   righeScontrino: RigaScontrino[] = [];
   rigaScontrino = new RigaScontrino();
   ultimoProdotto = new Prodotto();
   errore: boolean;
+
 
   ean: boolean;
   vediPrezzoV: boolean;
@@ -249,7 +252,7 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     if (this.barcode == null) {
       console.log("prodotto non trovato!");
     } else {
-      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto", dto)
+      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto-mac", dto)
         .subscribe(k => {
           this.prodotti = k.listaProdotti;
           this.barcode = "";
