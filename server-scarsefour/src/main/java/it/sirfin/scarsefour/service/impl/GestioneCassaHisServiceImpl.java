@@ -11,6 +11,7 @@ import it.sirfin.scarsefour.repository.AnagraficaProdottiRepository;
 import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
+import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
+    //crea scontrino
     @Autowired
     AnagraficaProdottiRepository anagraficaProdottiRepository;
     @Autowired
@@ -92,9 +94,26 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     private void aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
     }
 
-    private Scontrino creaNuovoScontrino() {
-        Scontrino scontrino = new Scontrino();
-        return scontrino;
+    private Scontrino creaNuovoScontrino(Scontrino scontrino) {
+
+        if (scontrino.getId() == null) {
+            //scontrino non presente
+            System.out.println("lo scontrino non è presente, lo salvo su DB");
+            Scontrino s = new Scontrino(
+                    LocalDateTime.now(), scontrinoRepository.trovaUltimoScontrino() + 1, 0.0);
+
+            return scontrinoRepository.save(s);
+        } else if (scontrino.getId() != null) {
+            //scontrino presente
+            System.out.println("lo scontrino è già presente su DB");
+            return new Scontrino();
+
+        } else {
+            System.out.println("errore scontrino");
+            return new Scontrino();
+
+        }
+
     }
 
     @Override
@@ -111,6 +130,10 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     @Override
     public void demoCreaNuovoScontrino() {
+        Scontrino s = new Scontrino();
+
+        creaNuovoScontrino(s);
+
     }
 
 }

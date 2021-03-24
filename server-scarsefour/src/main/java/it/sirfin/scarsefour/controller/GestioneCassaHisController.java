@@ -11,7 +11,9 @@ import it.sirfin.scarsefour.dto.EanDtoHis;
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.model.Scontrino;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,6 +70,7 @@ public class GestioneCassaHisController {
 
     @RequestMapping("demoCreaNuovoScontrino")
     private void demoCreaNuovoScontrino() {
+
         gestioneCassaHisService.demoCreaNuovoScontrino();
     }
 }

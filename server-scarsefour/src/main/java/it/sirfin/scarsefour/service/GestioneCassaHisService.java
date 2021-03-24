@@ -21,5 +21,5 @@ public interface GestioneCassaHisService {
 
     public void demoAggiornaTotScontrino();
 
-    public void demoCreaNuovoScontrino();
+    void demoCreaNuovoScontrino();
 }
