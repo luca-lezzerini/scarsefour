@@ -72,8 +72,9 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         if (prodotto != null) {
             //3)il server controlla se c'è uno scontrino aperto
             Scontrino scontrinoAttuale = creaNuovoScontrino(dto.getScontrino());
-            //4)il server esegue una query per trovare se ci sono righe associate allo scontrino.
-            return new LeggiEanResponseDto(scontrinoAttuale, null, "");
+            RigaScontrino NuovaRigaScontrino = creaRiga(scontrinoAttuale, prodotto);
+            scontrinoAttuale = aggiornaTotScontrino(scontrinoAttuale, prodotto.getPrezzo());
+            return new LeggiEanResponseDto(scontrinoAttuale, NuovaRigaScontrino, "");
         } else {
             return new LeggiEanResponseDto(dto.getScontrino(), null, "prodotto non trovato");
         }
@@ -111,8 +112,9 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         anagraficaProdottiRepository.save(p);
     }
 
-    private void aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
-        scontrinoRepository.aggiornaTotScontrino(prezzo, scontrino.getId());
+    private Scontrino aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
+       Scontrino s = scontrinoRepository.aggiornaTotScontrino(prezzo, scontrino.getId());
+       return s;
     }
 
     private Scontrino creaNuovoScontrino(Scontrino scontrino) {
@@ -141,7 +143,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
     }
 
-    private RigaScontrino creaRiga(Scontrino s, Prodotto p, int quantita) {
+    private RigaScontrino creaRiga(Scontrino s, Prodotto p) {
         //cerco su Db tutte le righe associate allo scontrino(param)
         List<RigaScontrino> righeScontrino = rigaRepository.cercaAssociazioneRigaScontrino(s.getId());
 
