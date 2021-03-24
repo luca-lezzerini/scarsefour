@@ -73,14 +73,16 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
             System.out.println("creo un nuovo scontrino se serve");
             Scontrino scontrinoAttuale = creaNuovoScontrino(dto.getScontrino());
             System.out.println("creo una rigaScontrino se serve");
-            RigaScontrino NuovaRigaScontrino = creaRiga(scontrinoAttuale, prodotto);
+            RigaScontrino nuovaRigaScontrino = creaRiga(scontrinoAttuale, prodotto);
             System.out.println("aggiorno il totale dello scontrino");
             scontrinoAttuale = aggiornaTotScontrino(scontrinoAttuale, prodotto.getPrezzo());
-            LeggiEanResponseDto responseDto = new LeggiEanResponseDto(scontrinoAttuale, NuovaRigaScontrino, "");
+            LeggiEanResponseDto responseDto = new LeggiEanResponseDto(scontrinoAttuale,
+                    scontrinoAttuale.getRigheScontrino(), "", 
+                    nuovaRigaScontrino.getProdotto().getEan());
             System.out.println("stiamo per spedire al client i seguenti dati: " + responseDto);
             return responseDto;
         } else {
-            return new LeggiEanResponseDto(dto.getScontrino(), null, "prodotto non trovato");
+            return new LeggiEanResponseDto(dto.getScontrino(), null, "prodotto non trovato", "");
         }
     }
 

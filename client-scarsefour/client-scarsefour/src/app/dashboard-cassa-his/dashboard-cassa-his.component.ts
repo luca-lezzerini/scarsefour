@@ -160,21 +160,8 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
           this.scontrino = r.scontrino;
         }
 
-        //valutazione riga scontrino ricevuta dal server
-        if (r.rigaScontrino) {
-          for (let i = 0; i < this.righeScontrino.length; i++) {
-            if (r.rigaScontrino.id == this.righeScontrino[i].id) {
-              this.righeScontrino.splice(i, 1);
-              this.righeScontrino.push(r.rigaScontrino);
-              this.generaEanEvent(r.rigaScontrino.prodotto.ean);
-              break;
-            } else {
-              this.righeScontrino.push(r.rigaScontrino);
-              this.generaEanEvent(r.rigaScontrino.prodotto.ean);
-            }
-          }
-        } else {
-        } this.generaEanEvent("");
+        this.righeScontrino = r.righeScontrino;
+        this.generaEanEvent(r.barcode);
       });
   }
 
