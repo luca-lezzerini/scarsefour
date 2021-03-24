@@ -2,6 +2,7 @@ package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
@@ -51,16 +52,22 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 //
 //6)vengono recuperati tutti i dati necessari al client e inviati tramite dto.
     @Override
-    public ProdottoDto verificaEan(String barcode) {
-        //il server crea un nuovo scontrino se già nn ce n'è uno, e ne imposta la data, il numero
-
-        //controlla se c'è una riga che già continene il prodotto scannerizzato:
-        //Se la trova ne aggiorna la quantità.
-        //se non la trova crea una riga, le associa il prodotto scannerizzato e associa la riga allo scontrino 
-        //aggiornare totale scontrino
-        //il server restituisce lo scontrino e la riga creata e associata in precedenza
+    public LeggiEanResponseDto leggiEan(String barcode) {
         Prodotto prodotto = anagraficaProdottiRepository.findByEan(barcode);
-        return new ProdottoDto(prodotto);
+        //stampe di debug
+        try {
+            System.out.println("prodotto trovato: " + prodotto);
+        } catch (Exception e) {
+            System.out.println("prodotto: nullo, genera una nullPointerException "
+                    + "tentando di stamparlo");
+        }
+        
+        if (prodotto != null) {
+            //parte principale del metodo
+            return new LeggiEanResponseDto();
+        } else {
+            return new LeggiEanResponseDto(null, null, "prodotto non trovato");
+        }
     }
 
     @Override
@@ -76,7 +83,6 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         return new CreaRigaDto(riga);
     }
 
-    //
     private void associaScontrinoARigaSco(Scontrino scontrino, RigaScontrino rigaScontrino) {
     }
 
@@ -106,4 +112,5 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     @Override
     public void demoCreaNuovoScontrino() {
     }
+
 }
