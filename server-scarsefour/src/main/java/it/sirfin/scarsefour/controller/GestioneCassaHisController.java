@@ -8,6 +8,8 @@ package it.sirfin.scarsefour.controller;
 import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.EanDtoHis;
+import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.model.Scontrino;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
@@ -28,8 +30,15 @@ public class GestioneCassaHisController {
 
     @RequestMapping("verifica-ean")
     @ResponseBody
-    public ProdottoDto verificaEan(@RequestBody EanDtoHis dto) {
-        return gestioneCassaHisService.verificaEan(dto.getBarcode());
+    public LeggiEanResponseDto verificaEan(@RequestBody LeggiEanRequestDto dto) {
+        try {
+            System.out.println("Scontrino ricevuto da client: " + dto.getScontrino());
+        } catch (Exception e) {
+            System.out.println("Scontrino: nullo, genera una nullPointerException "
+                    + "tentando di stamparlo" );
+        }
+        System.out.println("Ean prodotto ricevuto da client: " + dto.getEanProdotto());
+        return gestioneCassaHisService.leggiEan(dto.getEanProdotto());
     }
 
     @RequestMapping("salva-scontrino")
