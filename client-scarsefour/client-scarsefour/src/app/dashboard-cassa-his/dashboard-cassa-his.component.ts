@@ -151,10 +151,30 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     leggiEanRequestDto.scontrino = this.scontrino;
     this.http.post<LeggiEanResponseDto>("http://localhost:8080/verifica-ean", leggiEanRequestDto)
       .subscribe(r => {
+        //il messaggio è sempre visualizzato perchè se non c'è errore il server invia
+        //un messaggio vuoto
         this.messaggioErrore = r.messaggio;
-        this.scontrino = r.scontrino;
-        this.righeScontrino.push(r.rigaScontrino);
-        console.log(r);
+        
+        //valutazione scontrino ricevuto dal server
+        if (this.scontrino.id == null) {
+          this.scontrino = r.scontrino;
+        }
+
+        //valutazione riga scontrino ricevuta dal server
+        if (r.rigaScontrino) {
+          for (let i = 0; i < this.righeScontrino.length; i++) {
+            if (r.rigaScontrino.id == this.righeScontrino[i].id) {
+              this.righeScontrino.splice(i, 1);
+              this.righeScontrino.push(r.rigaScontrino);
+              this.generaEanEvent(r.rigaScontrino.prodotto.ean);
+              break;
+            } else {
+              this.righeScontrino.push(r.rigaScontrino);
+              this.generaEanEvent(r.rigaScontrino.prodotto.ean);
+            }
+          }
+        } else {
+        } this.generaEanEvent("");
       });
   }
 

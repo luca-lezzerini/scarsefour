@@ -170,11 +170,13 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
                 associaRigaScoAProdotto(riga1, p);
                 //le associo lo scontrino
                 associaScontrinoARigaSco(s, riga1);
+                rigaDefinitiva = riga1;
             } else if (lista.size() == 1) {
-                lista.forEach(r -> {
-                    int qta = rigaRepository.leggiQuantita(r.getId());
-                    rigaRepository.aggiornaQuantita(qta + 1);
-                });
+                System.out.println("siamo in else if (lista.size() == 1)");
+                rigaDefinitiva = lista.get(0);
+                int qta = rigaRepository.leggiQuantita(rigaDefinitiva.getId());
+                rigaRepository.aggiornaQuantita(qta + 1);
+                rigaDefinitiva = rigaRepository.findById(rigaDefinitiva.getId()).get();
             } else {
                 throw new RuntimeException();
             }
