@@ -5,6 +5,8 @@
  */
 package it.sirfin.scarsefour.controller;
 
+import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.dto.ReqEanDtoGal;
 import it.sirfin.scarsefour.service.DashboardCassaGalService;
@@ -24,8 +26,8 @@ public class DashboardCassaGalController {
 
     @RequestMapping("verifica-ean-gal")
     @ResponseBody
-    public ProdottoDto verificaEan(@RequestBody ReqEanDtoGal dto) {
-        return dashboardCassaGalService.verificaEan(dto.getBarcode());
+    public LeggiEanResponseDto verificaEan(@RequestBody LeggiEanRequestDto dto) {
+        return dashboardCassaGalService.verificaEan(dto.getEanProdotto());
     }
 
 }

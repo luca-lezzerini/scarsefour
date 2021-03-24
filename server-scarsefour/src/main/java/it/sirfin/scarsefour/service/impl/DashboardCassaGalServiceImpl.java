@@ -5,6 +5,7 @@
  */
 package it.sirfin.scarsefour.service.impl;
 
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +37,9 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
 
     public void demo() {
 
-        Scontrino sc = new Scontrino(LocalDateTime.of(5, Month.MARCH, 2018, 19, 50), 2, 100.5);
-        Scontrino sc1 = new Scontrino(LocalDateTime.of(6, Month.JULY, 2015, 13, 35), 3, 15.4);
-        Scontrino sc2 = new Scontrino(LocalDateTime.of(2, Month.MARCH, 2012, 16, 20), 4, 200.6);
+        Scontrino sc = new Scontrino(LocalDateTime.of(5, Month.MARCH, 2018, 19, 50), 2, 0.0);
+        Scontrino sc1 = new Scontrino(LocalDateTime.of(6, Month.JULY, 2015, 13, 35), 3, 0.0);
+        Scontrino sc2 = new Scontrino(LocalDateTime.of(2, Month.MARCH, 2012, 16, 20), 4, 0.0);
 
         sc = scontrinoRepository.save(sc);
         sc1 = scontrinoRepository.save(sc1);
@@ -46,8 +48,13 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
     }
 
     @Override
-    public ProdottoDto verificaEan(String ean) {
-        return new ProdottoDto(anagraficaProdottiRepository.findByEan(ean));
+    public LeggiEanResponseDto verificaEan(String ean) {
+        Prodotto prod = anagraficaProdottiRepository.findByEan(ean);
+        if (prod != null) {
+            return new LeggiEanResponseDto();
+        } else {
+            return new LeggiEanResponseDto(null, null, "prodotto non trovato");
+        }
     }
 
     private void associaProdottoARigaScontrino(Prodotto p, RigaScontrino rs) {
@@ -59,4 +66,14 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         prodottoRepository.save(p);
 
     }
+
+    private void associaRigaScontrinoAScontrino(RigaScontrino rs, Scontrino s) {
+        rs.setScontrino(s);
+        rigaRepository.save(rs);
+
+        Set<RigaScontrino> lista = s.getRigheScontrino();
+        lista.add(rs);
+        scontrinoRepository.save(s);
+    }
+
 }

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Automa, VediPrezzo } from '../automa-cassa-galli/automa';
 import { AutomabileGalli } from '../automa-cassa-galli/automabile-galli';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, StornaEvent, VediPrezzoEvent } from '../automa-cassa-galli/eventi-galli';
+import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
+import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoGal } from '../dto/req-ean-dto-gal';
 import { RigaScontrino } from '../entità/riga-scontrino';
@@ -24,6 +26,7 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   prezzoE = 0;
   prezzoTot = 0;
   automa: Automa;
+  messaggioErrore = "";
   url = "http://localhost:8080/";
 
   ean: boolean;
@@ -386,24 +389,14 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   }
 
   verificaEan() {
-    let reqDtoEanGal = new ReqEanDtoGal();
-    reqDtoEanGal.barcode = this.barcode;
-    this.http.post<ProdottoDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
+    let reqDtoEanGal = new LeggiEanRequestDto();
+    reqDtoEanGal.eanProdotto = this.barcode;
+    reqDtoEanGal.scontrino = this.scontrino;
+    this.http.post<LeggiEanResponseDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
       .subscribe(r => {
-        if (r.prodotto) {
-          this.rigaScontrino.prodotto = r.prodotto;
-          this.barcode = r.prodotto.ean;
-          for (let r of this.righescontrino) {
-            if (this.rigaScontrino.prodotto.id == r.prodotto.id) {
-              this.rigaScontrino.quantita++;
-              break;
-            }
-          }
-          this.descrizioneE = r.prodotto.descrizione;
-          this.prezzoE = r.prodotto.prezzo;
-          this.prezzoTot += r.prodotto.prezzo;
-        }
+        this.messaggioErrore = r.messaggio;
       });
     this.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();
   }
+
 }
