@@ -70,9 +70,10 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         if (prodotto != null) {
             //3)il server controlla se c'è uno scontrino aperto
             Scontrino scontrinoAttuale = creaNuovoScontrino(dto.getScontrino());
+            //creare una riga
             return new LeggiEanResponseDto(scontrinoAttuale, null, "");
         } else {
-            return new LeggiEanResponseDto(null, null, "prodotto non trovato");
+            return new LeggiEanResponseDto(dto.getScontrino(), null, "prodotto non trovato");
         }
     }
 
@@ -89,7 +90,6 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         return new CreaRigaDto(riga);
     }
 
-
     private void associaScontrinoARigaSco(Scontrino s, RigaScontrino rs) {
         //associo riga a scontrino
         rs.setScontrino(s);
@@ -100,9 +100,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         scontrinoRepository.save(s);
     }
 
-
     private void associaRigaScoAProdotto(RigaScontrino rs, Prodotto p) {
-        
 
         rs.setProdotto(p);
         rigaRepository.save(rs);
@@ -123,7 +121,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
             Scontrino s = new Scontrino(
                     LocalDateTime.now(), 0 + 1, 0.0);
             try {
-                s.setNumero(scontrinoRepository.trovaUltimoScontrino());
+                s.setNumero(scontrinoRepository.trovaUltimoScontrino() + 1);
             } catch (Exception e) {
                 s.setNumero(1);
             }
@@ -139,6 +137,10 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
             System.out.println("errore scontrino");
             throw new RuntimeException("id scontrino non valorizzato, non nullo????");
         }
+    }
+    
+    private RigaScontrino creaRiga(Scontrino s, Prodotto p, int quantita){
+        return new RigaScontrino();
     }
 
     @Override
@@ -159,7 +161,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
 
     @Override
     public void demoAssociaRigaScoAProdotto() {
-        
+
         RigaScontrino rs2 = new RigaScontrino(35);
         rs2 = rigaRepository.save(rs2);
         RigaScontrino rs1 = new RigaScontrino(100);
@@ -170,12 +172,12 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         p2 = anagraficaProdottiRepository.save(p2);
         associaRigaScoAProdotto(rs1, p2);
         associaRigaScoAProdotto(rs2, p1);
-        
+
     }
 
     @Override
     public void demoAggiornaTotScontrino() {
-        
+
     }
 
     @Override
