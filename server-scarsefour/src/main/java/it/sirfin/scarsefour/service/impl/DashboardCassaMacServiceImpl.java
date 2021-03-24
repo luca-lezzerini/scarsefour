@@ -8,6 +8,7 @@ package it.sirfin.scarsefour.service.impl;
 import it.sirfin.scarsefour.dto.ListaProdottiDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.repository.AnagraficaScontiRepository;
+import it.sirfin.scarsefour.repository.CassaMacRepository;
 import it.sirfin.scarsefour.service.DashBoardCassaMacService;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,12 @@ public class DashboardCassaMacServiceImpl implements DashBoardCassaMacService {
 
     @Autowired
     AnagraficaScontiRepository anagraficaScontiRepository;
+    @Autowired
+    CassaMacRepository cassaMacRepository;
 
     @Override
     public ListaProdottiDto ricercaProdotto(Prodotto barcode) { //metodo client:  ricercaEan(), riga 249
-        return new ListaProdottiDto(anagraficaScontiRepository.findByEan(barcode));
+        return new ListaProdottiDto(cassaMacRepository.findByEan(barcode));
     }
 
 }

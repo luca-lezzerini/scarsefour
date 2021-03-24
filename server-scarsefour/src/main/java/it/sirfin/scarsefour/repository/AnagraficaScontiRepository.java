@@ -17,7 +17,7 @@ public interface AnagraficaScontiRepository extends JpaRepository<Sconto, Long> 
 
     Set<Sconto> findByCodiceContains(String s);
 
-    List<Prodotto> findByEan(Prodotto barcode);
+    //List<Prodotto> findByEan(Prodotto barcode);
 
     //void modificaRiga(@Param("codice") String codice, @Param("id") Long id,
     //  @Param("prezzoScontato") String prezzoScontato, @Param("dallaData") LocalDate dallaData,
