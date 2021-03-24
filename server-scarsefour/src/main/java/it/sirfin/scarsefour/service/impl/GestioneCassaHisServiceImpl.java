@@ -70,7 +70,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         if (prodotto != null) {
             //3)il server controlla se c'è uno scontrino aperto
             Scontrino scontrinoAttuale = creaNuovoScontrino(dto.getScontrino());
-            //creare una riga
+            //4)il server esegue una query per trovare se ci sono righe associate allo scontrino.
             return new LeggiEanResponseDto(scontrinoAttuale, null, "");
         } else {
             return new LeggiEanResponseDto(dto.getScontrino(), null, "prodotto non trovato");
@@ -140,6 +140,12 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     }
     
     private RigaScontrino creaRiga(Scontrino s, Prodotto p, int quantita){
+        //cerco su Db se già ho una riga associata allo scontrino(param)
+        
+        //se non c'è la creo, le associo il prodotto, ne inizializzo la quantità, 
+        //le associo lo scontrino
+        
+        //se la trovo, ne aggiorno la quantità
         return new RigaScontrino();
     }
 
