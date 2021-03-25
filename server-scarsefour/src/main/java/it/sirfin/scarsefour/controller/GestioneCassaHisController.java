@@ -6,8 +6,10 @@
 package it.sirfin.scarsefour.controller;
 
 import it.sirfin.scarsefour.dto.AnnullaScontrinoDto;
+import it.sirfin.scarsefour.dto.EliminaUltimoDto;
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
+import it.sirfin.scarsefour.dto.StornaRitornoDto;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+
 
 @RestController
 @CrossOrigin("*")
@@ -35,6 +39,12 @@ public class GestioneCassaHisController {
         System.out.println("Ean prodotto ricevuto da client: " + dto.getEanProdotto());
         return gestioneCassaHisService.leggiEan(dto);
     }
+    
+    @RequestMapping("storna-ultimo")
+    public StornaRitornoDto stornaUltimo(@RequestBody EliminaUltimoDto dto) {
+        return gestioneCassaHisService.stornaUltimo(dto.getRigaScontrino(),dto.getScontrino());
+    }
+    
 
     @RequestMapping("annulla-scontrino")
     @ResponseBody

@@ -2,8 +2,10 @@ package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.AnnullaScontrinoDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
+import it.sirfin.scarsefour.dto.EliminaUltimoDto;
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
+import it.sirfin.scarsefour.dto.StornaRitornoDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
@@ -170,8 +172,6 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
     }
 
-
-
     /**
      * Crea una riga e ne definisce le associazioni e ritorna la riga
      *
@@ -235,8 +235,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////METODI IN DIDUSO///////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
-        /**
+    /**
      * Crea uno riga scontrino partendo da uno scontrino e un prodotto; 1) cerco
      * su DB tutte le righe associate allo scontrino 2) se trovo righe associate
      * filtro la lista di righe associate per prodotto, poi: A) se la lista
@@ -304,20 +303,21 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         return rigaDefinitiva;
     }
 
-
-    
-
     @Override
-    public AnnullaScontrinoDto annullaScontrino(Scontrino scontrino,List<RigaScontrino> righeScontrino) {
+    public AnnullaScontrinoDto annullaScontrino(Scontrino scontrino, List<RigaScontrino> righeScontrino) {
         System.out.println("siamo in annullaScontrino");
         rigaRepository.deleteAll(righeScontrino);
         scontrinoRepository.delete(scontrino);
 
-        
         return new AnnullaScontrinoDto();
     }
 
-    
-
+    @Override
+    public StornaRitornoDto stornaUltimo(RigaScontrino rs, Scontrino s) {
+        rigaRepository.delete(rs);
+        Scontrino sco = scontrinoRepository.findById(s.getId()).get();
+        Set<RigaScontrino> srs = sco.getRigheScontrino();
+        return new StornaRitornoDto(srs);
+    }
 
 }
