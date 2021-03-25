@@ -6,11 +6,11 @@
 package it.sirfin.scarsefour.service;
 
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
-import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.model.Scontrino;
 
 public interface DashboardCassaGalService {
 
-    LeggiEanResponseDto verificaEan(String ean);
+    LeggiEanResponseDto verificaEan(String ean, Scontrino sc);
     
     void demo();
 }
