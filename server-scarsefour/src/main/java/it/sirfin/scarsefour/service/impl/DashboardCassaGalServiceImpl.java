@@ -44,6 +44,10 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         sc = scontrinoRepository.save(sc);
         sc1 = scontrinoRepository.save(sc1);
         sc2 = scontrinoRepository.save(sc2);
+        
+       
+        
+        
 
     }
 
