@@ -153,14 +153,26 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       .subscribe(r => {
         //il messaggio è sempre visualizzato perchè se non c'è errore il server invia
         //un messaggio vuoto
+
         this.messaggioErrore = r.messaggio;
 
-        this.righeScontrino.push(r.rigaScontrino);
 
-        this.scontrino = r.scontrino;
+        if (r.rigaScontrino) {
+          this.righeScontrino.push(r.rigaScontrino);
+        }
+
+        if (r.scontrino) {
+          this.scontrino = r.scontrino;
+        }
         console.log(this.scontrino);
 
-        this.generaEanEvent(r.rigaScontrino.prodotto.ean);
+        if (r.rigaScontrino) {
+          if (r.rigaScontrino.prodotto) {
+            this.generaEanEvent(r.rigaScontrino.prodotto.ean);
+          }
+        } else {
+          this.generaEanEvent(null);
+        }
       });
   }
 
