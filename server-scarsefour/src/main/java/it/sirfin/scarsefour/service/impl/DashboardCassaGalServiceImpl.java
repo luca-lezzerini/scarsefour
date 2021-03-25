@@ -5,8 +5,7 @@
  */
 package it.sirfin.scarsefour.service.impl;
 
-import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
-import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.dto.RigaScontrinoClientGalDto;
 import it.sirfin.scarsefour.dto.ScontrinoClientGalDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
@@ -16,9 +15,9 @@ import it.sirfin.scarsefour.repository.ProdottoRepository;
 import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.DashboardCassaGalService;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         // se lo trovo ok ...
         if (prod == null) {
             // .. se non lo trovo  ritorno errore
-            return new ScontrinoClientGalDto (null, null, "prodotto non trovato");
+            return new ScontrinoClientGalDto(null, null, "prodotto non trovato");
         }
         // se lo trovo proseguo per aggiungerlo allo scontrino ...
         // ma lo scontrino esiste? verifico
@@ -80,8 +79,19 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
 
         // preparo il DTO di ritorno e finisco
         ScontrinoClientGalDto risp = new ScontrinoClientGalDto();
+        Set<RigaScontrino> righe = sc.getRigheScontrino();
+        List<RigaScontrinoClientGalDto> righeDto = new ArrayList<>();
+        // trasformo le righe originali dello scontrino in righe del DTO
+        righe.forEach(rr
+                -> righeDto.add(
+                        new RigaScontrinoClientGalDto(
+                                rr.getId(),
+                                rr.getScontrino().getId(),
+                                prod.getId(),
+                                rr.getProdotto().getDescrizione(),
+                                rr.getProdotto().getPrezzo())));
 
-       // risp.setRigheScontrino(.findById(prod.getId()));
+        risp.setRigheScontrino(righeDto);
         risp.setScontrino(sc);
         risp.setMessaggio("scontrino pronto!");
 
