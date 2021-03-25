@@ -9,6 +9,9 @@ import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.dto.RigaScontrinoClientDto;
+import it.sirfin.scarsefour.dto.ScontrinoClientGalDto;
+import it.sirfin.scarsefour.dto.ScontrinoDtoIll;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
 
@@ -18,11 +21,10 @@ import it.sirfin.scarsefour.model.Scontrino;
  */
 public interface DashboardCassaIllService {
 
-    LeggiEanResponseDto trovaEan(String ean, Scontrino sc);
+    ScontrinoDtoIll trovaEan(String ean, Scontrino sc);
 
 //    CreaScontrinoDto creaScont(Scontrino sc);
 //
 //    CreaRigaDto creaRiga(RigaScontrino rs);
-
     void test();
 }

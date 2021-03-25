@@ -11,6 +11,8 @@ import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.dto.ReqEanDtoIll;
+import it.sirfin.scarsefour.dto.RigaScontrinoClientDto;
+import it.sirfin.scarsefour.dto.ScontrinoDtoIll;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.service.DashboardCassaIllService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,9 @@ public class DashboardCassaIllController {
 
     @RequestMapping("/trova-ean")
     @ResponseBody
-    public LeggiEanResponseDto trovaEan(@RequestBody LeggiEanRequestDto dto) {
-        return dashboardCassaIllService.trovaEan(dto.getEanProdotto(),
-                dto.getScontrino());
+    public ScontrinoDtoIll trovaEan(@RequestBody RigaScontrinoClientDto dto) {
+//      return dashboardCassaIllService.trovaEan(dto.);
+        return null;
     }
 
 //    @RequestMapping("/crea-scontrino")
