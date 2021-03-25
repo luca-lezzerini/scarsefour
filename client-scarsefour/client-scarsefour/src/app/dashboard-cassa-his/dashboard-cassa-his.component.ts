@@ -1,15 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { AutomaCassa, VediPrezzo } from '../automa-gestione-cassa-his/automa';
+import { AutomaCassa } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-his/eventi';
-import { CreaRigaDto } from '../dto/crea-riga-dto';
-import { CreaScontrinoDto } from '../dto/crea-scontrino-dto';
-import { EanDtoHis } from '../dto/ean-dto-his';
 import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
 import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
-import { ProdottoDto } from '../dto/prodotto-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
@@ -23,9 +18,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
 
 
   barcode = "";
-  ultimoProdotto = new Prodotto();
   prezzoTot = 0;
-  prodotti: Prodotto[] = [];
   righeScontrino: RigaScontrino[] = [];
   rigaScontrino = new RigaScontrino();
   scontrino = new Scontrino();
@@ -50,9 +43,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   constructor(private http: HttpClient) {
     this.automaCassa = new AutomaCassa(this);
   }
-
-
-
+ 
   ngOnInit(): void {
   }
   vediPrezzo() {
@@ -156,10 +147,11 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
 
         this.messaggioErrore = r.messaggio;
 
-
         if (r.rigaScontrino) {
           this.righeScontrino.push(r.rigaScontrino);
         }
+
+        this.rigaScontrino = r.rigaScontrino;
 
         if (r.scontrino) {
           this.scontrino = r.scontrino;
@@ -176,6 +168,8 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       });
   }
 
+
+
   eliminaUltimoElemento() {
 
   }
@@ -188,7 +182,11 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
 
   }
 
-
+  stampaScontrino() {
+    this.scontrino = new Scontrino();
+    this.righeScontrino = [];
+    this.rigaScontrino = new RigaScontrino();
+  }
 }
 
 
