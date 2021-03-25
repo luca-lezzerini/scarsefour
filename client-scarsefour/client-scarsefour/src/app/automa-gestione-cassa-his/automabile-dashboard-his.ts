@@ -5,4 +5,5 @@ export interface AutomabileDashboardHis {
     entraStatoAnnullamentoScontrino();
     leggiEan();
     eliminaUltimoElemento();
+    stampaScontrino();
 }
