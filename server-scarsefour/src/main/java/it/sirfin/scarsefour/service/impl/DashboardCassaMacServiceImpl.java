@@ -7,6 +7,7 @@ package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseMacDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
@@ -40,12 +41,12 @@ public class DashboardCassaMacServiceImpl implements DashBoardCassaMacService {
     AnagraficaProdottiRepository anagraficaProdottiRepository;
 
     @Override
-    public LeggiEanResponseDto leggiEan(LeggiEanRequestDto dto) {
+    public LeggiEanResponseMacDto leggiEan(LeggiEanRequestDto dto) {
         //cerchiamo il prodotto dato l'ean
         Prodotto p = anagraficaProdottiRepository.findByEan(dto.getEanProdotto());
         //se non troviamo il prodotto rimandiamo un errore 
         if (p == null) {
-            //TODO:
+            return new LeggiEanResponseMacDto(null, null, "errore prodotto non trovato");
         }
         //se troviamo il prodotto andiamo ad aggiungere una riga allo scontrino
         //recuperiamo lo scontrino dal DB
@@ -75,8 +76,10 @@ public class DashboardCassaMacServiceImpl implements DashBoardCassaMacService {
         p = anagraficaProdottiRepository.save(p);
 
         //creiamo un dto di ritorno
-        LeggiEanResponseDto risp = new LeggiEanResponseDto();
+        LeggiEanResponseMacDto risp = new LeggiEanResponseMacDto();
         // TODO:
+        //ci va scontrino e righe scontrino
+        sc.getRigheScontrino();
 
         return risp;
     }
