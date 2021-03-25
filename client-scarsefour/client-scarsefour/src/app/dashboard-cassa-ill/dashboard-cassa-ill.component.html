@@ -8,7 +8,7 @@
     </div>
 
     <input type="text" [(ngModel)]="barcode" placeholder="barcode" [disabled]="eanE" *ngIf="ean"
-        (keydown.tab)="trovaEan()" autofocus>
+        (keydown.tab)="trovaEan()" autofocus (blur)="trovaEan($event)">
     <br>
     <br>
     <br>
