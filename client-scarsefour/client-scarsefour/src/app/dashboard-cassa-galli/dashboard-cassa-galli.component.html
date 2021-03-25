@@ -6,7 +6,7 @@
     <div class="titolo">
         <h2>Dashboard Galli</h2>
     </div>
-    <input type="text" [(ngModel)]="barcode" (blur)="barcodeHaPersoFocus($event)" placeholder="Barcode" *ngIf="ean" (keydown.tab)="verificaEan()">
+    <input type="text" [(ngModel)]="barcode" (blur)="verificaEan($event)" placeholder="Barcode" *ngIf="ean">
     <br><br>
     <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>&nbsp;
     <button (click)="chiudiScontrino()" *ngIf="chiudi" [disabled]="chiudiEnabled">Chiudi Scontrino</button>&nbsp;

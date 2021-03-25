@@ -7,6 +7,8 @@ import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
 import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoGal } from '../dto/req-ean-dto-gal';
+import { RigaScontrinoClientGalDto } from '../dto/riga-scontrino-client-gal-dto';
+import { ScontrinoClientGalDto } from '../dto/scontrino-client-gal-dto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 import { Prodotto } from '../prodotto';
@@ -21,7 +23,7 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   rigaScontrino = new RigaScontrino();
   barcode = "";
   prodotti: Prodotto[] = [];
-  righescontrino: RigaScontrino[] = [];
+  righescontrino: RigaScontrinoClientGalDto[] = [];
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
@@ -389,17 +391,19 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   }
 
   verificaEan() {
-    let reqDtoEanGal = new LeggiEanRequestDto();
-    reqDtoEanGal.eanProdotto = this.barcode;
-    reqDtoEanGal.scontrino = this.scontrino;
-    this.http.post<LeggiEanResponseDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
+    let reqDtoEanGal = new RigaScontrinoClientGalDto();
+    reqDtoEanGal.quantita = this.rigaScontrino.quantita;
+    reqDtoEanGal.descrizione = this.prodotto.descrizione;
+    reqDtoEanGal.prezzo = this.prodotto.prezzo;
+    this.http.post<ScontrinoClientGalDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
       .subscribe(r => {
-        this.messaggioErrore = r.messaggio;
+        this.righescontrino = r.righeScontrino;
+        this.scontrino = r.scontrino;
       });
     this.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();
   }
 
-  barcodeHaPersoFocus(event){
+  barcodeHaPersoFocus(event) {
     console.log("Il codice a barre ha perso il focus");
   }
 

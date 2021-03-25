@@ -75,5 +75,5 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         lista.add(rs);
         scontrinoRepository.save(s);
     }
-
+    
 }
