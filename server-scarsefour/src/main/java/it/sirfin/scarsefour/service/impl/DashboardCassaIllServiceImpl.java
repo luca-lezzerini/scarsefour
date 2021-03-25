@@ -7,6 +7,7 @@ package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
@@ -45,17 +46,35 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
     }
 
     @Override
-    public ProdottoDto trovaEan(String ean) {
-        return new ProdottoDto(anagraficaProdottiRepository.findByEan(ean));
+    public LeggiEanResponseDto trovaEan(String ean, Scontrino sc) {
+        //Nel dto request mi arriva l'ean del prodotto, tramite query interrogo
+        //il db e trovo o il prodotto che ha quel ena (codice a barre),
+        //oppure devo spedire un messaggio di errore
+        Prodotto p = anagraficaProdottiRepository.findByEan(ean);
+        if (p == null) {
+            //se non è stato trovato alcun prodotto recupero il dto e
+            //spedisco un messaggio di errore
+            return new LeggiEanResponseDto(null, null, "Errore");
+        }
+        //se invece è stato trovato un prodotto devo associarlo alla
+        //riga scontrino che è a sua volta associata ad uno scontrino
+        RigaScontrino r = new RigaScontrino();
+        return new LeggiEanResponseDto(null, null, "Torna qualcosa");
     }
 
-    @Override
-    public CreaScontrinoDto creaScont(Scontrino sc) {
-        sc = scontrinoRepository.save(sc);
-        return new CreaScontrinoDto(sc);
+    //Verificare se c'è uno scontrino aperto e associato, se non c'è occorre 
+    //crearlo e associarlo alla rigascontrino
+    private Scontrino creaScont(Scontrino sc) {
+        //verificare se lo scontrino è valido
+        if (sc.getId() == null) {
+            Scontrino nuovoScontrino = new Scontrino(LocalDateTime.now(),
+                    0, 0.0);
+            scontrinoRepository.save(sc);
+            return sc;
+        }
+        return sc;
     }
 
-    @Override
     public CreaRigaDto creaRiga(RigaScontrino rs) {
         rs = rigaRepository.save(rs);
         return new CreaRigaDto(rs);

@@ -7,6 +7,8 @@ package it.sirfin.scarsefour.controller;
 
 import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
+import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.dto.ReqEanDtoIll;
 import it.sirfin.scarsefour.model.RigaScontrino;
@@ -27,19 +29,20 @@ public class DashboardCassaIllController {
 
     @RequestMapping("/trova-ean")
     @ResponseBody
-    public ProdottoDto trovaEan(@RequestBody ReqEanDtoIll dto) {
-        return dashboardCassaIllService.trovaEan(dto.getCodiceABarre());
+    public LeggiEanResponseDto trovaEan(@RequestBody LeggiEanRequestDto dto) {
+        return dashboardCassaIllService.trovaEan(dto.getEanProdotto(),
+                dto.getScontrino());
     }
 
-    @RequestMapping("/crea-scontrino")
-    @ResponseBody
-    public CreaScontrinoDto creaScont(@RequestBody CreaScontrinoDto dto) {
-        return dashboardCassaIllService.creaScont(dto.getScontrino());
-    }
-
-    @RequestMapping("/crea-riga-scontrino")
-    @ResponseBody
-    public CreaRigaDto creaRiga(@RequestBody CreaRigaDto dto) {
-        return dashboardCassaIllService.creaRiga(dto.getRiga());
-    }
+//    @RequestMapping("/crea-scontrino")
+//    @ResponseBody
+//    public CreaScontrinoDto creaScont(@RequestBody CreaScontrinoDto dto) {
+//        return dashboardCassaIllService.creaScont(dto.getScontrino());
+//    }
+//
+//    @RequestMapping("/crea-riga-scontrino")
+//    @ResponseBody
+//    public CreaRigaDto creaRiga(@RequestBody CreaRigaDto dto) {
+//        return dashboardCassaIllService.creaRiga(dto.getRiga());
+//    }
 }
