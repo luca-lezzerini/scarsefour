@@ -42,12 +42,11 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   constructor(private http: HttpClient) {
     this.automaCassa = new AutomaCassa(this);
   }
- 
 
 
   ngOnInit(): void {
   }
-  vediPrezzo() {
+  generaVediPrezzoEvent() {
     this.automaCassa.next(new VediPrezzoEvent, this.automaCassa);
   }
 
@@ -200,17 +199,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       });
   }
 
-
-
   eliminaUltimoElemento() {
-
-  }
-
-  calcolaTotale(prezzo: number) {
-
-  }
-
-  definisciQuantita(riga: RigaScontrino) {
 
   }
 
@@ -218,6 +207,10 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.scontrino = new Scontrino();
     this.righeScontrino = [];
     this.rigaScontrino = new RigaScontrino();
+  }
+
+  vediPrezzo() {
+    
   }
 }
 
