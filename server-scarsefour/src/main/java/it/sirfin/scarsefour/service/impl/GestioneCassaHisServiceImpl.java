@@ -1,8 +1,6 @@
 package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.AnnullaScontrinoDto;
-import it.sirfin.scarsefour.dto.CreaScontrinoDto;
-import it.sirfin.scarsefour.dto.EliminaUltimoDto;
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.StornaRitornoDto;
@@ -17,9 +15,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.transaction.Transactional;
+import org.hibernate.engine.profile.Fetch;
+//import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
@@ -126,12 +127,14 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
      */
     @Transactional()
     private Scontrino aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
-        System.out.println("********************Siamo nel metodo aggiornaTotScontrino*******************");
-        System.out.println("stiamo tentando di aggiornare il totale dello scontrino");
-        System.out.println("prezzo da aggiungere: " + prezzo + " scontrino: " + scontrino.getId());
-        scontrinoRepository.aggiornaTotScontrino(prezzo, scontrino.getId());
+//        System.out.println("********************Siamo nel metodo aggiornaTotScontrino*******************");
+//        System.out.println("stiamo tentando di aggiornare il totale dello scontrino");
+//        System.out.println("prezzo da aggiungere: " + prezzo + " scontrino: " + scontrino.getId());
+        Double totale = scontrinoRepository.trovaTotale(scontrino.getId());
+        totale += prezzo;
+        scontrinoRepository.aggiornaTotScontrino(totale, scontrino.getId());
         Scontrino scontrinoAggiornato = scontrinoRepository.findById(scontrino.getId()).get();
-        System.out.println("scontrino aggiornato: " + scontrino.getId() + " totale: " + scontrino.getTotale());
+//        System.out.println("scontrino aggiornato: " + scontrino.getId() + " totale: " + scontrino.getTotale());
         return scontrinoAggiornato;
     }
 
