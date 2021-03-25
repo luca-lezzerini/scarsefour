@@ -4,9 +4,10 @@ import { AutomaCassa } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-his/eventi';
 import { AnnullaScontrinoDto } from '../dto/annulla-scontrino-dto';
-
 import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
 import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
+import { StornaUltimoDto } from '../dto/storna-ultimo-dto';
+import { StornaRitornoDto } from '../dto/storna-ritorno-dto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 
@@ -42,7 +43,6 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   constructor(private http: HttpClient) {
     this.automaCassa = new AutomaCassa(this);
   }
-
 
   ngOnInit(): void {
   }
@@ -162,7 +162,6 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       .subscribe(r => {
         //il messaggio è sempre visualizzato perchè se non c'è errore il server invia
         //un messaggio vuoto
-
         this.messaggioErrore = r.messaggio;
 
         if (r.rigaScontrino) {
@@ -176,17 +175,17 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
         }
         console.log(this.scontrino);
 
-        if (r.rigaScontrino) {
-          if (r.rigaScontrino.prodotto) {
-            this.generaEanEvent(r.rigaScontrino.prodotto.ean);
-          }
-        } else {
-          this.generaEanEvent(null);
-        }
+        this.generaEanEvent(r.rigaScontrino.prodotto.ean);
       });
   }
-
-  eliminaUltimoElemento() {
+  eliminaUltimoElemento() { 
+    let dto = new StornaUltimoDto();
+    dto.rigaScontrino = this.rigaScontrino;
+    dto.scontrino = this.scontrino;
+    this.http.post<StornaRitornoDto>("http://localhost:8080/storna-ultimo", dto)
+    .subscribe( a =>{
+     this.righeScontrino = a.righe
+    });
 
   }
 

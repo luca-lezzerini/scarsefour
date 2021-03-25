@@ -8,7 +8,7 @@ export class StornaEvent implements Event {
         this.numeroElementi = numeroElementi;
     }
     numeroElementi: number;
-}
+ }
 export class ChiudiEvent implements Event { }
 export class EanEvent implements Event {
     constructor(codiceEan: string, scontrino?: Scontrino) {
