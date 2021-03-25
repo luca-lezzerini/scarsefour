@@ -29,7 +29,8 @@ public class DashboardCassaMacController {
     @RequestMapping("ricerca-prodotto-mac")
     @ResponseBody
     public ListaProdottiDto leggiProdottoMac(@RequestBody RicercaProdottoDto prodotto) {
-        return dashBoardCassaMacService.ricercaProdotto(prodotto.getRicercaPerCodice());
+//        return dashBoardCassaMacService.ricercaProdotto(prodotto.getRicercaPerCodice());
+        return null;
     }
 
 }
