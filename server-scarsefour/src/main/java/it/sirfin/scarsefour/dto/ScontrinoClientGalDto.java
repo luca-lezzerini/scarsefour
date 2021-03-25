@@ -16,13 +16,15 @@ public class ScontrinoClientGalDto {
 
     private List<RigaScontrinoClientGalDto> righeScontrino;
     private Scontrino scontrino;
+    private String messaggio;
 
     public ScontrinoClientGalDto() {
     }
 
-    public ScontrinoClientGalDto(List<RigaScontrinoClientGalDto> righeScontrino, Scontrino scontrino) {
+    public ScontrinoClientGalDto(List<RigaScontrinoClientGalDto> righeScontrino, Scontrino scontrino, String messaggio) {
         this.righeScontrino = righeScontrino;
         this.scontrino = scontrino;
+        this.messaggio = messaggio;
     }
 
     public List<RigaScontrinoClientGalDto> getRigheScontrino() {
@@ -41,12 +43,17 @@ public class ScontrinoClientGalDto {
         this.scontrino = scontrino;
     }
 
+    public String getMessaggio() {
+        return messaggio;
+    }
+
+    public void setMessaggio(String messaggio) {
+        this.messaggio = messaggio;
+    }
+
     @Override
     public String toString() {
-        return "ScontrinoClientGalDto{" + "righeScontrino=" + righeScontrino + ", scontrino=" + scontrino + '}';
+        return "ScontrinoClientGalDto{" + "righeScontrino=" + righeScontrino + ", scontrino=" + scontrino + ", messaggio=" + messaggio + '}';
     }
-    
-    
-    
-    
+   
 }

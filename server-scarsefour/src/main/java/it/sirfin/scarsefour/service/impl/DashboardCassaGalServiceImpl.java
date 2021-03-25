@@ -7,6 +7,7 @@ package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
+import it.sirfin.scarsefour.dto.ScontrinoClientGalDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
@@ -48,26 +49,25 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
     }
 
     @Override
-    public LeggiEanResponseDto verificaEan(String ean, Scontrino sc) {
+    public ScontrinoClientGalDto verificaEan(String ean, Scontrino sc) {
         // cerco il prodotto per EAN
         Prodotto prod = anagraficaProdottiRepository.findByEan(ean);
         // se lo trovo ok ...
         if (prod == null) {
             // .. se non lo trovo  ritorno errore
-            return new LeggiEanResponseDto(null, null, "prodotto non trovato");
+            return new ScontrinoClientGalDto (null, null, "prodotto non trovato");
         }
         // se lo trovo proseguo per aggiungerlo allo scontrino ...
         // ma lo scontrino esiste? verifico
         if (sc != null) {
             sc = scontrinoRepository.findById(sc.getId()).get();
+            return new ScontrinoClientGalDto(null, null, "prodotto trovato");
         }
-
         // scontrino  non trovato, lo creo
         if (sc == null) {
             sc = new Scontrino();
             sc = scontrinoRepository.save(sc);
         }
-
         // scontrino trovato, procedo 
         // aggiungo una nuova riga allo scontrino
         RigaScontrino riga = new RigaScontrino();
@@ -79,10 +79,12 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         sc = scontrinoRepository.save(sc);
 
         // preparo il DTO di ritorno e finisco
-        LeggiEanResponseDto risp = new LeggiEanResponseDto();
-        
-        //FIXME: da finire
-        
+        ScontrinoClientGalDto risp = new ScontrinoClientGalDto();
+
+       // risp.setRigheScontrino(.findById(prod.getId()));
+        risp.setScontrino(sc);
+        risp.setMessaggio("scontrino pronto!");
+
         return risp;
     }
 

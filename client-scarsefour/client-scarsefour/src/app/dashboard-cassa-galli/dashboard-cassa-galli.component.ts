@@ -44,7 +44,7 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   chiudi: boolean;
   chiudiEnabled: boolean;
   prezzo: boolean;
-  scontrino = new Scontrino();
+  scontrino: Scontrino;
 
   constructor(private http: HttpClient) {
     this.automa = new Automa(this);
@@ -391,13 +391,13 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   }
 
   verificaEan() {
-    let reqDtoEanGal = new RigaScontrinoClientGalDto();
-    reqDtoEanGal.quantita = this.rigaScontrino.quantita;
-    reqDtoEanGal.descrizione = this.prodotto.descrizione;
-    reqDtoEanGal.prezzo = this.prodotto.prezzo;
-    this.http.post<ScontrinoClientGalDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
+    let reqDtoEanGal = new LeggiEanRequestDto();
+    reqDtoEanGal.eanProdotto = this.barcode;
+    reqDtoEanGal.scontrino = this.scontrino;
+    this.http.post<LeggiEanResponseDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
       .subscribe(r => {
-        this.righescontrino = r.righeScontrino;
+        this.rigaScontrino = r.rigaScontrino;
+        this.messaggioErrore = r.messaggio;
         this.scontrino = r.scontrino;
       });
     this.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();

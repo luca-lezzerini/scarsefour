@@ -27,7 +27,7 @@ public class DashboardCassaGalController {
     @RequestMapping("verifica-ean-gal")
     @ResponseBody
     public LeggiEanResponseDto verificaEan(@RequestBody LeggiEanRequestDto dto) {
-        return dashboardCassaGalService.verificaEan(dto.getEanProdotto(), dto.getScontrino());
-    }
+       // return dashboardCassaGalService.verificaEan(dto.getEanProdotto(), dto.getScontrino());
+    //}
 
 }
