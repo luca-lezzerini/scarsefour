@@ -9,6 +9,7 @@ import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.dto.ReqEanDtoGal;
+import it.sirfin.scarsefour.dto.ScontrinoClientGalDto;
 import it.sirfin.scarsefour.service.DashboardCassaGalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,8 +27,8 @@ public class DashboardCassaGalController {
 
     @RequestMapping("verifica-ean-gal")
     @ResponseBody
-    public LeggiEanResponseDto verificaEan(@RequestBody LeggiEanRequestDto dto) {
-       // return dashboardCassaGalService.verificaEan(dto.getEanProdotto(), dto.getScontrino());
-    //}
+    public ScontrinoClientGalDto verificaEan(@RequestBody LeggiEanRequestDto dto) {
+        return dashboardCassaGalService.verificaEan(dto.getEanProdotto(), dto.getScontrino());
+    }
 
 }
