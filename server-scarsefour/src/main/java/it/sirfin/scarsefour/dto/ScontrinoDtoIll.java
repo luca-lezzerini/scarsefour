@@ -7,7 +7,9 @@ package it.sirfin.scarsefour.dto;
 
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -21,8 +23,8 @@ public class ScontrinoDtoIll {
     public ScontrinoDtoIll() {
     }
 
-    public ScontrinoDtoIll(List<RigaScontrino> righeScontrino, Scontrino scontrino) {
-        this.righeScontrino = righeScontrino;
+    public ScontrinoDtoIll(Set<RigaScontrino> righeScontrino, Scontrino scontrino) {
+        this.righeScontrino = new ArrayList<>(righeScontrino);
         this.scontrino = scontrino;
     }
 

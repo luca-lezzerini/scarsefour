@@ -29,11 +29,10 @@ public class DashboardCassaIllController {
     @Autowired
     DashboardCassaIllService dashboardCassaIllService;
 
-    @RequestMapping("/trova-ean")
+    @RequestMapping("/trova-ean-ill")
     @ResponseBody
-    public ScontrinoDtoIll trovaEan(@RequestBody RigaScontrinoClientDto dto) {
-//      return dashboardCassaIllService.trovaEan(dto.);
-        return null;
+    public ScontrinoDtoIll trovaEan(@RequestBody LeggiEanRequestDto dto) {
+        return dashboardCassaIllService.trovaEan(dto.getEanProdotto(), dto.getScontrino());
     }
 
 //    @RequestMapping("/crea-scontrino")
