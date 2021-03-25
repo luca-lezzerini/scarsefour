@@ -7,18 +7,16 @@ import java.util.Set;
 public class LeggiEanResponseDto {
 
     private Scontrino scontrino;
-    private Set<RigaScontrino> righeScontrino;
+    private RigaScontrino RigaScontrino;
     private String messaggio;
-    private String barcode;
 
     public LeggiEanResponseDto() {
     }
 
-    public LeggiEanResponseDto(Scontrino scontrino, Set<RigaScontrino> righeScontrino, String messaggio, String barcode) {
+    public LeggiEanResponseDto(Scontrino scontrino, RigaScontrino RigaScontrino, String messaggio) {
         this.scontrino = scontrino;
-        this.righeScontrino = righeScontrino;
+        this.RigaScontrino = RigaScontrino;
         this.messaggio = messaggio;
-        this.barcode = barcode;
     }
 
     public Scontrino getScontrino() {
@@ -29,12 +27,12 @@ public class LeggiEanResponseDto {
         this.scontrino = scontrino;
     }
 
-    public Set<RigaScontrino> getRigheScontrino() {
-        return righeScontrino;
+    public RigaScontrino getRigaScontrino() {
+        return RigaScontrino;
     }
 
-    public void setRigheScontrino(Set<RigaScontrino> righeScontrino) {
-        this.righeScontrino = righeScontrino;
+    public void setRigaScontrino(RigaScontrino RigaScontrino) {
+        this.RigaScontrino = RigaScontrino;
     }
 
     public String getMessaggio() {
@@ -45,18 +43,9 @@ public class LeggiEanResponseDto {
         this.messaggio = messaggio;
     }
 
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
     @Override
     public String toString() {
-        return "LeggiEanResponseDto{" + "scontrino=" + scontrino + ", righeScontrino=" + righeScontrino + ", messaggio=" + messaggio + ", barcode=" + barcode + '}';
+        return "LeggiEanResponseDto{" + "scontrino=" + scontrino.getId() + ", RigaScontrino=" + RigaScontrino.getId() + ", messaggio=" + messaggio + '}';
     }
-
-    
+   
 }

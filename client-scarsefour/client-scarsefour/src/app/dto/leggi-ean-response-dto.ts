@@ -3,7 +3,6 @@ import { Scontrino } from "../entità/scontrino";
 
 export class LeggiEanResponseDto{
     scontrino: Scontrino;
-    righeScontrino: RigaScontrino[];
+    rigaScontrino: RigaScontrino;
     messaggio: string;
-    barcode: string;
 }
