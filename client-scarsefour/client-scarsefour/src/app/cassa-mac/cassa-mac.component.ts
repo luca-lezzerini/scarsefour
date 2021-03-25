@@ -265,7 +265,7 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     this.http.post<LeggiEanResponseDto>("http://localhost:8080/ricerca-prodotto-mac", dto)
     .subscribe(a => {
       this.scontrino = a.scontrino;
-      this.righeScontrino = a.righeScontrino;
+      this.rigaScontrino = a.rigaScontrino;
       this.barcode = "";
     });
   
