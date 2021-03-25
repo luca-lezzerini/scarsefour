@@ -10,7 +10,7 @@
     <br>
     <br>
     <br>
-    <button (click)="vediPrezzo()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>
+    <button (click)="generaVediPrezzoEvent()" *ngIf="vediPrezzoVis">Vedi Prezzo</button>
     <button (click)="chiudiScontrino()" *ngIf="chiudi" [disabled]="chiudiEnabled">Chiudi Scontrino</button>
     <button (click)="annullaScontrino()" *ngIf="annullaScontrinoVis" [disabled]="annullaScontrinoEnabled">Annulla
         Scontrino</button>

@@ -9,6 +9,8 @@ import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
 import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoIll } from '../dto/req-ean-dto-ill';
+import { RigaScontrinoDtoIll } from '../dto/riga-scontrino-ill--dto';
+import { ScontrinoIllDto } from '../dto/scontrino-ill-dto';
 import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
@@ -45,8 +47,9 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
 
   scontrino = new Scontrino();
   prodotti: Prodotto[] = [];
+  prodotto = new Prodotto();
   rigaScontrino = new RigaScontrino();
-  righeScontrino: RigaScontrino[] = [];
+  righeScontrino: RigaScontrinoDtoIll[] = [];
 
 
   ngOnInit(): void {
@@ -176,16 +179,16 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   }
 
   trovaEan() {
-    let dto = new LeggiEanRequestDto();
-    dto.eanProdotto = this.barcode;
-    dto.scontrino = this.scontrino;
-    this.http.post<LeggiEanResponseDto>("http://localhost:8080/trova-ean", dto)
+    let dto = new RigaScontrinoDtoIll();
+    dto.quantita = this.rigaScontrino.quantita;
+    dto.descrizione = this.prodotto.descrizione;
+    dto.prezzo = this.prodotto.prezzo;
+    this.http.post<ScontrinoIllDto>("http://localhost:8080/trova-ean", dto)
       .subscribe(ris => {
-        if (ris.messaggio == "Errore") {
-          console.log("Nessun prodotto trovato");
-        }
-        this.generaEventoEan(ris.rigaScontrino.prodotto.ean);
+        this.scontrino = ris.scontrino;
+        this.righeScontrino = ris.righeScontrino;
       });
+    // this.generaEventoEan(ris.rigaScontrino.prodotto.ean);
   }
 
   cancellaUltimo() {

@@ -1,7 +1,7 @@
-import { AnnullaEvent, ConfermaEvent, Event } from "../automa-crud/eventi";
+import { Event } from "../automa-crud/eventi";
 import { StateCassa } from "../automa-gestione-cassa-his/stati";
 import { AutomabileDashboardHis } from "./automabile-dashboard-his";
-import { AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent } from "./eventi";
+import { AnnullaScontrinoEvent, ChiudiEvent, EanEvent, StornaEvent, VediPrezzoEvent, AnnullaEvent, ConfermaEvent, } from "./eventi";
 
 export class AutomaCassa implements StateCassa {
 
@@ -32,7 +32,7 @@ export class ScontrinoVuoto implements StateCassa {
             if (e.codiceEan) {
                 a.stato = new ScontrinoNonVuoto();
                 a.ui.entraStatoScontrinoNonVuoto();
-                
+
             } else {
                 a.stato = new ScontrinoVuoto();
                 a.ui.entraStatoScontrinoVuoto();
@@ -109,6 +109,7 @@ export class AnnullamentoScontrino implements StateCassa {
             a.ui.entraStatoScontrinoNonVuoto();
         } else if (e instanceof ConfermaEvent) {
             a.stato = new ScontrinoVuoto();
+            a.ui.confermaAnnullaScontrino();
             a.ui.entraStatoScontrinoVuoto();
         } else {
             console.log("ricevuto evento ", e, " inatteso");
