@@ -23,7 +23,7 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
   rigaScontrino = new RigaScontrino();
   barcode = "";
   prodotti: Prodotto[] = [];
-  righescontrino: RigaScontrinoClientGalDto[] = [];
+  righeScontrino: RigaScontrinoClientGalDto[] = [];
   descrizioneE = "";
   prezzoE = 0;
   prezzoTot = 0;
@@ -394,12 +394,15 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     let reqDtoEanGal = new LeggiEanRequestDto();
     reqDtoEanGal.eanProdotto = this.barcode;
     reqDtoEanGal.scontrino = this.scontrino;
-    this.http.post<LeggiEanResponseDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
+    this.http.post<ScontrinoClientGalDto>(this.url + "verifica-ean-gal", reqDtoEanGal)
       .subscribe(r => {
-        this.rigaScontrino = r.rigaScontrino;
+        this.righeScontrino = r.righeScontrino;
         this.messaggioErrore = r.messaggio;
         this.scontrino = r.scontrino;
+        
       });
+      
+      
     this.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();
   }
 
