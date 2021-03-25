@@ -89,19 +89,6 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.chiudiEnabled = true;//
   }
 
-  confermaAnnullaScontrino() {
-    let dto = new AnnullaScontrinoDto();
-    dto.scontrino = this.scontrino;
-    dto.righeScontrino = this.righeScontrino;
-
-    this.http.post<AnnullaScontrinoDto>("http://localhost:8080/annulla-scontrino", dto)
-      .subscribe(r => {
-        this.scontrino = r.scontrino;
-        this.righeScontrino = r.righeScontrino;
-        
-      });
-  }
-
   entraStatoVediPrezzo() {
     this.ean = true;
     this.vediPrezzoVis = false;
@@ -211,6 +198,19 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
 
   vediPrezzo() {
     
+  }
+
+  confermaAnnullaScontrino() {
+    let dto = new AnnullaScontrinoDto();
+    dto.scontrino = this.scontrino;
+    dto.righeScontrino = this.righeScontrino;
+
+    this.http.post<AnnullaScontrinoDto>("http://localhost:8080/annulla-scontrino", dto)
+      .subscribe(r => {
+        this.scontrino = new Scontrino();
+        this.righeScontrino = [];
+        this.rigaScontrino = new RigaScontrino();
+      });
   }
 }
 
