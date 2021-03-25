@@ -5,15 +5,10 @@
  */
 package it.sirfin.scarsefour.controller;
 
-import it.sirfin.scarsefour.dto.CreaRigaDto;
-import it.sirfin.scarsefour.dto.CreaScontrinoDto;
-import it.sirfin.scarsefour.dto.EanDtoHis;
+import it.sirfin.scarsefour.dto.AnnullaScontrinoDto;
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
-import it.sirfin.scarsefour.dto.ProdottoDto;
-import it.sirfin.scarsefour.model.Scontrino;
 import it.sirfin.scarsefour.service.GestioneCassaHisService;
-import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,10 +30,17 @@ public class GestioneCassaHisController {
             System.out.println("Scontrino ricevuto da client: " + dto.getScontrino());
         } catch (Exception e) {
             System.out.println("Scontrino: nullo, genera una nullPointerException "
-                    + "tentando di stamparlo" );
+                    + "tentando di stamparlo");
         }
         System.out.println("Ean prodotto ricevuto da client: " + dto.getEanProdotto());
         return gestioneCassaHisService.leggiEan(dto);
+    }
+
+    @RequestMapping("annulla-scontrino")
+    @ResponseBody
+    public AnnullaScontrinoDto annullaScontrino(@RequestBody AnnullaScontrinoDto dto) {
+        System.out.println("siamo nel controller di annullaScontrino");
+        return gestioneCassaHisService.annullaScontrino(dto.getScontrino(),dto.getRigheScontrino());
     }
 
     @RequestMapping("demoAssociaScontrinoARigaSco")

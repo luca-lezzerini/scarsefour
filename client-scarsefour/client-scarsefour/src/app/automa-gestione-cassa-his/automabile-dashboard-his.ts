@@ -7,4 +7,7 @@ export interface AutomabileDashboardHis {
     leggiEan();
     eliminaUltimoElemento();
     stampaScontrino();
+    confermaAnnullaScontrino();
+    generaVediPrezzoEvent();
+    vediPrezzo();
 }

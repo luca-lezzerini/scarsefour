@@ -1,5 +1,7 @@
 package it.sirfin.scarsefour.service.impl;
 
+import it.sirfin.scarsefour.dto.AnnullaScontrinoDto;
+import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.model.Prodotto;
@@ -301,4 +303,21 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
         return rigaDefinitiva;
     }
+
+
+    
+
+    @Override
+    public AnnullaScontrinoDto annullaScontrino(Scontrino scontrino,List<RigaScontrino> righeScontrino) {
+        System.out.println("siamo in annullaScontrino");
+        rigaRepository.deleteAll(righeScontrino);
+        scontrinoRepository.delete(scontrino);
+
+        
+        return new AnnullaScontrinoDto();
+    }
+
+    
+
+
 }

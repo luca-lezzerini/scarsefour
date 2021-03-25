@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { AutomaCassa } from '../automa-gestione-cassa-his/automa';
 import { AutomabileDashboardHis } from '../automa-gestione-cassa-his/automabile-dashboard-his';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-his/eventi';
+import { AnnullaScontrinoDto } from '../dto/annulla-scontrino-dto';
+
 import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
 import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
-import { Prodotto } from '../entità/prodotto';
 import { RigaScontrino } from '../entità/riga-scontrino';
 import { Scontrino } from '../entità/scontrino';
 
@@ -41,11 +42,11 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   constructor(private http: HttpClient) {
     this.automaCassa = new AutomaCassa(this);
   }
- 
+
 
   ngOnInit(): void {
   }
-  vediPrezzo() {
+  generaVediPrezzoEvent() {
     this.automaCassa.next(new VediPrezzoEvent, this.automaCassa);
   }
 
@@ -68,6 +69,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
   }
 
   annulla() {
+    console.log("annulla");
     this.automaCassa.next(new AnnullaEvent, this.automaCassa);
   }
 
@@ -85,6 +87,19 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.confermaEnabled = true;//
     this.annullaEnabled = true;//
     this.chiudiEnabled = true;//
+  }
+
+  confermaAnnullaScontrino() {
+    let dto = new AnnullaScontrinoDto();
+    dto.scontrino = this.scontrino;
+    dto.righeScontrino = this.righeScontrino;
+
+    this.http.post<AnnullaScontrinoDto>("http://localhost:8080/annulla-scontrino", dto)
+      .subscribe(r => {
+        this.scontrino = r.scontrino;
+        this.righeScontrino = r.righeScontrino;
+        
+      });
   }
 
   entraStatoVediPrezzo() {
@@ -184,17 +199,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
       });
   }
 
-
-
   eliminaUltimoElemento() {
-
-  }
-
-  calcolaTotale(prezzo: number) {
-
-  }
-
-  definisciQuantita(riga: RigaScontrino) {
 
   }
 
@@ -202,6 +207,10 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.scontrino = new Scontrino();
     this.righeScontrino = [];
     this.rigaScontrino = new RigaScontrino();
+  }
+
+  vediPrezzo() {
+    
   }
 }
 
