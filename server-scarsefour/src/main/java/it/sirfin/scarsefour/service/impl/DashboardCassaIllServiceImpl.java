@@ -72,9 +72,11 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
         RigaScontrino r = new RigaScontrino();
         r.setProdotto(p);
         r.setScontrino(sc);
-        
-        
+        r = rigaRepository.save(r);
+
         // aggiungo la riga allo scontrino
+        sc.getRigheScontrino().add(r);
+        sc = scontrinoRepository.save(sc);
         
         // creo il DTO con i dati da ritornare al client
         

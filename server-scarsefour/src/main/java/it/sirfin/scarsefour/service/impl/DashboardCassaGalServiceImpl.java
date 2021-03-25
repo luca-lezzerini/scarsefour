@@ -44,21 +44,46 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         sc = scontrinoRepository.save(sc);
         sc1 = scontrinoRepository.save(sc1);
         sc2 = scontrinoRepository.save(sc2);
-        
-       
-        
-        
 
     }
 
     @Override
-    public LeggiEanResponseDto verificaEan(String ean) {
+    public LeggiEanResponseDto verificaEan(String ean, Scontrino sc) {
+        // cerco il prodotto per EAN
         Prodotto prod = anagraficaProdottiRepository.findByEan(ean);
-        if (prod != null) {
-            return new LeggiEanResponseDto();
-        } else {
+        // se lo trovo ok ...
+        if (prod == null) {
+            // .. se non lo trovo  ritorno errore
             return new LeggiEanResponseDto(null, null, "prodotto non trovato");
         }
+        // se lo trovo proseguo per aggiungerlo allo scontrino ...
+        // ma lo scontrino esiste? verifico
+        if (sc != null) {
+            sc = scontrinoRepository.findById(sc.getId()).get();
+        }
+
+        // scontrino  non trovato, lo creo
+        if (sc == null) {
+            sc = new Scontrino();
+            sc = scontrinoRepository.save(sc);
+        }
+
+        // scontrino trovato, procedo 
+        // aggiungo una nuova riga allo scontrino
+        RigaScontrino riga = new RigaScontrino();
+        riga = rigaRepository.save(riga);
+        riga.setProdotto(prod);
+        riga.setScontrino(sc);
+        riga = rigaRepository.save(riga);
+        sc.getRigheScontrino().add(riga);
+        sc = scontrinoRepository.save(sc);
+
+        // preparo il DTO di ritorno e finisco
+        LeggiEanResponseDto risp = new LeggiEanResponseDto();
+        
+        //FIXME: da finire
+        
+        return risp;
     }
 
     private void associaProdottoARigaScontrino(Prodotto p, RigaScontrino rs) {
@@ -79,5 +104,5 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         lista.add(rs);
         scontrinoRepository.save(s);
     }
-    
+
 }
