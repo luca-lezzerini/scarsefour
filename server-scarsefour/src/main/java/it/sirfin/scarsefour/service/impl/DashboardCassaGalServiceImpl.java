@@ -60,7 +60,7 @@ public class DashboardCassaGalServiceImpl implements DashboardCassaGalService {
         // ma lo scontrino esiste? verifico
         if (sc != null) {
             sc = scontrinoRepository.findById(sc.getId()).get();
-            return new ScontrinoClientGalDto(null, null, "prodotto trovato");
+          //  return new ScontrinoClientGalDto(null, null, "prodotto trovato");
         }
         // scontrino  non trovato, lo creo
         if (sc == null) {
