@@ -183,12 +183,12 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
     let dto = new LeggiEanRequestDto();
     dto.eanProdotto = this.barcode;
     dto.scontrino = this.scontrino;
-    this.http.post<LeggiEanResponseDto>("http://localhost:8080/trova-ean-ill", dto)
+    this.http.post<ScontrinoIllDto>("http://localhost:8080/trova-ean-ill", dto)
       .subscribe(ris => {
         this.scontrino = ris.scontrino;
-        this.rigaScontrino = ris.rigaScontrino;
+        this.righeScontrino = ris.righeScontrino;
         this.messaggioErrore = ris.messaggio;
-        this.generaEventoEan(ris.rigaScontrino.prodotto.ean);
+        // this.generaEventoEan(ris.rigaScontrino.prodotto.ean);
       });
   }
 

@@ -27,6 +27,7 @@ export class ScontrinoVuoto implements State {
     next(e: Event, a?: AutomaCassa) {
         if (e instanceof VediPrezzoEvent) {
             a.stato = new VediPrezzo();
+            a.ui.trovaEan();
             a.ui.entraStatoVediPrezzo();
         } else if (e instanceof EanEvent) {
             if (e.codiceEan) {
