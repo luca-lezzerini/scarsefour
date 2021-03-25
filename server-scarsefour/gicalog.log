@@ -4,3 +4,4 @@
 2021-03-24 16:33:12.679 DEBUG 7272 --- [main] org.hibernate.SQL                        : alter table riga_scontrino add constraint FKl46okn6fov7u0qn8nuxqekklk foreign key (prodotto_id) references prodotto (id)
 2021-03-24 16:33:12.849 DEBUG 7272 --- [main] org.hibernate.SQL                        : alter table riga_scontrino add constraint FKbauvluia1rjkjlac92qto561d foreign key (scontrino_id) references scontrino (id)
 2021-03-24 16:33:15.746  WARN 7272 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-24 17:14:58.740  WARN 13860 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
