@@ -29,7 +29,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
     RigaRepository rigaRepository;
 
     //////////////////////////////////LOGICA/////////////////////////////////////
-//DATI INVIATI DAL CLIENT CON leggiEan(Scontrino(?id), Prodotto.ean)
+//DATI INVIATI DAL CLIENT CON leggiEan(Scontrino, Prodotto.ean)
 //
 //DATI RICEVUTI DAL CLIENT IN RITORNO DAL SERVER(Scontrino, RigaScontrino, messaggio)
 //
@@ -168,7 +168,73 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
     }
 
+
+
     /**
+     * Crea una riga e ne definisce le associazioni e ritorna la riga
+     *
+     * @param Scontrino s
+     * @param Prodotto p
+     * @return riga
+     */
+    private RigaScontrino creaRigaSemplice(Scontrino s, Prodotto p) {
+        RigaScontrino riga = new RigaScontrino();
+        riga.setQuantita(1);
+        associaRigaScoAProdotto(riga, p);
+        associaScontrinoARigaSco(s, riga);
+        return riga;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////METODI DEMO PER TEST///////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void demoAssociaScontrinoARigaSco() {
+
+        Scontrino s1 = new Scontrino(LocalDateTime.now(), 2, 7.5);
+        s1 = scontrinoRepository.save(s1);
+        Scontrino s2 = new Scontrino(LocalDateTime.now(), 5, 10.0);
+        s2 = scontrinoRepository.save(s2);
+        RigaScontrino rs1 = new RigaScontrino();
+        rs1 = rigaRepository.save(rs1);
+        RigaScontrino rs2 = new RigaScontrino();
+        rs2 = rigaRepository.save(rs2);
+        associaScontrinoARigaSco(s1, rs2);
+        associaScontrinoARigaSco(s2, rs1);
+
+    }
+
+    @Override
+    public void demoAssociaRigaScoAProdotto() {
+
+        RigaScontrino rs2 = new RigaScontrino();
+        rs2 = rigaRepository.save(rs2);
+        RigaScontrino rs1 = new RigaScontrino();
+        rs1 = rigaRepository.save(rs1);
+        Prodotto p1 = new Prodotto();
+        p1 = anagraficaProdottiRepository.save(p1);
+        Prodotto p2 = new Prodotto();
+        p2 = anagraficaProdottiRepository.save(p2);
+        associaRigaScoAProdotto(rs1, p2);
+        associaRigaScoAProdotto(rs2, p1);
+
+    }
+
+    @Override
+    public void demoAggiornaTotScontrino() {
+
+    }
+
+    @Override
+    public void demoCreaNuovoScontrino() {
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////METODI IN DIDUSO///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+        /**
      * Crea uno riga scontrino partendo da uno scontrino e un prodotto; 1) cerco
      * su DB tutte le righe associate allo scontrino 2) se trovo righe associate
      * filtro la lista di righe associate per prodotto, poi: A) se la lista
@@ -235,58 +301,4 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
         }
         return rigaDefinitiva;
     }
-
-    private RigaScontrino creaRigaSemplice(Scontrino s, Prodotto p) {
-        RigaScontrino riga = new RigaScontrino();
-        riga.setQuantita(1);
-        associaRigaScoAProdotto(riga, p);
-        associaScontrinoARigaSco(s, riga);
-        return riga;
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    ////////////////////////////METODI DEMO PER TEST///////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    @Override
-    public void demoAssociaScontrinoARigaSco() {
-
-        Scontrino s1 = new Scontrino(LocalDateTime.now(), 2, 7.5);
-        s1 = scontrinoRepository.save(s1);
-        Scontrino s2 = new Scontrino(LocalDateTime.now(), 5, 10.0);
-        s2 = scontrinoRepository.save(s2);
-        RigaScontrino rs1 = new RigaScontrino();
-        rs1 = rigaRepository.save(rs1);
-        RigaScontrino rs2 = new RigaScontrino();
-        rs2 = rigaRepository.save(rs2);
-        associaScontrinoARigaSco(s1, rs2);
-        associaScontrinoARigaSco(s2, rs1);
-
-    }
-
-    @Override
-    public void demoAssociaRigaScoAProdotto() {
-
-        RigaScontrino rs2 = new RigaScontrino();
-        rs2 = rigaRepository.save(rs2);
-        RigaScontrino rs1 = new RigaScontrino();
-        rs1 = rigaRepository.save(rs1);
-        Prodotto p1 = new Prodotto();
-        p1 = anagraficaProdottiRepository.save(p1);
-        Prodotto p2 = new Prodotto();
-        p2 = anagraficaProdottiRepository.save(p2);
-        associaRigaScoAProdotto(rs1, p2);
-        associaRigaScoAProdotto(rs2, p1);
-
-    }
-
-    @Override
-    public void demoAggiornaTotScontrino() {
-
-    }
-
-    @Override
-    public void demoCreaNuovoScontrino() {
-
-    }
-
 }

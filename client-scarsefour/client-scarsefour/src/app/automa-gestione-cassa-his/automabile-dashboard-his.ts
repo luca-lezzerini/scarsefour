@@ -3,6 +3,7 @@ export interface AutomabileDashboardHis {
     entraStatoScontrinoVuoto();
     entraStatoScontrinoNonVuoto();
     entraStatoAnnullamentoScontrino();
+    entraStatoScontrinoVuotoEvChiudi();
     leggiEan();
     eliminaUltimoElemento();
     stampaScontrino();

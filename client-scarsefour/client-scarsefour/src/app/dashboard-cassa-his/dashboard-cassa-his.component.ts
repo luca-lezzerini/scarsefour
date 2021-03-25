@@ -18,12 +18,10 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
 
 
   barcode = "";
-  prezzoTot = 0;
+  messaggioErrore = "";
   righeScontrino: RigaScontrino[] = [];
   rigaScontrino = new RigaScontrino();
   scontrino = new Scontrino();
-  messaggioErrore = "";
-
 
   ean: boolean;
   vediPrezzoVis: boolean;
@@ -44,6 +42,7 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.automaCassa = new AutomaCassa(this);
   }
  
+
   ngOnInit(): void {
   }
   vediPrezzo() {
@@ -72,6 +71,21 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.automaCassa.next(new AnnullaEvent, this.automaCassa);
   }
 
+  entraStatoScontrinoVuotoEvChiudi() {
+    this.ean = true;//
+    this.vediPrezzoVis = true;//
+    this.table = true;//
+    this.storna = true;//
+    this.annullaScontrinoVis = true;//
+    this.confermaVis = false;//
+    this.annullaVis = false;//
+    this.chiudi = true;//
+    this.prezzo = true;//
+    this.annullaScontrinoEnabled = true;//
+    this.confermaEnabled = true;//
+    this.annullaEnabled = true;//
+    this.chiudiEnabled = true;//
+  }
 
   entraStatoVediPrezzo() {
     this.ean = true;
@@ -105,6 +119,8 @@ export class DashboardCassaHisComponent implements OnInit, AutomabileDashboardHi
     this.annullaEnabled = true;
     this.chiudiEnabled = true;
   }
+
+  
   entraStatoScontrinoNonVuoto() {
     this.ean = true;
     this.vediPrezzoVis = true;
