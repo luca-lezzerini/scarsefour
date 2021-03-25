@@ -35,10 +35,11 @@
             </tr>
             <tr *ngFor="let p of righeScontrino">
                 <td>{{p.quantita}}</td>
-                <td>{{p.prodotto.descrizione}}</td>
-                <td>{{p.prodotto.prezzo}}</td>
+                <td>{{p.descrizione}}</td>
+                <td>{{p.prezzo}}</td>
             </tr>
-         Totale: {{prezzoTot}}
+            Totale: {{prezzoTot}}
         </table>
     </div>
+    {{messaggioErrore}}
 </body>

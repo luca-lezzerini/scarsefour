@@ -10,6 +10,8 @@ import it.sirfin.scarsefour.dto.CreaScontrinoDto;
 import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.dto.RigaScontrinoClientDto;
+import it.sirfin.scarsefour.dto.RigaScontrinoClientGalDto;
+import it.sirfin.scarsefour.dto.ScontrinoClientGalDto;
 import it.sirfin.scarsefour.dto.ScontrinoDtoIll;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
@@ -20,6 +22,7 @@ import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.DashboardCassaIllService;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,13 +59,14 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
         if (p == null) {
             //se non è stato trovato alcun prodotto recupero il dto e
             //spedisco un messaggio di errore
-            return new ScontrinoDtoIll(null, null);
+            return new ScontrinoDtoIll(null, null, "prodotto non trovato");
         }
         //se invece è stato trovato un prodotto devo associarlo alla
         //riga scontrino che è a sua volta associata ad uno scontrino
         // quindi recupero lo scontrino ...
         if (sc != null) {
             sc = scontrinoRepository.findById(sc.getId()).get();
+            //return new ScontrinoDtoIll(null, null, "prodotto trovato");
         }
         // se non esiste lo scontrino lo creo ...
         if (sc == null) {
@@ -72,6 +76,7 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
 
         // creo la riga e la salvo ...
         RigaScontrino r = new RigaScontrino();
+        r = rigaRepository.save(r);
         r.setProdotto(p);
         r.setScontrino(sc);
         r = rigaRepository.save(r);
@@ -81,7 +86,24 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
         sc = scontrinoRepository.save(sc);
 
         // creo il DTO con i dati da ritornare al client
-        return new ScontrinoDtoIll(sc.getRigheScontrino(), sc);
+        ScontrinoDtoIll risp = new ScontrinoDtoIll();
+        Set<RigaScontrino> righe = sc.getRigheScontrino();
+        List<RigaScontrinoClientDto> righeDto = new ArrayList<>();
+        // trasformo le righe originali dello scontrino in righe del DTO
+        righe.forEach(rr
+                -> righeDto.add(
+                        new RigaScontrinoClientDto(
+                                rr.getId(),
+                                rr.getScontrino().getId(),
+                                p.getId(),
+                                rr.getProdotto().getDescrizione(),
+                                rr.getProdotto().getPrezzo())));
+
+        risp.setRigheScontrino(righeDto);
+        risp.setScontrino(sc);
+        risp.setMessaggio("scontrino pronto!");
+
+        return risp;
     }
 
     //Verificare se c'è uno scontrino aperto e associato, se non c'è occorre 

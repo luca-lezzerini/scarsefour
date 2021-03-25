@@ -29,6 +29,7 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   prezzoTot = 0;
   mostraPrezzo = 0;
   ultimoElemento = new Prodotto();
+  messaggioErrore = "";
 
   ean: boolean;
   vediPrezzoV: boolean;
@@ -179,16 +180,16 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   }
 
   trovaEan() {
-    let dto = new RigaScontrinoDtoIll();
-    dto.quantita = this.rigaScontrino.quantita;
-    dto.descrizione = this.prodotto.descrizione;
-    dto.prezzo = this.prodotto.prezzo;
-    this.http.post<ScontrinoIllDto>("http://localhost:8080/trova-ean", dto)
+    let dto = new LeggiEanRequestDto();
+    dto.eanProdotto = this.barcode;
+    dto.scontrino = this.scontrino;
+    this.http.post<LeggiEanResponseDto>("http://localhost:8080/trova-ean-ill", dto)
       .subscribe(ris => {
         this.scontrino = ris.scontrino;
-        this.righeScontrino = ris.righeScontrino;
+        this.rigaScontrino = ris.rigaScontrino;
+        this.messaggioErrore = ris.messaggio;
+        this.generaEventoEan(ris.rigaScontrino.prodotto.ean);
       });
-    // this.generaEventoEan(ris.rigaScontrino.prodotto.ean);
   }
 
   cancellaUltimo() {

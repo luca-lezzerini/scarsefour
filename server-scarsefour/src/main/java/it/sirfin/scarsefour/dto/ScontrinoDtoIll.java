@@ -7,9 +7,7 @@ package it.sirfin.scarsefour.dto;
 
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -17,22 +15,24 @@ import java.util.Set;
  */
 public class ScontrinoDtoIll {
 
-    private List<RigaScontrino> righeScontrino;
+    private List<RigaScontrinoClientDto> righeScontrino;
     private Scontrino scontrino;
+    private String messaggio;
 
     public ScontrinoDtoIll() {
     }
 
-    public ScontrinoDtoIll(Set<RigaScontrino> righeScontrino, Scontrino scontrino) {
-        this.righeScontrino = new ArrayList<>(righeScontrino);
+    public ScontrinoDtoIll(List<RigaScontrinoClientDto> righeScontrino, Scontrino scontrino, String messaggio) {
+        this.righeScontrino = righeScontrino;
         this.scontrino = scontrino;
+        this.messaggio = messaggio;
     }
 
-    public List<RigaScontrino> getRigheScontrino() {
+    public List<RigaScontrinoClientDto> getRigheScontrino() {
         return righeScontrino;
     }
 
-    public void setRigheScontrino(List<RigaScontrino> righeScontrino) {
+    public void setRigheScontrino(List<RigaScontrinoClientDto> righeScontrino) {
         this.righeScontrino = righeScontrino;
     }
 
@@ -44,9 +44,17 @@ public class ScontrinoDtoIll {
         this.scontrino = scontrino;
     }
 
+    public String getMessaggio() {
+        return messaggio;
+    }
+
+    public void setMessaggio(String messaggio) {
+        this.messaggio = messaggio;
+    }
+
     @Override
     public String toString() {
-        return "ScontrinoDtoIll{" + "righeScontrino=" + righeScontrino + ", scontrino=" + scontrino + '}';
+        return "ScontrinoDtoIll{" + "righeScontrino=" + righeScontrino + ", scontrino=" + scontrino + ", messaggio=" + messaggio + '}';
     }
 
 }

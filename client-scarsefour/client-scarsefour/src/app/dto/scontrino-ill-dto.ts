@@ -5,4 +5,5 @@ import { RigaScontrinoClientGalDto } from "./riga-scontrino-client-gal-dto";
 export class ScontrinoIllDto {
     righeScontrino: RigaScontrinoClientGalDto[] = [];
     scontrino = new Scontrino();
+    messaggio = "";
 }
