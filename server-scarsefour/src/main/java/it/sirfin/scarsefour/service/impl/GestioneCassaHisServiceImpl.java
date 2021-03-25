@@ -120,6 +120,7 @@ public class GestioneCassaHisServiceImpl implements GestioneCassaHisService {
      * @param prezzo
      * @return
      */
+    @Transactional()
     private Scontrino aggiornaTotScontrino(Scontrino scontrino, Double prezzo) {
         System.out.println("********************Siamo nel metodo aggiornaTotScontrino*******************");
         System.out.println("stiamo tentando di aggiornare il totale dello scontrino");
