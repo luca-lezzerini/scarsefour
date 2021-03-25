@@ -28,7 +28,7 @@ public class RigaScontrino implements Serializable {
     private Long id;
 
     @Column
-    private Integer quantita;
+    private Integer quantita = 1;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
