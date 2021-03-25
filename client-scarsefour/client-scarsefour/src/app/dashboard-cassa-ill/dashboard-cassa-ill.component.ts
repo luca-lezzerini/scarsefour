@@ -5,6 +5,8 @@ import { AutomabileIll } from '../automa-gestione-cassa-ill/automabile-ill';
 import { AnnullaEvent, AnnullaScontrinoEvent, ChiudiEvent, ConfermaEvent, EanEvent, StornaEvent, VediPrezzoEvent } from '../automa-gestione-cassa-ill/eventi-ill';
 import { CreaRigaDto } from '../dto/crea-riga-dto';
 import { CreaScontrinoDto } from '../dto/crea-scontrino-dto';
+import { LeggiEanRequestDto } from '../dto/leggi-ean-request-dto';
+import { LeggiEanResponseDto } from '../dto/leggi-ean-response-dto';
 import { ProdottoDto } from '../dto/prodotto-dto';
 import { ReqEanDtoIll } from '../dto/req-ean-dto-ill';
 import { Prodotto } from '../entità/prodotto';
@@ -174,40 +176,22 @@ export class DashboardCassaIllComponent implements OnInit, AutomabileIll {
   }
 
   trovaEan() {
-    this.creaScontrino();
-    let dto = new ReqEanDtoIll();
-    dto.codiceABarre = this.barcode;
-    this.http.post<ProdottoDto>("http://localhost:8080/trova-ean", dto)
+    let dto = new LeggiEanRequestDto();
+    dto.eanProdotto = this.barcode;
+    dto.scontrino = this.scontrino;
+    this.http.post<LeggiEanResponseDto>("http://localhost:8080/trova-ean", dto)
       .subscribe(ris => {
-        let codiceEan = "";
-        if (ris.prodotto) {
-          let rigaScontrino = new RigaScontrino();
-          rigaScontrino.prodotto = ris.prodotto;
-          codiceEan = ris.prodotto.ean;
-          this.creaRigaScontrino(rigaScontrino);
-          let flag: boolean;
-          for (let g of this.righeScontrino) {
-            if (g.prodotto.id == rigaScontrino.prodotto.id) {
-              g.quantita++;
-              flag = true;
-              break;
-            }
-          }
-          if (!flag) {
-            rigaScontrino.quantita = 1;
-            this.righeScontrino.push(rigaScontrino);
-          }
-          this.prezzoTot+= ris.prodotto.prezzo;
-          this.ultimoElemento = ris.prodotto;
+        if (ris.messaggio == "Errore") {
+          console.log("Nessun prodotto trovato");
         }
-        this.generaEventoEan(codiceEan);
+        this.generaEventoEan(ris.rigaScontrino.prodotto.ean);
       });
   }
 
   cancellaUltimo() {
     this.righeScontrino.pop();
-    if (this.righeScontrino.length==0){
-      this.prezzoTot=0;
+    if (this.righeScontrino.length == 0) {
+      this.prezzoTot = 0;
     }
   }
 

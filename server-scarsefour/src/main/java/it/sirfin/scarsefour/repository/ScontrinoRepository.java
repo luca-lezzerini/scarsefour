@@ -12,8 +12,8 @@ public interface ScontrinoRepository extends JpaRepository<Scontrino, Long> {
 
     @Query("SELECT s.numero FROM Scontrino s WHERE s.id = (SELECT MAX(id) FROM Scontrino)")
     int trovaUltimoScontrino();
-    
-    @Modifying
-    @Query("update Scontrino s set s.totale = :totale where s.id = :id")
+
+    @Modifying(clearAutomatically = true)
+    @Query("update Scontrino s set s.totale = (s.totale + :totale) where s.id = :id")
     void aggiornaTotScontrino(@Param("totale") double totale, @Param("id") Long id);
 }

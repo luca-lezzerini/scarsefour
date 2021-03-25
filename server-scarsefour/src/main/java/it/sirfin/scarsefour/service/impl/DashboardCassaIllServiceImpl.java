@@ -7,6 +7,7 @@ package it.sirfin.scarsefour.service.impl;
 
 import it.sirfin.scarsefour.dto.CreaRigaDto;
 import it.sirfin.scarsefour.dto.CreaScontrinoDto;
+import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
 import it.sirfin.scarsefour.dto.ProdottoDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
-
+    
     @Autowired
     AnagraficaProdottiRepository anagraficaProdottiRepository;
     @Autowired
@@ -33,7 +34,7 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
     RigaRepository rigaRepository;
     @Autowired
     ProdottoRepository prodottoRepository;
-
+    
     @Override
     public void test() {
         Scontrino s1 = new Scontrino(LocalDateTime.now(), 1, 150.67);
@@ -43,40 +44,78 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
         Scontrino s3 = new Scontrino(LocalDateTime.now(), 3, 77.00);
         s3 = scontrinoRepository.save(s3);
     }
-
+    
     @Override
-    public ProdottoDto trovaEan(String ean) {
-        return new ProdottoDto(anagraficaProdottiRepository.findByEan(ean));
+    public LeggiEanResponseDto trovaEan(String ean, Scontrino sc) {
+        //Nel dto request mi arriva l'ean del prodotto, tramite query interrogo
+        //il db e trovo o il prodotto che ha quel ena (codice a barre),
+        //oppure devo spedire un messaggio di errore
+        Prodotto p = anagraficaProdottiRepository.findByEan(ean);
+        if (p == null) {
+            //se non è stato trovato alcun prodotto recupero il dto e
+            //spedisco un messaggio di errore
+            return new LeggiEanResponseDto(null, null, "Errore");
+        }
+        //se invece è stato trovato un prodotto devo associarlo alla
+        //riga scontrino che è a sua volta associata ad uno scontrino
+        // quindi recupero lo scontrino ...
+        if (sc != null){
+            sc = scontrinoRepository.findById(sc.getId()).get();
+        }
+        // se non esiste lo scontrino lo creo ...
+        if (sc == null){
+            sc = new Scontrino();
+            sc = scontrinoRepository.save(sc);
+        }
+        
+        // creo la riga e la salvo ...
+        RigaScontrino r = new RigaScontrino();
+        r.setProdotto(p);
+        r.setScontrino(sc);
+        
+        
+        // aggiungo la riga allo scontrino
+        
+        // creo il DTO con i dati da ritornare al client
+        
+        return new LeggiEanResponseDto(null, null, "Torna qualcosa");
     }
 
-    @Override
-    public CreaScontrinoDto creaScont(Scontrino sc) {
-        sc = scontrinoRepository.save(sc);
-        return new CreaScontrinoDto(sc);
+    //Verificare se c'è uno scontrino aperto e associato, se non c'è occorre 
+    //crearlo e associarlo alla rigascontrino
+    private Scontrino creaScont(Scontrino sc) {
+        //verificare se lo scontrino è valido
+        if (sc.getId() == null) {
+            Scontrino nuovoScontrino = new Scontrino(LocalDateTime.now(),
+                    0 + 1, 0.0);
+            nuovoScontrino.setNumero(1);
+            scontrinoRepository.save(nuovoScontrino);
+            return nuovoScontrino;
+        }
+        return sc;
     }
-
-    @Override
+    
     public CreaRigaDto creaRiga(RigaScontrino rs) {
         rs = rigaRepository.save(rs);
         return new CreaRigaDto(rs);
     }
-
+    
     private void associaProdottoARigaScontrino(Prodotto prod, RigaScontrino rs) {
         rs.setProdotto(prod);
         rigaRepository.save(rs);
-
+        
         List<RigaScontrino> lista = prod.getRigheScontrini();
         lista.add(rs);
         prodottoRepository.save(prod);
     }
-
+    
     private void associaRigaScontrinoAScontrino(RigaScontrino rs, Scontrino scont) {
         rs.setScontrino(scont);
         rigaRepository.save(rs);
-
+        
         Set<RigaScontrino> lista1 = scont.getRigheScontrino();
         lista1.add(rs);
         scontrinoRepository.save(scont);
     }
-
+    
 }
