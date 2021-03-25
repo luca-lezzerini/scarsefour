@@ -399,4 +399,8 @@ export class DashboardCassaGalliComponent implements OnInit, AutomabileGalli {
     this.entraStatoScontrinoNonVuotoEanDaScontrinoVuoto();
   }
 
+  barcodeHaPersoFocus(event){
+    console.log("Il codice a barre ha perso il focus");
+  }
+
 }
