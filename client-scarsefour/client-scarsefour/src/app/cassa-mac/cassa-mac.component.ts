@@ -252,23 +252,23 @@ export class CassaMacComponent implements OnInit, AutomabileDashboardMac {
     let dto = new LeggiEanRequestDto();
     dto.eanProdotto = this.barcode;
     dto.scontrino = this.scontrino;
-   /* if (this.barcode == null) {
-      //console.log("prodotto non trovato!");
-    } else {
-      this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto-mac", dto)
-        .subscribe(k => {
-          this.prodotti = k.listaProdotti;
-          this.barcode = "";
-        });
-    }*/
-  
+    /* if (this.barcode == null) {
+       //console.log("prodotto non trovato!");
+     } else {
+       this.http.post<ListaProdottiDto>("http://localhost:8080/ricerca-prodotto-mac", dto)
+         .subscribe(k => {
+           this.prodotti = k.listaProdotti;
+           this.barcode = "";
+         });
+     }*/
+
     this.http.post<LeggiEanResponseDto>("http://localhost:8080/ricerca-prodotto-mac", dto)
-    .subscribe(a => {
-      this.scontrino = a.scontrino;
-      this.rigaScontrino = a.rigaScontrino;
-      this.barcode = "";
-    });
-  
+      .subscribe(a => {
+        this.scontrino = a.scontrino;
+        this.rigaScontrino = a.rigaScontrino;
+        this.barcode = "";
+      });
+
   }
 
 

@@ -5,9 +5,8 @@
  */
 package it.sirfin.scarsefour.service.impl;
 
-import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
-import it.sirfin.scarsefour.dto.LeggiEanResponseDto;
-import it.sirfin.scarsefour.dto.LeggiEanResponseMacDto;
+import it.sirfin.scarsefour.dto.RigaScontrinoClientMacDto;
+import it.sirfin.scarsefour.dto.ScontrinoClientMacDto;
 import it.sirfin.scarsefour.model.Prodotto;
 import it.sirfin.scarsefour.model.RigaScontrino;
 import it.sirfin.scarsefour.model.Scontrino;
@@ -17,6 +16,9 @@ import it.sirfin.scarsefour.repository.CassaMacRepository;
 import it.sirfin.scarsefour.repository.RigaRepository;
 import it.sirfin.scarsefour.repository.ScontrinoRepository;
 import it.sirfin.scarsefour.service.DashBoardCassaMacService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,46 +43,61 @@ public class DashboardCassaMacServiceImpl implements DashBoardCassaMacService {
     AnagraficaProdottiRepository anagraficaProdottiRepository;
 
     @Override
-    public LeggiEanResponseMacDto leggiEan(LeggiEanRequestDto dto) {
+    public ScontrinoClientMacDto leggiEan(String ean,Scontrino scon) {
         //cerchiamo il prodotto dato l'ean
-        Prodotto p = anagraficaProdottiRepository.findByEan(dto.getEanProdotto());
+        Prodotto p = anagraficaProdottiRepository.findByEan(ean);
         //se non troviamo il prodotto rimandiamo un errore 
         if (p == null) {
-            return new LeggiEanResponseMacDto(null, null, "errore prodotto non trovato");
+            return new ScontrinoClientMacDto(null, null, "errore prodotto non trovato");
         }
         //se troviamo il prodotto andiamo ad aggiungere una riga allo scontrino
         //recuperiamo lo scontrino dal DB
-        Scontrino sc = dto.getScontrino();
-        if (sc != null) {
-            sc = scontrinoRepository.findById(sc.getId()).get();
+//        Scontrino sc = scon.getScontrino();
+        if (scon != null) {
+           scon = scontrinoRepository.findById(scon.getId()).get();
         }
 
         //se non esiste lo creiamo nuovo 
-        if (sc == null) {
-            sc = new Scontrino();
-            sc = scontrinoRepository.save(sc);
+        if (scon == null) {
+            scon = new Scontrino();
+            scon = scontrinoRepository.save(scon);
         }
 
         //creiamo una nuova riga e lo aggiungiamo allo scontrino e al prodotto
         RigaScontrino riga = new RigaScontrino();
         riga = rigaRepository.save(riga);
         riga.setProdotto(p);
-        riga.setScontrino(sc);
+        riga.setScontrino(scon);
         riga = rigaRepository.save(riga);
         // associo lato scontrino
-        sc.getRigheScontrino().add(riga);
-        sc = scontrinoRepository.save(sc);
+        scon.getRigheScontrino().add(riga);
+        scon = scontrinoRepository.save(scon);
 
-        // associo lato prodotto
-        p.getRigheScontrini().add(riga);
-        p = anagraficaProdottiRepository.save(p);
+//        // associo lato prodotto
+//        p.getRigheScontrini().add(riga);
+//        p = anagraficaProdottiRepository.save(p);
 
         //creiamo un dto di ritorno
-        LeggiEanResponseMacDto risp = new LeggiEanResponseMacDto();
+        ScontrinoClientMacDto risp = new ScontrinoClientMacDto();
+        Set<RigaScontrino> righe = scon.getRigheScontrino();
+        List<RigaScontrinoClientMacDto> righeDto = new ArrayList<>();
         // TODO:
-        //ci va scontrino e righe scontrino
-        sc.getRigheScontrino();
 
+        righe.forEach(rr
+                -> righeDto.add(
+                        new RigaScontrinoClientMacDto(
+                                rr.getId(),
+                                rr.getScontrino().getId(),
+                                p.getId(),
+                                rr.getProdotto().getDescrizione(),
+                                rr.getProdotto().getPrezzo())));
+
+        risp.setRigheScontrino(righeDto);
+        risp.setScontrino(scon);
+        risp.setMessaggio("scontrino pronto!");
+
+        //ci va scontrino e righe scontrino
+        //sc.getRigheScontrino();
         return risp;
     }
 

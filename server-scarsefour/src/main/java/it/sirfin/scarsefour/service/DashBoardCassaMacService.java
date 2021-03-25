@@ -5,8 +5,8 @@
  */
 package it.sirfin.scarsefour.service;
 
-import it.sirfin.scarsefour.dto.LeggiEanRequestDto;
-import it.sirfin.scarsefour.dto.LeggiEanResponseMacDto;
+import it.sirfin.scarsefour.dto.ScontrinoClientMacDto;
+import it.sirfin.scarsefour.model.Scontrino;
 
 /**
  *
@@ -16,6 +16,6 @@ public interface DashBoardCassaMacService {
     
   //ListaProdottiDto ricercaProdotto(String barcode);
     
-    LeggiEanResponseMacDto leggiEan(LeggiEanRequestDto dto);
+    ScontrinoClientMacDto leggiEan(String ean,Scontrino scon);
 
 }
