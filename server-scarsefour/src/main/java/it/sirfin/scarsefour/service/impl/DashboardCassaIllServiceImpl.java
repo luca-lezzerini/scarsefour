@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
-
+    
     @Autowired
     AnagraficaProdottiRepository anagraficaProdottiRepository;
     @Autowired
@@ -34,7 +34,7 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
     RigaRepository rigaRepository;
     @Autowired
     ProdottoRepository prodottoRepository;
-
+    
     @Override
     public void test() {
         Scontrino s1 = new Scontrino(LocalDateTime.now(), 1, 150.67);
@@ -44,7 +44,7 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
         Scontrino s3 = new Scontrino(LocalDateTime.now(), 3, 77.00);
         s3 = scontrinoRepository.save(s3);
     }
-
+    
     @Override
     public LeggiEanResponseDto trovaEan(String ean, Scontrino sc) {
         //Nel dto request mi arriva l'ean del prodotto, tramite query interrogo
@@ -68,34 +68,35 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
         //verificare se lo scontrino è valido
         if (sc.getId() == null) {
             Scontrino nuovoScontrino = new Scontrino(LocalDateTime.now(),
-                    0, 0.0);
-            scontrinoRepository.save(sc);
-            return sc;
+                    0 + 1, 0.0);
+            nuovoScontrino.setNumero(1);
+            scontrinoRepository.save(nuovoScontrino);
+            return nuovoScontrino;
         }
         return sc;
     }
-
+    
     public CreaRigaDto creaRiga(RigaScontrino rs) {
         rs = rigaRepository.save(rs);
         return new CreaRigaDto(rs);
     }
-
+    
     private void associaProdottoARigaScontrino(Prodotto prod, RigaScontrino rs) {
         rs.setProdotto(prod);
         rigaRepository.save(rs);
-
+        
         List<RigaScontrino> lista = prod.getRigheScontrini();
         lista.add(rs);
         prodottoRepository.save(prod);
     }
-
+    
     private void associaRigaScontrinoAScontrino(RigaScontrino rs, Scontrino scont) {
         rs.setScontrino(scont);
         rigaRepository.save(rs);
-
+        
         Set<RigaScontrino> lista1 = scont.getRigheScontrino();
         lista1.add(rs);
         scontrinoRepository.save(scont);
     }
-
+    
 }
