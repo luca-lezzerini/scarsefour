@@ -72,6 +72,8 @@ export class ScontrinoNonVuoto implements StateCassa {
     next(e: Event, a?: AutomaCassa) {
         if (e instanceof ChiudiEvent) {
             a.stato = new ScontrinoVuoto();
+            a.ui.entraStatoScontrinoVuotoEvChiudi();
+            a.ui.stampaScontrino();
         } else if (e instanceof StornaEvent) {
             if (e.numeroElementi == 1) {
                 a.ui.eliminaUltimoElemento();
