@@ -58,7 +58,26 @@ public class DashboardCassaIllServiceImpl implements DashboardCassaIllService {
         }
         //se invece è stato trovato un prodotto devo associarlo alla
         //riga scontrino che è a sua volta associata ad uno scontrino
+        // quindi recupero lo scontrino ...
+        if (sc != null){
+            sc = scontrinoRepository.findById(sc.getId()).get();
+        }
+        // se non esiste lo scontrino lo creo ...
+        if (sc == null){
+            sc = new Scontrino();
+            sc = scontrinoRepository.save(sc);
+        }
+        
+        // creo la riga e la salvo ...
         RigaScontrino r = new RigaScontrino();
+        r.setProdotto(p);
+        r.setScontrino(sc);
+        
+        
+        // aggiungo la riga allo scontrino
+        
+        // creo il DTO con i dati da ritornare al client
+        
         return new LeggiEanResponseDto(null, null, "Torna qualcosa");
     }
 
